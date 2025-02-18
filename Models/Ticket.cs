@@ -9,5 +9,6 @@
         public string Priority { get; set; }
         public string CreatedById { get; set; }
         public ApplicationUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

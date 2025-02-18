@@ -9,6 +9,8 @@ namespace HelpDeskSystem.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-        }                        
+        }
+
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }

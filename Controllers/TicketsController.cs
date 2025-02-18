@@ -19,7 +19,7 @@ namespace HelpDeskSystem.Controllers
             _context = context;
         }
 
-        // GET: Tickets
+        // GET: Tickets //
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Tickets.Include(t => t.CreatedBy);

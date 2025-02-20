@@ -48,7 +48,7 @@ namespace HelpDeskSystem.Controllers
         // GET: Tickets/Create
         public IActionResult Create()
         {
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace HelpDeskSystem.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id", ticket.CreatedById);
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", ticket.CreatedById);
             return View(ticket);
         }
 
@@ -82,7 +82,7 @@ namespace HelpDeskSystem.Controllers
             {
                 return NotFound();
             }
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id", ticket.CreatedById);
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", ticket.CreatedById);
             return View(ticket);
         }
 
@@ -118,7 +118,7 @@ namespace HelpDeskSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id", ticket.CreatedById);
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", ticket.CreatedById);
             return View(ticket);
         }
 

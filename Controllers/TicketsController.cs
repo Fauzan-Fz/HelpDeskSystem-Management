@@ -18,7 +18,8 @@ namespace HelpDeskSystem.Controllers
         // GET: Tickets //
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Tickets.Include(t => t.CreatedBy);
+            var applicationDbContext = _context.Tickets
+                .Include(t => t.CreatedBy);
             return View(await applicationDbContext.ToListAsync());
         }
 

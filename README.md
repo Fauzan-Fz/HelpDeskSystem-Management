@@ -2,9 +2,7 @@
 
 <h3> Introduction 📒 </h3>
 
-
-<img align="right" height="100" src="https://tenor.com/view/bO6mt.gif" />
-
+<img height="25" src="https://tenor.com/bO6mt.gif"  />
 
 <div>
 <p>HelpDeskSystem-Management is a web-based application developed using ASP.NET for managing help desk operations efficiently.</p>

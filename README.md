@@ -3,7 +3,7 @@
 <h3> Introduction 📒 </h3>
 
 
-<img align="right" height="100" src="https://tenor.com/bO6mt.gif" />
+<img align="right" height="100" src="https://tenor.com/view/bO6mt.gif" />
 
 
 <div>

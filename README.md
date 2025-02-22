@@ -2,5 +2,5 @@
 
 <h3> Introduction 📒 </h3>
 <p>HelpDeskSystem-Management is a web-based application developed using ASP.NET for managing help desk operations efficiently.</p>
-<img align="right" height="100" src="https://tenor.com/be73b"/>
+<img align="right" height="100" src="https://i.tenor.com/be73b.gif"/>
 

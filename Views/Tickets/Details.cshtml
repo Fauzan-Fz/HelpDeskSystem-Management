@@ -10,7 +10,7 @@
     <h4>Ticket</h4>
     <hr />
     <div class="row">
-        <table class="table"
+        <table class="table">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
@@ -37,7 +37,7 @@
                     @Html.DisplayNameFor(model => model.Priority)
                 </th>
                 <td>
-                    @Html.DisplayFor(model => model.Priority )
+                    @Html.DisplayFor(model => model.Priority)
                 </td>
             </tr>
 
@@ -58,6 +58,7 @@
         </table>
     </div>
     <div>
-        <a class="btn btn-warning"" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
         <a class="btn btn-primary" asp-action="Index">Back to List</a>
     </div>
+</div>
+<!-- -->

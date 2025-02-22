@@ -23,6 +23,15 @@ namespace HelpDeskSystem.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> TicketsComments(int Id)
+        {
+            var comment = await _context.Comments
+                .Include(c => c.CreatedBy)
+                .Include(c => c.Ticket)
+                .ToListAsync();
+            return View(comment);
+        }
+
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(string id)
         {

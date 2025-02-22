@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HelpDeskSystem.Data;
+using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HelpDeskSystem.Data;
-using HelpDeskSystem.Models;
 
 namespace HelpDeskSystem.Controllers
 {
@@ -49,8 +45,8 @@ namespace HelpDeskSystem.Controllers
         // GET: Comments/Create
         public IActionResult Create()
         {
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Id");
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName");
+            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Title");
             return View();
         }
 
@@ -59,16 +55,14 @@ namespace HelpDeskSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,TicketId,CreatedOn,CreatedById")] Comment comment)
+        public async Task<IActionResult> Create(Comment comment)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id", comment.CreatedById);
-            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Id", comment.TicketId);
+            _context.Add(comment);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", comment.CreatedById);
+            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Title", comment.TicketId);
             return View(comment);
         }
 
@@ -85,8 +79,8 @@ namespace HelpDeskSystem.Controllers
             {
                 return NotFound();
             }
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id", comment.CreatedById);
-            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Id", comment.TicketId);
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", comment.CreatedById);
+            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Title", comment.TicketId);
             return View(comment);
         }
 
@@ -95,7 +89,7 @@ namespace HelpDeskSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,TicketId,CreatedOn,CreatedById")] Comment comment)
+        public async Task<IActionResult> Edit(int id, Comment comment)
         {
             if (id != comment.Id)
             {
@@ -122,8 +116,8 @@ namespace HelpDeskSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id", comment.CreatedById);
-            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Id", comment.TicketId);
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", comment.CreatedById);
+            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Title", comment.TicketId);
             return View(comment);
         }
 

@@ -29,6 +29,7 @@ namespace HelpDeskSystem.Data
                 .HasOne(c => c.Ticket)
                 .WithMany()
                 .HasForeignKey(c => c.TicketId)
+                .HasPrincipalKey(c => c.Id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Ticket>()

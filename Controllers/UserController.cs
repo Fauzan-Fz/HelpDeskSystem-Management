@@ -1,4 +1,5 @@
-﻿using HelpDeskSystem.Data;
+﻿using System.Security.Claims;
+using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ namespace HelpDeskSystem.Controllers
             _context = context;
         }
 
-        // GET: UesrController
+        // GET: UserController
         public async Task<ActionResult> Index()
         {
             var users = await _context.Users.ToListAsync();
@@ -47,13 +48,38 @@ namespace HelpDeskSystem.Controllers
         // POST: UesrController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(ApplicationUser user)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                ApplicationUser registeredUser = new();
+
+                registeredUser.FirstName = user.FirstName;
+                registeredUser.UserName = user.UserName;
+                registeredUser.MiddleName = user.MiddleName;
+                registeredUser.LastName = user.LastName;
+                registeredUser.NormalizedEmail = user.UserName;
+                registeredUser.Email = user.Email;
+                registeredUser.EmailConfirmed = true;
+                registeredUser.Gender = user.Gender;
+                registeredUser.City = user.City;
+                registeredUser.Country = user.Country;
+                registeredUser.PhoneNumber = user.PhoneNumber;
+
+                var result = await _userManager.CreateAsync(registeredUser, user.PasswordHash);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }

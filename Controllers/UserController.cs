@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskSystem.Controllers
 {
-    public class UesrController : Controller
+    public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
-        public UesrController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+        public UsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager)
         {
             _roleManager = roleManager;
@@ -86,7 +86,7 @@ namespace HelpDeskSystem.Controllers
             return View();
         }
 
-        // POST: UesrController/Delete/5
+        // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

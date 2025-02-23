@@ -2,6 +2,7 @@
 using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskSystem.Controllers
 {
@@ -25,9 +26,10 @@ namespace HelpDeskSystem.Controllers
         }
 
         // GET: UesrController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var users = await _context.Users.ToListAsync();
+            return View(users);
         }
 
         // GET: UesrController/Details/5

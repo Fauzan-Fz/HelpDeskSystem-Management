@@ -7,3 +7,19 @@
 <div>
 <p>HelpDeskSystem-Management is a web-based application developed using ASP.NET for managing help desk operations efficiently.</p>
 </div>
+
+<h3> Features 📋 </h3>
+<p>
+- Create, view, and update support tickets
+- Add comments to tickets
+- User authentication and authorization
+- Validation for ticket creation and updates
+</p>
+
+<h3> Technologies Used 🛠️ </h3>
+<p>
+- ASP.NET Core Razor Pages
+- C# 12.0
+- .NET 8
+- Entity Framework Core
+</p>

@@ -26,12 +26,13 @@ namespace HelpDeskSystem.Controllers
 
         public async Task<IActionResult> TicketsComments(string Id)
         {
-            var comment = await _context.Comments.Where(c => c.TicketId == Id)
+            var comment = await _context.Comments.Where(t => t.TicketId == Id)
                 .Include(t => t.CreatedBy)
                 .Include(t => t.Ticket)
                 .ToListAsync();
             return View(comment);
         }
+
 
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(string id)

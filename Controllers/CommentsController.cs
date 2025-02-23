@@ -1,4 +1,5 @@
-﻿using HelpDeskSystem.Data;
+﻿using System.Security.Claims;
+using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -57,6 +58,11 @@ namespace HelpDeskSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Comment comment)
         {
+            // Add the current user's ID to the comment
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            comment.CreatedOn = DateTime.Now;
+            comment.CreatedById = userId;
+
             _context.Add(comment);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

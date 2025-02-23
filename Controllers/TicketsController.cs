@@ -1,4 +1,5 @@
-﻿using HelpDeskSystem.Data;
+﻿using System.Security.Claims;
+using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,7 +26,7 @@ namespace HelpDeskSystem.Controllers
 
         public async Task<IActionResult> TicketsComments(string Id)
         {
-            var comment = await _context.Comments.Where(x => x.TicketId == Id)
+            var comment = await _context.Comments.Where(c => c.TicketId == Id)
                 .Include(t => t.CreatedBy)
                 .Include(t => t.Ticket)
                 .ToListAsync();
@@ -65,7 +66,9 @@ namespace HelpDeskSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Ticket ticket)
         {
-
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ticket.CreatedOn = DateTime.Now;
+            ticket.CreatedById = userId;
             _context.Add(ticket);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

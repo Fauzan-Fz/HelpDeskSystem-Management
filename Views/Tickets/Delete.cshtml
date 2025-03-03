@@ -4,61 +4,64 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<div class="card rounded-4">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h6 class="mb-0">Delete Ticket</h6>
+        </div>
+        <br />
+        <h3>Are you sure you want to delete this?</h3>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <div class="row">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Title)
-                </td>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Description)
-                </td>
-            </tr>
+        <hr />
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Title)
+                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Description)
+                    </td>
+                </tr>
 
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Status)
-                </td>
-                <th>
-                    @Html.DisplayNameFor(model => model.Priority)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Priority )
-                </td>
-            </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Status)
+                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Priority)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Priority)
+                    </td>
+                </tr>
 
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedBy)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.CreatedBy.FullName)
-                </td>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedOn)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.CreatedOn)
-                </td>
-            </tr>
-        </table>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedBy)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.CreatedBy.FullName)
+                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedOn)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.CreatedOn)
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />

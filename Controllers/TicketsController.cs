@@ -88,6 +88,8 @@ namespace HelpDeskSystem.Controllers
             _context.Add(activity);
             await _context.SaveChangesAsync();
 
+            TempData["Message"] = "Ticket created successfully";
+
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", ticket.CreatedById);
             return RedirectToAction(nameof(Index));
         }

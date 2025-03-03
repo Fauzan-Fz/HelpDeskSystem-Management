@@ -37,6 +37,42 @@
         </main>
     </div>
 
+    <!-- Notificaton -->
+    <main class="page-content">
+        @if (TempData["MESSAGE"] != null)
+        {
+            <div class="alert border-0 bg-light-success alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-success">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-success"> @TempData["MESSAGE"]</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                <div class="d-flex align-items-center">
+                    <div class="fs-3 text-danger">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="text-danger">@TempData["Error"]</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="row">
+            @RenderBody()
+        </div>
+    </main>
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - HelpDeskSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

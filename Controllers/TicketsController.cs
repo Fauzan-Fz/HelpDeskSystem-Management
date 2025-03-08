@@ -129,6 +129,7 @@ namespace HelpDeskSystem.Controllers
                 {
                     _context.Update(ticket);
                     await _context.SaveChangesAsync();
+                    TempData["Message"] = "Ticket updated successfully";
                 }
                 catch (DbUpdateConcurrencyException)
                 {

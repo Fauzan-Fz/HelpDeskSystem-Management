@@ -79,6 +79,9 @@ namespace HelpDeskSystem.Controllers
 
             _context.Add(activity);
             await _context.SaveChangesAsync();
+
+            TempData["MESSAGE"] = "Comment created successfully";
+
             return RedirectToAction(nameof(Index));
 
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", comment.CreatedById);
@@ -122,6 +125,8 @@ namespace HelpDeskSystem.Controllers
                 {
                     _context.Update(comment);
                     await _context.SaveChangesAsync();
+
+                    TempData["MESSAGE"] = "Comment updated successfully";
                 }
                 catch (DbUpdateConcurrencyException)
                 {

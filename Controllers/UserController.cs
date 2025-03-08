@@ -86,6 +86,9 @@ namespace HelpDeskSystem.Controllers
 
                     _context.Add(activity);
                     await _context.SaveChangesAsync();
+
+                    TempData["Message"] = "User created successfully";
+
                     return RedirectToAction("Index");
                 }
                 else

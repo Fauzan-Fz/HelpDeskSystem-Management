@@ -25,5 +25,4 @@ FullCalendar.globalLocales.push(function () {
   };
 
   return ms;
-
 }());

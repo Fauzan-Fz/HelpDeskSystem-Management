@@ -67,8 +67,8 @@ shadowSize and lineWidth are derived as well from the points series.
         series: {
             points: {
                 errorbars: null, //should be 'x', 'y' or 'xy'
-                xerr: {err: 'x', show: null, asymmetric: null, upperCap: null, lowerCap: null, color: null, radius: null},
-                yerr: {err: 'y', show: null, asymmetric: null, upperCap: null, lowerCap: null, color: null, radius: null}
+                xerr: { err: 'x', show: null, asymmetric: null, upperCap: null, lowerCap: null, color: null, radius: null },
+                yerr: { err: 'y', show: null, asymmetric: null, upperCap: null, lowerCap: null, color: null, radius: null }
             }
         }
     };
@@ -143,7 +143,7 @@ shadowSize and lineWidth are derived as well from the points series.
                     }
                 }
             }
-        // only Y
+            // only Y
         } else {
             if (eb === 'y') {
                 if (yerr.asymmetric) {

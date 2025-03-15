@@ -213,9 +213,9 @@ Google Maps).
             tmp = ctx.globalAlpha;
             ctx.globalAlpha *= series.images.alpha;
             ctx.drawImage(img,
-                          sx1, sy1, sx2 - sx1, sy2 - sy1,
-                          x1 + plotOffset.left, y1 + plotOffset.top,
-                          x2 - x1, y2 - y1);
+                sx1, sy1, sx2 - sx1, sy2 - sy1,
+                x1 + plotOffset.left, y1 + plotOffset.top,
+                x2 - x1, y2 - y1);
             ctx.globalAlpha = tmp;
         }
     }

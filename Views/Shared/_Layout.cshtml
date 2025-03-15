@@ -10,24 +10,10 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/assets/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="~/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="~/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="~/assets/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="~/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="~/assets/plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="~/assets/plugins/summernote/summernote-bs4.min.css">
     <!-- Icon-Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
@@ -53,28 +39,60 @@
         </div>
     </nav>*@
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition layout-top-nav">
     <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-            </ul>
 
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <partial name="_LoginPartial" />
-            </ul>
+        <!-- Navbar -->
+
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <i class="bi bi-house-gear-fill"></i>
+                    <span class="brand-text font-weight-light">Help System Management</span>
+                </a>
+
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse order-1" id="navbarCollapse">
+
+                    <!-- Left navbar links -->
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link bi bi-house" asp-area="" asp-controller="Home" asp-action="Index"> Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bi bi-clipboard-minus" asp-area="" asp-controller="Home" asp-action="Privacy"> Privacy</a>
+                        </li>
+                    </ul>
+
+                    <!-- Right navbar links -->
+
+                    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-lg-auto">
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+                </div>
         </nav>
+        <div>
+
+        <!--/.navbar -->
+
+        </div>
+
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+
+        <aside class="control-sidebar control-sidebar-dark">
+
+            <!-- Control sidebar content goes here -->
+
+        </aside>
+
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
 
         <div class="container">
             <main role="main" class="pb-3">
@@ -86,67 +104,30 @@
             <div class="row">
                 @RenderBody()
             </div>
-        </main>
 
-        <footer class="main-footer">
-            <strong>Copyright &copy; @DateTime.Now.Year <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 0.2
-            </div>
+        <footer class="main-footer text-center">
+            <!-- Default to the left -->
+            <strong>Copyright &copy; @DateTime.Now.Year <a>Help System Managemnt</a>.</strong> All rights reserved.
         </footer>
-
-
-
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+        </main>
     </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/assets/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/assets/dist/js/demo.js"></script>
+    >
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-
-   <!-- jQuery -->
-<script src="~/assets/plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="~/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-        $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-<script src="~/assets/plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="~/assets/plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="~/assets/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="~/assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="~/assets/plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="~/assets/plugins/moment/moment.min.js"></script>
-<script src="~/assets/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="~/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="~/assets/plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="~/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="~/assets/dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<!--<script src="~/assets/dist/js/demo.js"></script>-->
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="~/assets/dist/js/pages/dashboard.js"></script>
-
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

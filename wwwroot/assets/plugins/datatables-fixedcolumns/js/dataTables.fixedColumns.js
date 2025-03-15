@@ -54,9 +54,9 @@
                 leftTopBlocker: $('<div>')
                     .css(blockerCSS)
                     .css({
-                    left: 0,
-                    top: 0
-                })
+                        left: 0,
+                        top: 0
+                    })
                     .addClass(this.classes.leftTopBlocker),
                 rightBottomBlocker: $('<div>')
                     .css(blockerCSS)
@@ -65,9 +65,9 @@
                 rightTopBlocker: $('<div>')
                     .css(blockerCSS)
                     .css({
-                    right: 0,
-                    top: 0
-                })
+                        right: 0,
+                        top: 0
+                    })
                     .addClass(this.classes.rightTopBlocker)
             };
             if (this.s.dt.settings()[0]._bInitComplete) {
@@ -553,5 +553,4 @@
             }
         });
     }));
-
 }());

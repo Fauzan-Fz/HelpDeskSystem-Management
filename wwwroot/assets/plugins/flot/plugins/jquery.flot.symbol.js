@@ -18,10 +18,10 @@ The symbols are accessed as strings through the standard symbol options:
     // same as a circle of the given radius
 
     var square = function (ctx, x, y, radius, shadow) {
-            // pi * r^2 = (2s)^2  =>  s = r * sqrt(pi)/2
-            var size = radius * Math.sqrt(Math.PI) / 2;
-            ctx.rect(x - size, y - size, size + size, size + size);
-        },
+        // pi * r^2 = (2s)^2  =>  s = r * sqrt(pi)/2
+        var size = radius * Math.sqrt(Math.PI) / 2;
+        ctx.rect(x - size, y - size, size + size, size + size);
+    },
         rectangle = function (ctx, x, y, radius, shadow) {
             // pi * r^2 = (2s)^2  =>  s = r * sqrt(pi)/2
             var size = radius * Math.sqrt(Math.PI) / 2;
@@ -57,7 +57,7 @@ The symbols are accessed as strings through the standard symbol options:
             ctx.moveTo(x - size, y + size);
             ctx.lineTo(x + size, y - size);
         },
-        ellipse = function(ctx, x, y, radius, shadow, fill) {
+        ellipse = function (ctx, x, y, radius, shadow, fill) {
             if (!shadow) {
                 ctx.moveTo(x + radius, y);
                 ctx.arc(x, y, radius, 0, Math.PI * 2, false);

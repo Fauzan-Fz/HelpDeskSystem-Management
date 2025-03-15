@@ -129,7 +129,7 @@ formatters and transformers to and from logarithmic representation.
             ticks.reverse();
         } else {
             var tickSize = plot.computeTickSize(min, max, noTicks),
-                customAxis = {min: min, max: max, tickSize: tickSize};
+                customAxis = { min: min, max: max, tickSize: tickSize };
             ticks = $.plot.linearTickGenerator(customAxis);
         }
 
@@ -243,10 +243,10 @@ formatters and transformers to and from logarithmic representation.
     function processAxisOffset(plot, axis) {
         var series = plot.getData(),
             range = series
-                .filter(function(series) {
+                .filter(function (series) {
                     return series.xaxis === axis || series.yaxis === axis;
                 })
-                .map(function(series) {
+                .map(function (series) {
                     return plot.computeRangeForDataSeries(series, null, isValid);
                 }),
             min = axis.direction === 'x'

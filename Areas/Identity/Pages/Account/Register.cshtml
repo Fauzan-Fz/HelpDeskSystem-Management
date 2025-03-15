@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Input.FirstName" class="form-control" />
+                                        <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" placeholder="iyut" />
                                         <label asp-for="Input.FirstName">First Name</label>
                                         <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                                     </div>
@@ -27,7 +27,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Input.MiddleName" class="form-control" />
+                                        <input asp-for="Input.MiddleName" class="form-control" autocomplete="middlename" aria-required="true" placeholder="jack" />
                                         <label asp-for="Input.MiddleName">Middle Name</label>
                                         <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
                                     </div>
@@ -35,7 +35,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Input.LastName" class="form-control" />
+                                        <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" placeholder="carl" />
                                         <label asp-for="Input.LastName">Last Name</label>
                                         <span asp-validation-for="Input.LastName" class="text-danger"></span>
                                     </div>
@@ -43,7 +43,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Input.Gender" class="form-control" />
+                                        <input asp-for="Input.Gender" class="form-control" autocomplete="gender" aria-required="true" placeholder="Male/Female" />
                                         <label asp-for="Input.Gender">Gender</label>
                                         <span asp-validation-for="Input.Gender" class="text-danger"></span>
                                     </div>
@@ -51,7 +51,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Input.Country" class="form-control" />
+                                        <input asp-for="Input.Country" class="form-control" autocomplete="country" aria-required="true" placeholder="Japan" />
                                         <label asp-for="Input.Country">Country</label>
                                         <span asp-validation-for="Input.Country" class="text-danger"></span>
                                     </div>
@@ -59,7 +59,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Input.City" class="form-control" />
+                                        <input asp-for="Input.City" class="form-control" autocomplete="city" aria-required="true" placeholder="Jakarta" />
                                         <label asp-for="Input.City">City</label>
                                         <span asp-validation-for="Input.City" class="text-danger"></span>
                                     </div>

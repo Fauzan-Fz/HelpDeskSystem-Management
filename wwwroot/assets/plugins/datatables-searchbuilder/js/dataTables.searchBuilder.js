@@ -412,83 +412,83 @@
             this.dom.data
                 .unbind('change')
                 .on('change.dtsb', function () {
-                _this.dom.dataTitle.removeProp('selected');
-                // Need to go over every option to identify the correct selection
-                var options = _this.dom.data.children('option.' + _this.classes.option);
-                // eslint-disable-next-line @typescript-eslint/prefer-for-of
-                for (var i = 0; i < options.length; i++) {
-                    var option = $$2(options[i]);
-                    if (option.val() === _this.dom.data.val()) {
-                        _this.dom.data.removeClass(_this.classes.italic);
-                        option.prop('selected', true);
-                        _this.s.dataIdx = +option.val();
-                        _this.s.data = option.text();
-                        _this.s.origData = option.prop('origData');
-                        _this.c.orthogonal = _this._getOptions().orthogonal;
-                        // When the data is changed, the values in condition and
-                        // value may also change so need to renew them
-                        _this._clearCondition();
-                        _this._clearValue();
-                        _this._populateCondition();
-                        // If this criteria was previously active in the search then
-                        // remove it from the search and trigger a new search
-                        if (_this.s.filled) {
-                            _this.s.filled = false;
-                            _this.s.dt.draw();
-                            _this.setListeners();
-                        }
-                        _this.s.dt.state.save();
-                    }
-                    else {
-                        option.removeProp('selected');
-                    }
-                }
-            });
-            this.dom.condition
-                .unbind('change')
-                .on('change.dtsb', function () {
-                _this.dom.conditionTitle.removeProp('selected');
-                // Need to go over every option to identify the correct selection
-                var options = _this.dom.condition.children('option.' + _this.classes.option);
-                // eslint-disable-next-line @typescript-eslint/prefer-for-of
-                for (var i = 0; i < options.length; i++) {
-                    var option = $$2(options[i]);
-                    if (option.val() === _this.dom.condition.val()) {
-                        _this.dom.condition.removeClass(_this.classes.italic);
-                        option.prop('selected', true);
-                        var condDisp = option.val();
-                        // Find the condition that has been selected and store it internally
-                        for (var _i = 0, _a = Object.keys(_this.s.conditions); _i < _a.length; _i++) {
-                            var cond = _a[_i];
-                            if (cond === condDisp) {
-                                _this.s.condition = condDisp;
-                                break;
-                            }
-                        }
-                        // When the condition is changed, the value selector may switch between
-                        // a select element and an input element
-                        _this._clearValue();
-                        _this._populateValue();
-                        for (var _b = 0, _c = _this.dom.value; _b < _c.length; _b++) {
-                            var val = _c[_b];
-                            // If this criteria was previously active in the search then remove
-                            // it from the search and trigger a new search
-                            if (_this.s.filled && val !== undefined && _this.dom.container.has(val[0]).length !== 0) {
+                    _this.dom.dataTitle.removeProp('selected');
+                    // Need to go over every option to identify the correct selection
+                    var options = _this.dom.data.children('option.' + _this.classes.option);
+                    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+                    for (var i = 0; i < options.length; i++) {
+                        var option = $$2(options[i]);
+                        if (option.val() === _this.dom.data.val()) {
+                            _this.dom.data.removeClass(_this.classes.italic);
+                            option.prop('selected', true);
+                            _this.s.dataIdx = +option.val();
+                            _this.s.data = option.text();
+                            _this.s.origData = option.prop('origData');
+                            _this.c.orthogonal = _this._getOptions().orthogonal;
+                            // When the data is changed, the values in condition and
+                            // value may also change so need to renew them
+                            _this._clearCondition();
+                            _this._clearValue();
+                            _this._populateCondition();
+                            // If this criteria was previously active in the search then
+                            // remove it from the search and trigger a new search
+                            if (_this.s.filled) {
                                 _this.s.filled = false;
                                 _this.s.dt.draw();
                                 _this.setListeners();
                             }
+                            _this.s.dt.state.save();
                         }
-                        if (_this.dom.value.length === 0 ||
-                            _this.dom.value.length === 1 && _this.dom.value[0] === undefined) {
-                            _this.s.dt.draw();
+                        else {
+                            option.removeProp('selected');
                         }
                     }
-                    else {
-                        option.removeProp('selected');
+                });
+            this.dom.condition
+                .unbind('change')
+                .on('change.dtsb', function () {
+                    _this.dom.conditionTitle.removeProp('selected');
+                    // Need to go over every option to identify the correct selection
+                    var options = _this.dom.condition.children('option.' + _this.classes.option);
+                    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+                    for (var i = 0; i < options.length; i++) {
+                        var option = $$2(options[i]);
+                        if (option.val() === _this.dom.condition.val()) {
+                            _this.dom.condition.removeClass(_this.classes.italic);
+                            option.prop('selected', true);
+                            var condDisp = option.val();
+                            // Find the condition that has been selected and store it internally
+                            for (var _i = 0, _a = Object.keys(_this.s.conditions); _i < _a.length; _i++) {
+                                var cond = _a[_i];
+                                if (cond === condDisp) {
+                                    _this.s.condition = condDisp;
+                                    break;
+                                }
+                            }
+                            // When the condition is changed, the value selector may switch between
+                            // a select element and an input element
+                            _this._clearValue();
+                            _this._populateValue();
+                            for (var _b = 0, _c = _this.dom.value; _b < _c.length; _b++) {
+                                var val = _c[_b];
+                                // If this criteria was previously active in the search then remove
+                                // it from the search and trigger a new search
+                                if (_this.s.filled && val !== undefined && _this.dom.container.has(val[0]).length !== 0) {
+                                    _this.s.filled = false;
+                                    _this.s.dt.draw();
+                                    _this.setListeners();
+                                }
+                            }
+                            if (_this.dom.value.length === 0 ||
+                                _this.dom.value.length === 1 && _this.dom.value[0] === undefined) {
+                                _this.s.dt.draw();
+                            }
+                        }
+                        else {
+                            option.removeProp('selected');
+                        }
                     }
-                }
-            });
+                });
         };
         /**
          * Adjusts the criteria to make SearchBuilder responsive
@@ -976,9 +976,9 @@
                 .addClass(Criteria.classes.select)
                 .append(that.dom.valueTitle)
                 .on('change.dtsb', function () {
-                $$2(this).removeClass(Criteria.classes.italic);
-                fn(that, this);
-            });
+                    $$2(this).removeClass(Criteria.classes.italic);
+                    fn(that, this);
+                });
             if (that.c.greyscale) {
                 el.addClass(Criteria.classes.greyscale);
             }
@@ -1020,8 +1020,8 @@
                         .addClass(that.classes.notItalic)
                         // Have to add the text this way so that special html characters are not escaped - &amp; etc.
                         .html(typeof text === 'string' ?
-                        text.replace(/(<([^>]+)>)/ig, '') :
-                        text);
+                            text.replace(/(<([^>]+)>)/ig, '') :
+                            text);
                     var val = opt.val();
                     // Check that this value has not already been added
                     if (added.indexOf(val) === -1) {
@@ -1113,14 +1113,14 @@
                 .addClass(Criteria.classes.value)
                 .addClass(Criteria.classes.input)
                 .on('input.dtsb keypress.dtsb', that._throttle(function (e) {
-                var code = e.keyCode || e.which;
-                if (!that.c.enterSearch &&
-                    !(that.s.dt.settings()[0].oInit.search !== undefined &&
-                        that.s.dt.settings()[0].oInit.search["return"]) ||
-                    code === 13) {
-                    return fn(that, this);
-                }
-            }, searchDelay === null ? 100 : searchDelay));
+                    var code = e.keyCode || e.which;
+                    if (!that.c.enterSearch &&
+                        !(that.s.dt.settings()[0].oInit.search !== undefined &&
+                            that.s.dt.settings()[0].oInit.search["return"]) ||
+                        code === 13) {
+                        return fn(that, this);
+                    }
+                }, searchDelay === null ? 100 : searchDelay));
             if (that.c.greyscale) {
                 el.addClass(Criteria.classes.greyscale);
             }
@@ -1146,14 +1146,14 @@
                     .addClass(Criteria.classes.value)
                     .addClass(Criteria.classes.input)
                     .on('input.dtsb keypress.dtsb', that._throttle(function (e) {
-                    var code = e.keyCode || e.which;
-                    if (!that.c.enterSearch &&
-                        !(that.s.dt.settings()[0].oInit.search !== undefined &&
-                            that.s.dt.settings()[0].oInit.search["return"]) ||
-                        code === 13) {
-                        return fn(that, this);
-                    }
-                }, searchDelay === null ? 100 : searchDelay)),
+                        var code = e.keyCode || e.which;
+                        if (!that.c.enterSearch &&
+                            !(that.s.dt.settings()[0].oInit.search !== undefined &&
+                                that.s.dt.settings()[0].oInit.search["return"]) ||
+                            code === 13) {
+                            return fn(that, this);
+                        }
+                    }, searchDelay === null ? 100 : searchDelay)),
                 $$2('<span>')
                     .addClass(that.classes.joiner)
                     .html(that.s.dt.i18n('searchBuilder.valueJoiner', that.c.i18n.valueJoiner)),
@@ -1161,14 +1161,14 @@
                     .addClass(Criteria.classes.value)
                     .addClass(Criteria.classes.input)
                     .on('input.dtsb keypress.dtsb', that._throttle(function (e) {
-                    var code = e.keyCode || e.which;
-                    if (!that.c.enterSearch &&
-                        !(that.s.dt.settings()[0].oInit.search !== undefined &&
-                            that.s.dt.settings()[0].oInit.search["return"]) ||
-                        code === 13) {
-                        return fn(that, this);
-                    }
-                }, searchDelay === null ? 100 : searchDelay))
+                        var code = e.keyCode || e.which;
+                        if (!that.c.enterSearch &&
+                            !(that.s.dt.settings()[0].oInit.search !== undefined &&
+                                that.s.dt.settings()[0].oInit.search["return"]) ||
+                            code === 13) {
+                            return fn(that, this);
+                        }
+                    }, searchDelay === null ? 100 : searchDelay))
             ];
             if (that.c.greyscale) {
                 els[0].addClass(Criteria.classes.greyscale);
@@ -1196,26 +1196,26 @@
                 .addClass(Criteria.classes.value)
                 .addClass(Criteria.classes.input)
                 .dtDateTime({
-                attachTo: 'input',
-                format: that.s.dateFormat ? that.s.dateFormat : undefined
-            })
+                    attachTo: 'input',
+                    format: that.s.dateFormat ? that.s.dateFormat : undefined
+                })
                 .on('change.dtsb', that._throttle(function () {
-                return fn(that, this);
-            }, searchDelay === null ? 100 : searchDelay))
-                .on('input.dtsb keypress.dtsb', that.c.enterSearch ||
-                that.s.dt.settings()[0].oInit.search !== undefined &&
-                    that.s.dt.settings()[0].oInit.search["return"] ?
-                function (e) {
-                    that._throttle(function () {
-                        var code = e.keyCode || e.which;
-                        if (code === 13) {
-                            return fn(that, this);
-                        }
-                    }, searchDelay === null ? 100 : searchDelay);
-                } :
-                that._throttle(function () {
                     return fn(that, this);
-                }, searchDelay === null ? 100 : searchDelay));
+                }, searchDelay === null ? 100 : searchDelay))
+                .on('input.dtsb keypress.dtsb', that.c.enterSearch ||
+                    that.s.dt.settings()[0].oInit.search !== undefined &&
+                    that.s.dt.settings()[0].oInit.search["return"] ?
+                    function (e) {
+                        that._throttle(function () {
+                            var code = e.keyCode || e.which;
+                            if (code === 13) {
+                                return fn(that, this);
+                            }
+                        }, searchDelay === null ? 100 : searchDelay);
+                    } :
+                    that._throttle(function () {
+                        return fn(that, this);
+                    }, searchDelay === null ? 100 : searchDelay));
             if (that.c.greyscale) {
                 el.addClass(Criteria.classes.greyscale);
             }
@@ -1245,35 +1245,35 @@
                     .addClass(Criteria.classes.value)
                     .addClass(Criteria.classes.input)
                     .dtDateTime({
-                    attachTo: 'input',
-                    format: that.s.dateFormat ? that.s.dateFormat : undefined
-                })
-                    .on('change.dtsb', searchDelay !== null ?
-                    that.s.dt.settings()[0].oApi._fnThrottle(function () {
-                        return fn(that, this);
-                    }, searchDelay) :
-                    function () {
-                        fn(that, _this);
+                        attachTo: 'input',
+                        format: that.s.dateFormat ? that.s.dateFormat : undefined
                     })
-                    .on('input.dtsb keypress.dtsb', !that.c.enterSearch &&
-                    !(that.s.dt.settings()[0].oInit.search !== undefined &&
-                        that.s.dt.settings()[0].oInit.search["return"]) &&
-                    searchDelay !== null ?
-                    that.s.dt.settings()[0].oApi._fnThrottle(function () {
-                        return fn(that, this);
-                    }, searchDelay) :
-                    that.c.enterSearch ||
-                        that.s.dt.settings()[0].oInit.search !== undefined &&
-                            that.s.dt.settings()[0].oInit.search["return"] ?
-                        function (e) {
-                            var code = e.keyCode || e.which;
-                            if (code === 13) {
-                                fn(that, _this);
-                            }
-                        } :
+                    .on('change.dtsb', searchDelay !== null ?
+                        that.s.dt.settings()[0].oApi._fnThrottle(function () {
+                            return fn(that, this);
+                        }, searchDelay) :
                         function () {
                             fn(that, _this);
-                        }),
+                        })
+                    .on('input.dtsb keypress.dtsb', !that.c.enterSearch &&
+                        !(that.s.dt.settings()[0].oInit.search !== undefined &&
+                            that.s.dt.settings()[0].oInit.search["return"]) &&
+                        searchDelay !== null ?
+                        that.s.dt.settings()[0].oApi._fnThrottle(function () {
+                            return fn(that, this);
+                        }, searchDelay) :
+                        that.c.enterSearch ||
+                            that.s.dt.settings()[0].oInit.search !== undefined &&
+                            that.s.dt.settings()[0].oInit.search["return"] ?
+                            function (e) {
+                                var code = e.keyCode || e.which;
+                                if (code === 13) {
+                                    fn(that, _this);
+                                }
+                            } :
+                            function () {
+                                fn(that, _this);
+                            }),
                 $$2('<span>')
                     .addClass(that.classes.joiner)
                     .html(that.s.dt.i18n('searchBuilder.valueJoiner', that.c.i18n.valueJoiner)),
@@ -1281,35 +1281,35 @@
                     .addClass(Criteria.classes.value)
                     .addClass(Criteria.classes.input)
                     .dtDateTime({
-                    attachTo: 'input',
-                    format: that.s.dateFormat ? that.s.dateFormat : undefined
-                })
-                    .on('change.dtsb', searchDelay !== null ?
-                    that.s.dt.settings()[0].oApi._fnThrottle(function () {
-                        return fn(that, this);
-                    }, searchDelay) :
-                    function () {
-                        fn(that, _this);
+                        attachTo: 'input',
+                        format: that.s.dateFormat ? that.s.dateFormat : undefined
                     })
-                    .on('input.dtsb keypress.dtsb', !that.c.enterSearch &&
-                    !(that.s.dt.settings()[0].oInit.search !== undefined &&
-                        that.s.dt.settings()[0].oInit.search["return"]) &&
-                    searchDelay !== null ?
-                    that.s.dt.settings()[0].oApi._fnThrottle(function () {
-                        return fn(that, this);
-                    }, searchDelay) :
-                    that.c.enterSearch ||
-                        that.s.dt.settings()[0].oInit.search !== undefined &&
-                            that.s.dt.settings()[0].oInit.search["return"] ?
-                        function (e) {
-                            var code = e.keyCode || e.which;
-                            if (code === 13) {
-                                fn(that, _this);
-                            }
-                        } :
+                    .on('change.dtsb', searchDelay !== null ?
+                        that.s.dt.settings()[0].oApi._fnThrottle(function () {
+                            return fn(that, this);
+                        }, searchDelay) :
                         function () {
                             fn(that, _this);
                         })
+                    .on('input.dtsb keypress.dtsb', !that.c.enterSearch &&
+                        !(that.s.dt.settings()[0].oInit.search !== undefined &&
+                            that.s.dt.settings()[0].oInit.search["return"]) &&
+                        searchDelay !== null ?
+                        that.s.dt.settings()[0].oApi._fnThrottle(function () {
+                            return fn(that, this);
+                        }, searchDelay) :
+                        that.c.enterSearch ||
+                            that.s.dt.settings()[0].oInit.search !== undefined &&
+                            that.s.dt.settings()[0].oInit.search["return"] ?
+                            function (e) {
+                                var code = e.keyCode || e.which;
+                                if (code === 13) {
+                                    fn(that, _this);
+                                }
+                            } :
+                            function () {
+                                fn(that, _this);
+                            })
             ];
             if (that.c.greyscale) {
                 els[0].addClass(Criteria.classes.greyscale);
@@ -1336,7 +1336,7 @@
                 var element = el_1[_i];
                 if (element.children('option:selected').length ===
                     element.children('option').length -
-                        element.children('option.' + Criteria.classes.notItalic).length &&
+                    element.children('option.' + Criteria.classes.notItalic).length &&
                     element.children('option:selected').length === 1 &&
                     element.children('option:selected')[0] === element.children('option')[0]) {
                     allFilled = false;
@@ -2933,52 +2933,52 @@
             criteria.dom["delete"]
                 .unbind('click')
                 .on('click.dtsb', function () {
-                _this._removeCriteria(criteria);
-                criteria.dom.container.remove();
-                for (var _i = 0, _a = _this.s.criteria; _i < _a.length; _i++) {
-                    var crit = _a[_i];
-                    if (crit.criteria instanceof Criteria) {
-                        crit.criteria.updateArrows(_this.s.criteria.length > 1);
+                    _this._removeCriteria(criteria);
+                    criteria.dom.container.remove();
+                    for (var _i = 0, _a = _this.s.criteria; _i < _a.length; _i++) {
+                        var crit = _a[_i];
+                        if (crit.criteria instanceof Criteria) {
+                            crit.criteria.updateArrows(_this.s.criteria.length > 1);
+                        }
                     }
-                }
-                criteria.destroy();
-                _this.s.dt.draw();
-                _this.s.topGroup.trigger('dtsb-redrawContents');
-                return false;
-            });
+                    criteria.destroy();
+                    _this.s.dt.draw();
+                    _this.s.topGroup.trigger('dtsb-redrawContents');
+                    return false;
+                });
             criteria.dom.right
                 .unbind('click')
                 .on('click.dtsb', function () {
-                var idx = criteria.s.index;
-                var group = new Group(_this.s.dt, _this.s.opts, _this.s.topGroup, criteria.s.index, true, _this.s.depth + 1);
-                // Add the criteria that is to be moved to the new group
-                group.addCriteria(criteria);
-                // Update the details in the current groups criteria array
-                _this.s.criteria[idx].criteria = group;
-                _this.s.criteria[idx].logic = 'AND';
-                _this.s.topGroup.trigger('dtsb-redrawContents');
-                _this._setGroupListeners(group);
-                return false;
-            });
+                    var idx = criteria.s.index;
+                    var group = new Group(_this.s.dt, _this.s.opts, _this.s.topGroup, criteria.s.index, true, _this.s.depth + 1);
+                    // Add the criteria that is to be moved to the new group
+                    group.addCriteria(criteria);
+                    // Update the details in the current groups criteria array
+                    _this.s.criteria[idx].criteria = group;
+                    _this.s.criteria[idx].logic = 'AND';
+                    _this.s.topGroup.trigger('dtsb-redrawContents');
+                    _this._setGroupListeners(group);
+                    return false;
+                });
             criteria.dom.left
                 .unbind('click')
                 .on('click.dtsb', function () {
-                _this.s.toDrop = new Criteria(_this.s.dt, _this.s.opts, _this.s.topGroup, criteria.s.index);
-                _this.s.toDrop.s = criteria.s;
-                _this.s.toDrop.c = criteria.c;
-                _this.s.toDrop.classes = criteria.classes;
-                _this.s.toDrop.populate();
-                // The dropCriteria event mutates the reference to the index so need to store it
-                var index = _this.s.toDrop.s.index;
-                _this.dom.container.trigger('dtsb-dropCriteria');
-                criteria.s.index = index;
-                _this._removeCriteria(criteria);
-                // By tracking the top level group we can directly trigger a redraw on it,
-                //  bubbling is also possible, but that is slow with deep levelled groups
-                _this.s.topGroup.trigger('dtsb-redrawContents');
-                _this.s.dt.draw();
-                return false;
-            });
+                    _this.s.toDrop = new Criteria(_this.s.dt, _this.s.opts, _this.s.topGroup, criteria.s.index);
+                    _this.s.toDrop.s = criteria.s;
+                    _this.s.toDrop.c = criteria.c;
+                    _this.s.toDrop.classes = criteria.classes;
+                    _this.s.toDrop.populate();
+                    // The dropCriteria event mutates the reference to the index so need to store it
+                    var index = _this.s.toDrop.s.index;
+                    _this.dom.container.trigger('dtsb-dropCriteria');
+                    criteria.s.index = index;
+                    _this._removeCriteria(criteria);
+                    // By tracking the top level group we can directly trigger a redraw on it,
+                    //  bubbling is also possible, but that is slow with deep levelled groups
+                    _this.s.topGroup.trigger('dtsb-redrawContents');
+                    _this.s.dt.draw();
+                    return false;
+                });
         };
         /**
          * Set's the listeners for the group clear button
@@ -2988,14 +2988,14 @@
             this.dom.clear
                 .unbind('click')
                 .on('click.dtsb', function () {
-                if (!_this.s.isChild) {
-                    _this.dom.container.trigger('dtsb-clearContents');
+                    if (!_this.s.isChild) {
+                        _this.dom.container.trigger('dtsb-clearContents');
+                        return false;
+                    }
+                    _this.destroy();
+                    _this.s.topGroup.trigger('dtsb-redrawContents');
                     return false;
-                }
-                _this.destroy();
-                _this.s.topGroup.trigger('dtsb-redrawContents');
-                return false;
-            });
+                });
         };
         /**
          * Sets listeners for sub groups of this group
@@ -3008,34 +3008,34 @@
             group.dom.add
                 .unbind('click')
                 .on('click.dtsb', function () {
-                _this.setupLogic();
-                _this.dom.container.trigger('dtsb-add');
-                return false;
-            });
+                    _this.setupLogic();
+                    _this.dom.container.trigger('dtsb-add');
+                    return false;
+                });
             group.dom.container
                 .unbind('dtsb-add')
                 .on('dtsb-add.dtsb', function () {
-                _this.setupLogic();
-                _this.dom.container.trigger('dtsb-add');
-                return false;
-            });
+                    _this.setupLogic();
+                    _this.dom.container.trigger('dtsb-add');
+                    return false;
+                });
             group.dom.container
                 .unbind('dtsb-destroy')
                 .on('dtsb-destroy.dtsb', function () {
-                _this._removeCriteria(group, true);
-                group.dom.container.remove();
-                _this.setupLogic();
-                return false;
-            });
+                    _this._removeCriteria(group, true);
+                    group.dom.container.remove();
+                    _this.setupLogic();
+                    return false;
+                });
             group.dom.container
                 .unbind('dtsb-dropCriteria')
                 .on('dtsb-dropCriteria.dtsb', function () {
-                var toDrop = group.s.toDrop;
-                toDrop.s.index = group.s.index;
-                toDrop.updateArrows(_this.s.criteria.length > 1, false);
-                _this.addCriteria(toDrop, false);
-                return false;
-            });
+                    var toDrop = group.s.toDrop;
+                    toDrop.s.index = group.s.index;
+                    toDrop.updateArrows(_this.s.criteria.length > 1, false);
+                    _this.addCriteria(toDrop, false);
+                    return false;
+                });
             group.setListeners();
         };
         /**
@@ -3067,13 +3067,13 @@
             this.dom.logic
                 .unbind('click')
                 .on('click.dtsb', function () {
-                _this._toggleLogic();
-                _this.s.dt.draw();
-                for (var _i = 0, _a = _this.s.criteria; _i < _a.length; _i++) {
-                    var crit = _a[_i];
-                    crit.criteria.setListeners();
-                }
-            });
+                    _this._toggleLogic();
+                    _this.s.dt.draw();
+                    for (var _i = 0, _a = _this.s.criteria; _i < _a.length; _i++) {
+                        var crit = _a[_i];
+                        crit.criteria.setListeners();
+                    }
+                });
         };
         /**
          * Toggles the logic for the group
@@ -3319,9 +3319,9 @@
                     var column = columnIdxs[0][i];
                     var type = types[column];
                     if (
-                    // Check if this column can be filtered
-                    (this.c.columns === true ||
-                        Array.isArray(this.c.columns) &&
+                        // Check if this column can be filtered
+                        (this.c.columns === true ||
+                            Array.isArray(this.c.columns) &&
                             this.c.columns.includes(i)) &&
                         // Check if the type is one of the restricted types
                         (type.includes('date') ||
@@ -3793,5 +3793,4 @@
             dataTable.ext.features.register('searchBuilder', _init);
         }
     }));
-
 }());

@@ -237,7 +237,6 @@
       return pass(type, stream, state);
     }
 
-
     /**
      * Parser
      */
@@ -298,7 +297,6 @@
       return result ? result[0].replace(/^\s*/, "") : "";
     }
 
-
     /**
      * Block
      */
@@ -355,7 +353,6 @@
         return pushContext(state, stream, "extend", 0);
       }
       if (type && type.charAt(0) == "@") {
-
         // Property Lookup
         if (stream.indentation() > 0 && wordIsProperty(stream.current().slice(1))) {
           override = "variable-2";
@@ -390,7 +387,6 @@
         }
 
         if (override == "tag") {
-
           // tag is a css value
           if (/embed|menu|pre|progress|sub|table/.test(word)) {
             if (wordIsProperty(firstWordOfLine(stream))) {
@@ -438,7 +434,6 @@
       return state.context.type;
     };
 
-
     /**
      * Parens
      */
@@ -484,7 +479,6 @@
       return state.context.type;
     };
 
-
     /**
      * Vendor prefixes
      */
@@ -495,7 +489,6 @@
       }
       return popContext(state);
     };
-
 
     /**
      * Pseudo
@@ -509,7 +502,6 @@
       }
       return popAndPass(type, stream, state);
     };
-
 
     /**
      * atBlock
@@ -563,7 +555,6 @@
       return states.atBlock(type, stream, state);
     };
 
-
     /**
      * Keyframes
      */
@@ -596,7 +587,6 @@
       return state.context.type;
     };
 
-
     /**
      * Interpolation
      */
@@ -623,7 +613,6 @@
       return state.context.type;
     };
 
-
     /**
      * Extend/s
      */
@@ -637,7 +626,6 @@
       return popContext(state);
     };
 
-
     /**
      * Variable name
      */
@@ -648,7 +636,6 @@
       }
       return popAndPass(type, stream, state);
     };
-
 
     return {
       startState: function(base) {
@@ -670,7 +657,6 @@
         return override;
       },
       indent: function(state, textAfter, line) {
-
         var cx = state.context,
             ch = textAfter && textAfter.charAt(0),
             indent = cx.indent,

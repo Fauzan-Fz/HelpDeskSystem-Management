@@ -105,7 +105,7 @@ can set the default in the options.
 */
 
 /* eslint-enable */
-(function($) {
+(function ($) {
     'use strict';
 
     var options = {
@@ -221,14 +221,16 @@ can set the default in the options.
             }
         }
 
-        plot.navigationState = function(startPageX, startPageY) {
+        plot.navigationState = function (startPageX, startPageY) {
             var axes = this.getAxes();
             var result = {};
-            Object.keys(axes).forEach(function(axisName) {
+            Object.keys(axes).forEach(function (axisName) {
                 var axis = axes[axisName];
                 result[axisName] = {
-                    navigationOffset: { below: axis.options.offset.below || 0,
-                        above: axis.options.offset.above || 0},
+                    navigationOffset: {
+                        below: axis.options.offset.below || 0,
+                        above: axis.options.offset.above || 0
+                    },
                     axisMin: axis.min,
                     axisMax: axis.max,
                     diagMode: false
@@ -319,7 +321,7 @@ can set the default in the options.
 
             if (panTimeout || !frameRate) return;
 
-            panTimeout = setTimeout(function() {
+            panTimeout = setTimeout(function () {
                 if (useSmartPan) {
                     plot.smartPan({
                         x: plotState.startPageX - page.X,
@@ -383,9 +385,11 @@ can set the default in the options.
             plot.recenter({ axes: axes[0] ? axes : null });
 
             if (axes[0]) {
-                event = new $.Event('re-center', { detail: {
-                    axisTouched: axes[0]
-                }});
+                event = new $.Event('re-center', {
+                    detail: {
+                        axisTouched: axes[0]
+                    }
+                });
             } else {
                 event = new $.Event('re-center', { detail: e });
             }
@@ -402,7 +406,7 @@ can set the default in the options.
             return false;
         }
 
-        plot.activate = function() {
+        plot.activate = function () {
             var o = plot.getOptions();
             if (!o.pan.active || !o.zoom.active) {
                 o.pan.active = true;
@@ -429,7 +433,7 @@ can set the default in the options.
             eventHolder.click(onClick);
         }
 
-        plot.zoomOut = function(args) {
+        plot.zoomOut = function (args) {
             if (!args) {
                 args = {};
             }
@@ -442,7 +446,7 @@ can set the default in the options.
             plot.zoom(args);
         };
 
-        plot.zoom = function(args) {
+        plot.zoom = function (args) {
             if (!args) {
                 args = {};
             }
@@ -523,7 +527,7 @@ can set the default in the options.
             }
         };
 
-        plot.pan = function(args) {
+        plot.pan = function (args) {
             var delta = {
                 x: +args.left,
                 y: +args.top
@@ -532,7 +536,7 @@ can set the default in the options.
             if (isNaN(delta.x)) delta.x = 0;
             if (isNaN(delta.y)) delta.y = 0;
 
-            $.each(args.axes || plot.getAxes(), function(_, axis) {
+            $.each(args.axes || plot.getAxes(), function (_, axis) {
                 var opts = axis.options,
                     d = delta[axis.direction];
 
@@ -575,8 +579,8 @@ can set the default in the options.
             }
         };
 
-        plot.recenter = function(args) {
-            $.each(args.axes || plot.getAxes(), function(_, axis) {
+        plot.recenter = function (args) {
+            $.each(args.axes || plot.getAxes(), function (_, axis) {
                 if (args.axes) {
                     if (this.direction === 'x') {
                         axis.options.offset = { below: 0 };
@@ -591,27 +595,27 @@ can set the default in the options.
             plot.draw();
         };
 
-        var shouldSnap = function(delta) {
+        var shouldSnap = function (delta) {
             return (Math.abs(delta.y) < SNAPPING_CONSTANT && Math.abs(delta.x) >= SNAPPING_CONSTANT) ||
                 (Math.abs(delta.x) < SNAPPING_CONSTANT && Math.abs(delta.y) >= SNAPPING_CONSTANT);
         }
 
         // adjust delta so the pan action is constrained on the vertical or horizontal direction
         // it the movements in the other direction are small
-        var adjustDeltaToSnap = function(delta) {
+        var adjustDeltaToSnap = function (delta) {
             if (Math.abs(delta.x) < SNAPPING_CONSTANT && Math.abs(delta.y) >= SNAPPING_CONSTANT) {
-                return {x: 0, y: delta.y};
+                return { x: 0, y: delta.y };
             }
 
             if (Math.abs(delta.y) < SNAPPING_CONSTANT && Math.abs(delta.x) >= SNAPPING_CONSTANT) {
-                return {x: delta.x, y: 0};
+                return { x: delta.x, y: 0 };
             }
 
             return delta;
         }
 
         var lockedDirection = null;
-        var lockDeltaDirection = function(delta) {
+        var lockDeltaDirection = function (delta) {
             if (!lockedDirection && Math.max(Math.abs(delta.x), Math.abs(delta.y)) >= SNAPPING_CONSTANT) {
                 lockedDirection = Math.abs(delta.x) < Math.abs(delta.y) ? 'y' : 'x';
             }
@@ -626,16 +630,16 @@ can set the default in the options.
             }
         }
 
-        var isDiagonalMode = function(delta) {
+        var isDiagonalMode = function (delta) {
             if (Math.abs(delta.x) > 0 && Math.abs(delta.y) > 0) {
                 return true;
             }
             return false;
         }
 
-        var restoreAxisOffset = function(axes, initialState, delta) {
+        var restoreAxisOffset = function (axes, initialState, delta) {
             var axis;
-            Object.keys(axes).forEach(function(axisName) {
+            Object.keys(axes).forEach(function (axisName) {
                 axis = axes[axisName];
                 if (delta[axis.direction] === 0) {
                     axis.options.offset.below = initialState[axisName].navigationOffset.below;
@@ -645,7 +649,7 @@ can set the default in the options.
         }
 
         var prevDelta = { x: 0, y: 0 };
-        plot.smartPan = function(delta, initialState, panAxes, preventEvent, smartLock) {
+        plot.smartPan = function (delta, initialState, panAxes, preventEvent, smartLock) {
             var snap = smartLock ? true : shouldSnap(delta),
                 axes = plot.getAxes(),
                 opts;
@@ -689,7 +693,7 @@ can set the default in the options.
             }
 
             var axis, axisMin, axisMax, p, d;
-            Object.keys(axes).forEach(function(axisName) {
+            Object.keys(axes).forEach(function (axisName) {
                 axis = axes[axisName];
                 axisMin = axis.min;
                 axisMax = axis.max;
@@ -737,7 +741,7 @@ can set the default in the options.
             }
         };
 
-        plot.smartPan.end = function() {
+        plot.smartPan.end = function () {
             panHint = null;
             lockedDirection = null;
             prevDelta = { x: 0, y: 0 };
@@ -804,7 +808,7 @@ can set the default in the options.
             }
         }
 
-        plot.getTouchedAxis = function(touchPointX, touchPointY) {
+        plot.getTouchedAxis = function (touchPointX, touchPointY) {
             var ec = plot.getPlaceholder().offset();
             ec.left = touchPointX - ec.left;
             ec.top = touchPointY - ec.top;
@@ -813,7 +817,7 @@ can set the default in the options.
                 var box = axis.box;
                 if (box !== undefined) {
                     return (ec.left > box.left) && (ec.left < box.left + box.width) &&
-                            (ec.top > box.top) && (ec.top < box.top + box.height);
+                        (ec.top > box.top) && (ec.top < box.top + box.height);
                 }
             });
 

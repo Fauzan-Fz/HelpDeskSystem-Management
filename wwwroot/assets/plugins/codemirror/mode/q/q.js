@@ -135,5 +135,4 @@ CodeMirror.defineMode("q",function(config){
   };
 });
 CodeMirror.defineMIME("text/x-q","q");
-
 });

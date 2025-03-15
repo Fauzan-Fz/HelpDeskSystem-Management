@@ -93,8 +93,8 @@ The plugin allso adds the following methods to the plot object:
 (function ($) {
     function init(plot) {
         var selection = {
-            first: {x: -1, y: -1},
-            second: {x: -1, y: -1},
+            first: { x: -1, y: -1 },
+            second: { x: -1, y: -1 },
             show: false,
             currentMode: 'xy',
             active: false
@@ -113,7 +113,7 @@ The plugin allso adds the following methods to the plot object:
             if (selection.active) {
                 updateSelection(e);
 
-                plot.getPlaceholder().trigger("plotselecting", [ getSelection() ]);
+                plot.getPlaceholder().trigger("plotselecting", [getSelection()]);
             }
         }
 
@@ -161,8 +161,8 @@ The plugin allso adds the following methods to the plot object:
                 triggerSelectedEvent();
             } else {
                 // this counts as a clear
-                plot.getPlaceholder().trigger("plotunselected", [ ]);
-                plot.getPlaceholder().trigger("plotselecting", [ null ]);
+                plot.getPlaceholder().trigger("plotunselected", []);
+                plot.getPlaceholder().trigger("plotselecting", [null]);
             }
 
             return false;
@@ -174,8 +174,8 @@ The plugin allso adds the following methods to the plot object:
             if (!selection.show) return null;
 
             var r = {},
-                c1 = {x: selection.first.x, y: selection.first.y},
-                c2 = {x: selection.second.x, y: selection.second.y};
+                c1 = { x: selection.first.x, y: selection.first.y },
+                c2 = { x: selection.second.x, y: selection.second.y };
 
             if (selectionDirection(plot) === 'x') {
                 c1.y = 0;
@@ -199,11 +199,11 @@ The plugin allso adds the following methods to the plot object:
         function triggerSelectedEvent() {
             var r = getSelection();
 
-            plot.getPlaceholder().trigger("plotselected", [ r ]);
+            plot.getPlaceholder().trigger("plotselected", [r]);
 
             // backwards-compat stuff, to be removed in future
             if (r.xaxis && r.yaxis) {
-                plot.getPlaceholder().trigger("selected", [ { x1: r.xaxis.from, y1: r.yaxis.from, x2: r.xaxis.to, y2: r.yaxis.to } ]);
+                plot.getPlaceholder().trigger("selected", [{ x1: r.xaxis.from, y1: r.yaxis.from, x2: r.xaxis.to, y2: r.yaxis.to }]);
             }
         }
 
@@ -271,7 +271,7 @@ The plugin allso adds the following methods to the plot object:
                 selection.currentMode = '';
                 plot.triggerRedrawOverlay();
                 if (!preventEvent) {
-                    plot.getPlaceholder().trigger("plotunselected", [ ]);
+                    plot.getPlaceholder().trigger("plotunselected", []);
                 }
             }
         }
@@ -352,7 +352,7 @@ The plugin allso adds the following methods to the plot object:
         plot.setSelection = setSelection;
         plot.getSelection = getSelection;
 
-        plot.hooks.bindEvents.push(function(plot, eventHolder) {
+        plot.hooks.bindEvents.push(function (plot, eventHolder) {
             var o = plot.getOptions();
             if (o.selection.mode != null) {
                 plot.addEventHandler("dragstart", onDragStart, eventHolder, 0);

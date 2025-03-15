@@ -32,7 +32,7 @@ composition process. It requires to be asynchronous, because this is how
 temporary images load their data.
 */
 
-(function($) {
+(function ($) {
     "use strict";
     const GENERALFAILURECALLBACKERROR = -100; //simply a negative number
     const SUCCESSFULIMAGEPREPARATION = 0;
@@ -46,7 +46,7 @@ temporary images load their data.
         var validCanvasOrSvgSources = canvasOrSvgSources.filter(isValidSource);
         pixelRatio = getPixelRatio(destinationCanvas.getContext('2d'));
 
-        var allImgCompositionPromises = validCanvasOrSvgSources.map(function(validCanvasOrSvgSource) {
+        var allImgCompositionPromises = validCanvasOrSvgSources.map(function (validCanvasOrSvgSource) {
             var tempImg = new Image();
             var currentPromise = new Promise(getGenerateTempImg(tempImg, validCanvasOrSvgSource));
             return currentPromise;
@@ -77,18 +77,18 @@ temporary images load their data.
         tempImg.sourceComponent = canvasOrSvgSource;
 
         return function doGenerateTempImg(successCallbackFunc, failureCallbackFunc) {
-            tempImg.onload = function(evt) {
+            tempImg.onload = function (evt) {
                 tempImg.successfullyLoaded = true;
                 successCallbackFunc(tempImg);
             };
 
-            tempImg.onabort = function(evt) {
+            tempImg.onabort = function (evt) {
                 tempImg.successfullyLoaded = false;
                 console.log('Can\'t generate temp image from ' + tempImg.sourceDescription + '. It is possible that it is missing some properties or its content is not supported by this browser. Source component:', tempImg.sourceComponent);
                 successCallbackFunc(tempImg); //call successCallback, to allow snapshot of all working images
             };
 
-            tempImg.onerror = function(evt) {
+            tempImg.onerror = function (evt) {
                 tempImg.successfullyLoaded = false;
                 console.log('Can\'t generate temp image from ' + tempImg.sourceDescription + '. It is possible that it is missing some properties or its content is not supported by this browser. Source component:', tempImg.sourceComponent);
                 successCallbackFunc(tempImg); //call successCallback, to allow snapshot of all working images
@@ -148,7 +148,7 @@ temporary images load their data.
 
         source = patchSVGSource(source);
 
-        var blob = new Blob([source], {type: "image/svg+xml;charset=utf-8"}),
+        var blob = new Blob([source], { type: "image/svg+xml;charset=utf-8" }),
             domURL = self.URL || self.webkitURL || self,
             url = domURL.createObjectURL(blob);
         img.src = url;
@@ -159,7 +159,7 @@ temporary images load their data.
         // Do so by breaking up large strings into smaller substrings; this is necessary to avoid the
         // "maximum call stack size exceeded" exception that can happen when calling 'String.fromCharCode.apply'
         // with a very long array.
-        function buildBinaryString (arrayBuffer) {
+        function buildBinaryString(arrayBuffer) {
             var binaryString = "";
             const utf8Array = new Uint8Array(arrayBuffer);
             const blockSize = 16384;

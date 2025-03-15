@@ -91,7 +91,6 @@
           } else {
             stream.next();
           }
-
         }
         return "variable";
       } else if (stream.eat("{")) {

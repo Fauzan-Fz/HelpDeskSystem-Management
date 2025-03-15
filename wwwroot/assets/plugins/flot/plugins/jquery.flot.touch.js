@@ -1,7 +1,6 @@
-
 /* global jQuery */
 
-(function($) {
+(function ($) {
     'use strict';
 
     var options = {
@@ -14,17 +13,17 @@
 
     function initTouchNavigation(plot, options) {
         var gestureState = {
-                twoTouches: false,
-                currentTapStart: { x: 0, y: 0 },
-                currentTapEnd: { x: 0, y: 0 },
-                prevTap: { x: 0, y: 0 },
-                currentTap: { x: 0, y: 0 },
-                interceptedLongTap: false,
-                isUnsupportedGesture: false,
-                prevTapTime: null,
-                tapStartTime: null,
-                longTapTriggerId: null
-            },
+            twoTouches: false,
+            currentTapStart: { x: 0, y: 0 },
+            currentTapEnd: { x: 0, y: 0 },
+            prevTap: { x: 0, y: 0 },
+            currentTap: { x: 0, y: 0 },
+            interceptedLongTap: false,
+            isUnsupportedGesture: false,
+            prevTapTime: null,
+            tapStartTime: null,
+            longTapTriggerId: null
+        },
             maxDistanceBetweenTaps = 20,
             maxIntervalBetweenTaps = 500,
             maxLongTapDistance = 20,
@@ -94,7 +93,7 @@
         }
 
         var pan = {
-            touchstart: function(e) {
+            touchstart: function (e) {
                 updatePrevForDoubleTap();
                 updateCurrentForDoubleTap(e);
                 updateStateForLongTapStart(e);
@@ -102,7 +101,7 @@
                 mainEventHolder.dispatchEvent(new CustomEvent('panstart', { detail: e }));
             },
 
-            touchmove: function(e) {
+            touchmove: function (e) {
                 preventEventBehaviors(e);
 
                 updateCurrentForDoubleTap(e);
@@ -113,7 +112,7 @@
                 }
             },
 
-            touchend: function(e) {
+            touchend: function (e) {
                 preventEventBehaviors(e);
 
                 if (wasPinchEvent(e)) {
@@ -126,11 +125,11 @@
         };
 
         var pinch = {
-            touchstart: function(e) {
+            touchstart: function (e) {
                 mainEventHolder.dispatchEvent(new CustomEvent('pinchstart', { detail: e }));
             },
 
-            touchmove: function(e) {
+            touchmove: function (e) {
                 preventEventBehaviors(e);
                 gestureState.twoTouches = isPinchEvent(e);
                 if (!gestureState.isUnsupportedGesture) {
@@ -138,34 +137,34 @@
                 }
             },
 
-            touchend: function(e) {
+            touchend: function (e) {
                 preventEventBehaviors(e);
             }
         };
 
         var doubleTap = {
-            onDoubleTap: function(e) {
+            onDoubleTap: function (e) {
                 preventEventBehaviors(e);
                 mainEventHolder.dispatchEvent(new CustomEvent('doubletap', { detail: e }));
             }
         };
 
         var longTap = {
-            touchstart: function(e) {
+            touchstart: function (e) {
                 longTap.waitForLongTap(e);
             },
 
-            touchmove: function(e) {
+            touchmove: function (e) {
             },
 
-            touchend: function(e) {
+            touchend: function (e) {
                 if (gestureState.longTapTriggerId) {
                     clearTimeout(gestureState.longTapTriggerId);
                     gestureState.longTapTriggerId = null;
                 }
             },
 
-            isLongTap: function(e) {
+            isLongTap: function (e) {
                 var currentTime = new Date().getTime(),
                     tapDuration = currentTime - gestureState.tapStartTime;
                 if (tapDuration >= minLongTapDuration && !gestureState.interceptedLongTap) {
@@ -177,8 +176,8 @@
                 return false;
             },
 
-            waitForLongTap: function(e) {
-                var longTapTrigger = function() {
+            waitForLongTap: function (e) {
+                var longTapTrigger = function () {
                     if (longTap.isLongTap(e)) {
                         mainEventHolder.dispatchEvent(new CustomEvent('longtap', { detail: e }));
                     }
@@ -191,21 +190,21 @@
         };
 
         var tap = {
-            touchstart: function(e) {
+            touchstart: function (e) {
                 gestureState.tapStartTime = new Date().getTime();
             },
 
-            touchmove: function(e) {
+            touchmove: function (e) {
             },
 
-            touchend: function(e) {
+            touchend: function (e) {
                 if (tap.isTap(e)) {
                     mainEventHolder.dispatchEvent(new CustomEvent('tap', { detail: e }));
                     preventEventBehaviors(e);
                 }
             },
 
-            isTap: function(e) {
+            isTap: function (e) {
                 var currentTime = new Date().getTime(),
                     tapDuration = currentTime - gestureState.tapStartTime;
                 if (tapDuration <= pressedTapDuration) {

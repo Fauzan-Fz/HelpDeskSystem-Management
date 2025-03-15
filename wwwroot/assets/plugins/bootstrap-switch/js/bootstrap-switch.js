@@ -640,7 +640,6 @@
             event.stopPropagation();
           },
 
-
           'mousedown.bootstrapSwitch touchstart.bootstrapSwitch': function mousedownBootstrapSwitchTouchstartBootstrapSwitch(event) {
             if (_this7._dragStart || _this7.options.disabled || _this7.options.readonly) {
               return;

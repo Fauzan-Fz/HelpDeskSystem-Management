@@ -24,7 +24,7 @@ handles this events by unhighlighting all of the previously highlighted points a
 the tooltip from webcharts).
 */
 
-(function($) {
+(function ($) {
     'use strict';
 
     var options = {
@@ -104,7 +104,7 @@ the tooltip from webcharts).
                 var eventToTrigger = "plot" + eventType;
                 var seriesFlag = eventType + "able";
                 triggerClickHoverEvent(eventToTrigger, event,
-                    function(i) {
+                    function (i) {
                         return series[i][seriesFlag] !== false;
                     }, searchDistance);
             }
@@ -120,7 +120,7 @@ the tooltip from webcharts).
             lastMouseMoveEvent = undefined;
             plot.getPlaceholder()[0].lastMouseMoveEvent = undefined;
             triggerClickHoverEvent("plothover", e,
-                function(i) {
+                function (i) {
                     return false;
                 });
         }
@@ -328,7 +328,7 @@ the tooltip from webcharts).
                 bottom = fillTowards > series.yaxis.min ? Math.min(series.yaxis.max, fillTowards) : series.yaxis.min;
 
             $.plot.drawSeries.drawBar(point[0], point[1], point[2] || bottom, barLeft, barLeft + barWidth,
-                function() {
+                function () {
                     return fillStyle;
                 }, series.xaxis, series.yaxis, octx, series.bars.horizontal, series.bars.lineWidth);
         }

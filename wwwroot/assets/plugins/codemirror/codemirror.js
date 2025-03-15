@@ -1058,7 +1058,6 @@
     return this.maxLookAhead > 0 ? new SavedContext(state, this.maxLookAhead) : state
   };
 
-
   // Compute a style array (an array starting with a mode generation
   // -- for invalidation -- followed by pairs of end positions and
   // style strings), which is used to highlight the tokens on the
@@ -1992,7 +1991,6 @@
       }
     }
   }
-
 
   // These objects are used to represent the visible (currently drawn)
   // part of the document. A LineView may correspond to multiple
@@ -7122,7 +7120,6 @@
     toggleOverwrite: function (cm) { return cm.toggleOverwrite(); }
   };
 
-
   function lineStart(cm, lineN) {
     var line = getLine(cm.doc, lineN);
     var visual = visualLine(line);
@@ -7643,7 +7640,6 @@
     var ch = from ? usePart.from : usePart.to, sticky = from ? "after" : "before";
     return anchor.ch == ch && anchor.sticky == sticky ? range : new Range(new Pos(anchor.line, ch, sticky), head)
   }
-
 
   // Determines whether an event happened in the gutter, and fires the
   // handlers for the corresponding event.
@@ -8782,7 +8778,6 @@
       var pageSize = Math.min(cm.display.wrapper.clientHeight, window.innerHeight || document.documentElement.clientHeight);
       var moveAmount = Math.max(pageSize - .5 * textHeight(cm.display), 3);
       y = (dir > 0 ? pos.bottom : pos.top) + dir * moveAmount;
-
     } else if (unit == "line") {
       y = dir > 0 ? pos.bottom + 3 : pos.top - 3;
     }
@@ -9845,5 +9840,4 @@
   CodeMirror.version = "5.65.1";
 
   return CodeMirror;
-
 })));

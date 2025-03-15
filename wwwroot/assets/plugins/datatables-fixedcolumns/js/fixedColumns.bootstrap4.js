@@ -39,5 +39,4 @@
         var dataTable = $.fn.dataTable;
         return dataTable.fixedColumns;
     }));
-
 }());

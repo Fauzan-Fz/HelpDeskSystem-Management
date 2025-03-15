@@ -119,11 +119,11 @@ You may need to check for this in hover events.
         function processThresholds(plot, s, datapoints) {
             if (!s.threshold) return;
             if (s.threshold instanceof Array) {
-                s.threshold.sort(function(a, b) {
+                s.threshold.sort(function (a, b) {
                     return a.below - b.below;
                 });
 
-                $(s.threshold).each(function(i, th) {
+                $(s.threshold).each(function (i, th) {
                     thresholdData(plot, s, datapoints, th.below, th.color);
                 });
             } else {

@@ -69,7 +69,7 @@ The plugin also adds four public methods:
 
     function init(plot) {
         // position of crosshair in pixels
-        var crosshair = {x: -1, y: -1, locked: false, highlighted: false};
+        var crosshair = { x: -1, y: -1, locked: false, highlighted: false };
 
         plot.setCrosshair = function setCrosshair(pos) {
             if (!pos) {

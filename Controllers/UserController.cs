@@ -1,12 +1,14 @@
 ﻿using System.Security.Claims;
 using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskSystem.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -72,7 +74,6 @@ namespace HelpDeskSystem.Controllers
 
                 if (result.Succeeded)
                 {
-
                     //Log the Audit Trail
                     var activity = new AuditTrail
                     {

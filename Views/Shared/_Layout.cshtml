@@ -11,23 +11,25 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="~/assets/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome-free/css/all.min.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
     <!-- Icon-Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     @RenderSection("styles", required: false)
+
 </head>
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a class="navbar-brand bi bi-house-gear-fill" asp-area="" asp-controller="Home" asp-action="Index">
                     <span class="brand-text font-weight-light">Help System Management</span>
                 </a>
+
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -36,9 +38,12 @@
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link bi bi-house" asp-area="" asp-controller="Home" asp-action="Index"> Home</a>
                         </li>
@@ -57,20 +62,13 @@
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
 
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="brand-link text-center">
-                <span class="brand-text font-weight-light">Help System Management</span>
-            </a>
-
-            <!-- Sidebar -->
-            <!--<div class="sidebar">-->
-                <!-- Sidebar user (optional) -->
-                <!--<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="info">
-                        <a href="#" class="d-block text-center">@User.Identity?.Name</a>
-                    </div>
-                </div>-->
+        @if (User.Identity.IsAuthenticated)
+        {
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                <!-- Brand Logo -->
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="brand-link text-center">
+                    <span class="brand-text font-weight-light">Help System Management</span>
+                </a>
 
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
@@ -124,10 +122,12 @@
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
-            </div>
+            </aside>
             <!-- /.sidebar -->
-        </aside>
+        }
+
         <!-- Control Sidebar -->
+
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
@@ -139,21 +139,15 @@
             </main>
         </div>
 
-        @*<main>
-                <div class="row">
-                    @RenderBody()
-                </div>
-            </main>*@
-
         <!-- Main Footer -->
         <footer class="main-footer text-center">
             <!-- Default to the center -->
             <strong>Copyright &copy; @DateTime.Now.Year <a>Help System Management</a>.</strong> All rights reserved.
         </footer>
+        <!-- ./wrapper -->
     </div>
-    <!-- ./wrapper -->
+
     @section scripts {
-        <!-- REQUIRED SCRIPTS -->
         <!-- jQuery -->
         <script src="~/assets/plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap 4 -->

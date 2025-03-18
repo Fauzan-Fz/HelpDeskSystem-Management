@@ -69,6 +69,13 @@ namespace HelpDeskSystem.Controllers
                 registeredUser.City = user.City;
                 registeredUser.Country = user.Country;
                 registeredUser.PhoneNumber = user.PhoneNumber;
+                registeredUser.PasswordHash = user.PasswordHash;
+
+                if (string.IsNullOrEmpty(user.PasswordHash))
+                {
+                    ModelState.AddModelError(string.Empty, "Password cannot be null or empty.");
+                    return View(user);
+                }
 
                 var result = await _userManager.CreateAsync(registeredUser, user.PasswordHash);
 

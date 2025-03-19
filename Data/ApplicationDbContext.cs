@@ -17,6 +17,8 @@ namespace HelpDeskSystem.Data
 
         public DbSet<AuditTrail> AuditTrails { get; set; }
 
+        public DbSet<TicketCategory> TicketCategories { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -31,6 +33,20 @@ namespace HelpDeskSystem.Data
                 .HasOne(c => c.Ticket)
                 .WithMany()
                 .HasForeignKey(c => c.TicketId)
+                .HasPrincipalKey(c => c.Id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<TicketCategory>()
+                .HasOne(c => c.ModifiedBy)
+                .WithMany()
+                .HasForeignKey(c => c.ModifiedById)
+                .HasPrincipalKey(c => c.Id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<TicketCategory>()
+                .HasOne(c => c.CreatedBy)
+                .WithMany()
+                .HasForeignKey(c => c.CreatedById)
                 .HasPrincipalKey(c => c.Id)
                 .OnDelete(DeleteBehavior.Restrict);
 

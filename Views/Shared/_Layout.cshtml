@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     @RenderSection("styles", required: false)
-
 </head>
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
@@ -29,7 +28,6 @@
                 <a class="navbar-brand bi bi-house-gear-fill" asp-area="" asp-controller="Home" asp-action="Index">
                     <span class="brand-text font-weight-light">Help System Management</span>
                 </a>
-
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -115,6 +113,15 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Audit Trails
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="TicketCategories" asp-action="Index" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Ticket Categories
                                     <span class="right badge badge-danger">New</span>
                                 </p>
                             </a>

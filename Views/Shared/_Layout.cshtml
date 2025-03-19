@@ -16,9 +16,20 @@
     <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
     <!-- Icon-Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/assets/plugins/jqvmap/jqvmap.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
     @RenderSection("styles", required: false)
-
 </head>
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
@@ -29,7 +40,6 @@
                 <a class="navbar-brand bi bi-house-gear-fill" asp-area="" asp-controller="Home" asp-action="Index">
                     <span class="brand-text font-weight-light">Help System Management</span>
                 </a>
-
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -119,6 +129,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="TicketCategories" asp-action="Index" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Ticket Categories
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -127,17 +146,28 @@
         }
 
         <!-- Control Sidebar -->
-
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
 
-        <div class="container">
-            <main role="main" class="pb-3">
+        <main class="page-content">
+
+            @if (TempData["MESSAGE"] != null)
+            {
+
+            }
+
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+
+            <div class="row">
                 @RenderBody()
-            </main>
-        </div>
+            </div>
+        </main>
 
         <!-- Main Footer -->
         <footer class="main-footer text-center">
@@ -150,12 +180,39 @@
     @section scripts {
         <!-- jQuery -->
         <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="~/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
         <!-- Bootstrap 4 -->
         <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="~/assets/plugins/chart.js/Chart.min.js"></script>
+        <!-- Sparkline -->
+        <script src="~/assets/plugins/sparklines/sparkline.js"></script>
+        <!-- JQVMap -->
+        <script src="~/assetsplugins/jqvmap/jquery.vmap.min.js"></script>
+        <script src="~/assetsplugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="~/assets/plugins/jquery-knob/jquery.knob.min.js"></script>
+        <!-- daterangepicker -->
+        <script src="~/assets/plugins/moment/moment.min.js"></script>
+        <script src="~/assets/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="~/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Summernote -->
+        <script src="~/assets/plugins/summernote/summernote-bs4.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script src="~/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="~/assets/dist/js/adminlte.min.js"></script>
+        <script src="~/assets/dist/js/adminlte.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="~/assets/dist/js/demo.js"></script>
+        <!-- Toastr -->
+        <script src="~/assets/plugins/toastr/toastr.min.js"></script>
+        @await Component.InvokeAsync("NToastNotify")
+
     }
     @await RenderSectionAsync("Scripts", required: false)
 </body>

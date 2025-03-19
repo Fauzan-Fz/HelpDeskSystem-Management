@@ -64,5 +64,7 @@
 </div>
 
 @section Scripts {
+    @await Component.InvokeAsync("NToastNotify")
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

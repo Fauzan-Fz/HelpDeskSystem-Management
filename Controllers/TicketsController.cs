@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 namespace HelpDeskSystem.Controllers
 {
@@ -12,10 +13,12 @@ namespace HelpDeskSystem.Controllers
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IToastNotification _toasty;
 
-        public TicketsController(ApplicationDbContext context)
+        public TicketsController(ApplicationDbContext context, IToastNotification toasty)
         {
             _context = context;
+            _toasty = toasty;
         }
 
         // GET: Tickets //
@@ -90,7 +93,8 @@ namespace HelpDeskSystem.Controllers
             _context.Add(activity);
             await _context.SaveChangesAsync();
 
-            TempData["Message"] = "Ticket created successfully";
+            _toasty.AddSuccessToastMessage("Ticket created successfully",
+                new ToastrOptions { Title = "Congratulation" });
 
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", ticket.CreatedById);
             return RedirectToAction(nameof(Index));
@@ -125,27 +129,28 @@ namespace HelpDeskSystem.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(ticket);
-                    await _context.SaveChangesAsync();
-                    TempData["Message"] = "Ticket updated successfully";
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TicketExists(ticket.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(ticket);
+                await _context.SaveChangesAsync();
             }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TicketExists(ticket.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            _toasty.AddSuccessToastMessage("Ticket updated successfully",
+                 new ToastrOptions { Title = "Congratulation" });
+
+            return RedirectToAction(nameof(Index));
+
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", ticket.CreatedById);
             return View(ticket);
         }
@@ -181,6 +186,10 @@ namespace HelpDeskSystem.Controllers
             }
 
             await _context.SaveChangesAsync();
+
+            _toasty.AddSuccessToastMessage("Ticket deleted successfully",
+                new ToastrOptions { Title = "Congratulation" });
+
             return RedirectToAction(nameof(Index));
         }
 

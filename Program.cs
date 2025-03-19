@@ -2,6 +2,8 @@ using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,17 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+// Toast Notification
+
+builder.Services.AddControllersWithViews().AddNToastNotifyToastr(new ToastrOptions()
+{
+    ProgressBar = true,
+    PositionClass = ToastPositions.TopRight,
+    TimeOut = 2000
+});
+
+
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()

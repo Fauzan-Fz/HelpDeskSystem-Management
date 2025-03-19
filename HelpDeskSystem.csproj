@@ -15,7 +15,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.12" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="NToastNotify" Version="8.0.0" />
     <PackageReference Include="toastr" Version="2.1.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2662" />
   </ItemGroup>
 
 </Project>

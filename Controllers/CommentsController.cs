@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 namespace HelpDeskSystem.Controllers
 {
@@ -12,10 +13,12 @@ namespace HelpDeskSystem.Controllers
     public class CommentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IToastNotification _toasty;
 
-        public CommentsController(ApplicationDbContext context)
+        public CommentsController(ApplicationDbContext context, IToastNotification toasty)
         {
             _context = context;
+            _toasty = toasty;
         }
 
         // GET: Comments
@@ -82,7 +85,8 @@ namespace HelpDeskSystem.Controllers
             _context.Add(activity);
             await _context.SaveChangesAsync();
 
-            TempData["MESSAGE"] = "Comment created successfully";
+            _toasty.AddSuccessToastMessage("Ticket created successfully",
+                new ToastrOptions { Title = "Congratulation" });
 
             return RedirectToAction(nameof(Index));
 
@@ -127,8 +131,6 @@ namespace HelpDeskSystem.Controllers
                 {
                     _context.Update(comment);
                     await _context.SaveChangesAsync();
-
-                    TempData["MESSAGE"] = "Comment updated successfully";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -141,6 +143,9 @@ namespace HelpDeskSystem.Controllers
                         throw;
                     }
                 }
+                _toasty.AddSuccessToastMessage("Ticket updated successfully",
+                new ToastrOptions { Title = "Congratulation" });
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", comment.CreatedById);
@@ -178,6 +183,9 @@ namespace HelpDeskSystem.Controllers
             {
                 _context.Comments.Remove(comment);
             }
+
+            _toasty.AddSuccessToastMessage("Ticket deleted successfully",
+                new ToastrOptions { Title = "Congratulation" });
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

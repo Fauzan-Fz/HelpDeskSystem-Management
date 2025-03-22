@@ -131,6 +131,18 @@ namespace HelpDeskSystem.Controllers
 
             try
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var activity = new AuditTrail
+                {
+                    Action = "Update",
+                    TimeStamp = DateTime.Now,
+                    IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    UserId = userId,
+                    Module = "Ticket",
+                    AffectedTable = "Tickets"
+                };
+
                 _context.Update(ticket);
                 await _context.SaveChangesAsync();
             }
@@ -184,6 +196,18 @@ namespace HelpDeskSystem.Controllers
             {
                 _context.Tickets.Remove(ticket);
             }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var activity = new AuditTrail
+            {
+                Action = "Deleted",
+                TimeStamp = DateTime.Now,
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                UserId = userId,
+                Module = "Ticket",
+                AffectedTable = "Tickets"
+            };
 
             await _context.SaveChangesAsync();
 

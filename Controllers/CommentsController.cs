@@ -68,9 +68,6 @@ namespace HelpDeskSystem.Controllers
             comment.CreatedOn = DateTime.Now;
             comment.CreatedById = userId;
 
-            _context.Add(comment);
-            await _context.SaveChangesAsync();
-
             //Log the Audit Trail
             var activity = new AuditTrail
             {
@@ -81,6 +78,9 @@ namespace HelpDeskSystem.Controllers
                 Module = "Comments",
                 AffectedTable = "Comments"
             };
+
+            _context.Add(comment);
+            await _context.SaveChangesAsync();
 
             _context.Add(activity);
             await _context.SaveChangesAsync();
@@ -125,6 +125,19 @@ namespace HelpDeskSystem.Controllers
 
             try
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                //Log the Audit Trail
+                var activity = new AuditTrail
+                {
+                    Action = "Update",
+                    TimeStamp = DateTime.Now,
+                    IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    UserId = userId,
+                    Module = "Comments",
+                    AffectedTable = "Comments"
+                };
+
                 _context.Update(comment);
                 await _context.SaveChangesAsync();
             }
@@ -140,7 +153,7 @@ namespace HelpDeskSystem.Controllers
                 }
             }
 
-            _toasty.AddSuccessToastMessage("Ticket updated successfully",
+            _toasty.AddSuccessToastMessage("Comment updated successfully",
             new ToastrOptions { Title = "Congratulation" });
 
             return RedirectToAction(nameof(Index));
@@ -180,7 +193,20 @@ namespace HelpDeskSystem.Controllers
                 _context.Comments.Remove(comment);
             }
 
-            _toasty.AddSuccessToastMessage("Ticket deleted successfully",
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            //Log the Audit Trail
+            var activity = new AuditTrail
+            {
+                Action = "Delete",
+                TimeStamp = DateTime.Now,
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                UserId = userId,
+                Module = "Comments",
+                AffectedTable = "Comments"
+            };
+
+            _toasty.AddSuccessToastMessage("Comment deleted successfully",
                 new ToastrOptions { Title = "Congratulation" });
 
             await _context.SaveChangesAsync();

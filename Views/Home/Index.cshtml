@@ -2,6 +2,26 @@
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    .chart-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Memastikan semua elemen ada di tengah */
+        text-align: center;
+        gap: 10px; /* Beri jarak antara judul dan chart */
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @*<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+</div>
+<br />
+<div class="chart-container">
+    <h2 class="text-center">Users</h2>
+    <canvas id="myChart"></canvas>
+</div>
+<br />
 
 @section scripts {
     <!-- jQuery -->
@@ -12,9 +32,55 @@
     <script src="~/assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/assets/dist/js/demo.js"></script>
-}
+    <!--
+    <script src="~/assets/plugins/chart.js/Chart.js"></script>
+            -->
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const colors = [
+            "rgba(255, 99, 132, 0.5)",
+            "rgba(54, 162, 235, 0.5)",
+            "rgba(255, 206, 86, 0.5)",
+            "rgba(75, 192, 192, 0.5)",
+        ];
+
+        const borderColors = colors.map(color => color.replace("0.5", "1"));    
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/Chart/GetChartData') // Ambil data dari API
+                .then(response => response.json()) // Konversi ke JSON
+                .then(data => {
+                    console.log("Data dari server:", data); // Debugging
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'doughnut', // Jenis grafik
+                        data: data,  // Data dari backend
+                        options: {
+                            responsive: false,
+                            scales: {
+                                y: {
+                                    grid: {
+                                        display: false // Matikan garis grid pada sumbu Y
+                                    },
+                                    ticks: {
+                                        display: false // Matikan angka pada sumbu Y
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false // Matikan garis grid pada sumbu X jika perlu
+                                    },
+                                    ticks: {
+                                        display: false // Matikan angka pada sumbu X
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Fetch error:', error)); // Tangani error
+        });
+    </script>
+}

@@ -19,6 +19,8 @@ namespace HelpDeskSystem.Data
 
         public DbSet<TicketCategory> TicketCategories { get; set; }
 
+        public DbSet<TicketSubCategory> TicketSubCategory { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

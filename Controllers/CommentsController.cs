@@ -85,14 +85,11 @@ namespace HelpDeskSystem.Controllers
             _context.Add(activity);
             await _context.SaveChangesAsync();
 
-            _toasty.AddSuccessToastMessage("Ticket created successfully",
+            _toasty.AddSuccessToastMessage("Comment created successfully",
                 new ToastrOptions { Title = "Congratulation" });
 
             return RedirectToAction(nameof(Index));
 
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", comment.CreatedById);
-            ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Title", comment.TicketId);
-            return View(comment);
         }
 
         // GET: Comments/Edit/5
@@ -125,29 +122,28 @@ namespace HelpDeskSystem.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(comment);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CommentExists(comment.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                _toasty.AddSuccessToastMessage("Ticket updated successfully",
-                new ToastrOptions { Title = "Congratulation" });
 
-                return RedirectToAction(nameof(Index));
+            try
+            {
+                _context.Update(comment);
+                await _context.SaveChangesAsync();
             }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CommentExists(comment.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            _toasty.AddSuccessToastMessage("Ticket updated successfully",
+            new ToastrOptions { Title = "Congratulation" });
+
+            return RedirectToAction(nameof(Index));
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", comment.CreatedById);
             ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Title", comment.TicketId);
             return View(comment);

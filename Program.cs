@@ -1,3 +1,4 @@
+
 using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +22,6 @@ builder.Services.AddControllersWithViews().AddNToastNotifyToastr(new ToastrOptio
     PositionClass = ToastPositions.TopRight,
     TimeOut = 2000
 });
-
 
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()

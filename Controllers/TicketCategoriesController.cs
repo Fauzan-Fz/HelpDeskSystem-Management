@@ -4,6 +4,7 @@ using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 namespace HelpDeskSystem.Controllers
 {
@@ -11,10 +12,12 @@ namespace HelpDeskSystem.Controllers
     public class TicketCategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IToastNotification _toasty;
 
-        public TicketCategoriesController(ApplicationDbContext context)
+        public TicketCategoriesController(ApplicationDbContext context, IToastNotification toast)
         {
             _context = context;
+            _toasty = toast;
         }
 
         // GET: TicketCategories
@@ -64,6 +67,10 @@ namespace HelpDeskSystem.Controllers
 
             _context.Add(ticketCategory);
             await _context.SaveChangesAsync();
+
+            _toasty.AddSuccessToastMessage("Ticket category created successfully",
+                new ToastrOptions { Title = "Congratulation" });
+
             return RedirectToAction(nameof(Index));
 
             return View(ticketCategory);
@@ -119,6 +126,10 @@ namespace HelpDeskSystem.Controllers
                     throw;
                 }
             }
+
+            _toasty.AddSuccessToastMessage("Ticket category updated successfully",
+                new ToastrOptions { Title = "Congratulation" });
+
             return RedirectToAction(nameof(Index));
 
             return View(ticketCategory);
@@ -154,6 +165,9 @@ namespace HelpDeskSystem.Controllers
             {
                 _context.TicketCategories.Remove(ticketCategory);
             }
+
+            _toasty.AddSuccessToastMessage("Ticket category deleted successfully",
+                new ToastrOptions { Title = "Congratulation" });
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

@@ -2,6 +2,12 @@
     ViewData["Title"] = "Home Page";
 }
 
+@{
+    ViewBag.Title = "Dashboard";
+    // Konversi data ke format JSON
+    var labelsJson = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Labels);
+}
+
 <style>
     .chart-container {
         display: flex;
@@ -28,59 +34,49 @@
     <script src="~/assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    @*<script src="~/assets/plugins/chart.js/Chart.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     <!-- AdminLTE App -->
     <script src="~/assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/assets/dist/js/demo.js"></script>
-    <!--
-    <script src="~/assets/plugins/chart.js/Chart.js"></script>
-            -->
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
-        const colors = [
-            "rgba(255, 99, 132, 0.5)",
-            "rgba(54, 162, 235, 0.5)",
-            "rgba(255, 206, 86, 0.5)",
-            "rgba(75, 192, 192, 0.5)",
-        ];
-
-        const borderColors = colors.map(color => color.replace("0.5", "1"));    
 
         document.addEventListener("DOMContentLoaded", function () {
-            fetch('/Chart/GetChartData') // Ambil data dari API
-                .then(response => response.json()) // Konversi ke JSON
+            fetch('/Chart/GetChartData')
+                .then(response => response.json())
                 .then(data => {
-                    console.log("Data dari server:", data); // Debugging
-                    const ctx = document.getElementById('myChart').getContext('2d');
+                    console.log("Data dari server:", data);
+                    const ctx = $('#myChart').get(0).getContext('2d');
                     new Chart(ctx, {
-                        type: 'doughnut', // Jenis grafik
-                        data: data,  // Data dari backend
+                        type: 'doughnut',
+                        data: data,
+                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
                         options: {
                             responsive: false,
                             scales: {
                                 y: {
                                     grid: {
-                                        display: false // Matikan garis grid pada sumbu Y
+                                        display: false
                                     },
                                     ticks: {
-                                        display: false // Matikan angka pada sumbu Y
+                                        display: false
                                     }
                                 },
                                 x: {
                                     grid: {
-                                        display: false // Matikan garis grid pada sumbu X jika perlu
+                                        display: false
                                     },
                                     ticks: {
-                                        display: false // Matikan angka pada sumbu X
+                                        display: false
                                     }
                                 }
                             }
                         }
                     });
                 })
-                .catch(error => console.error('Fetch error:', error)); // Tangani error
+                .catch(error => console.error('Fetch error:', error));
         });
     </script>
 }

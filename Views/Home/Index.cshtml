@@ -4,7 +4,6 @@
 
 @{
     ViewBag.Title = "Dashboard";
-    // Konversi data ke format JSON
     var labelsJson = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Labels);
 }
 
@@ -23,9 +22,15 @@
     @*<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 </div>
 <br />
-<div class="chart-container">
-    <h2 class="text-center">Users</h2>
-    <canvas id="myChart"></canvas>
+<div class="chart-section">
+    <h2 class="chart-title">Users Genders</h2>
+    <div class="chart-container-users">
+        <canvas id="myChart" width="350" height="200"></canvas>
+    </div>
+    <h2 class="chart-title">Users City</h2>
+    <div class="chart-container-users">
+        <canvas id="myChart-City" width="350" height="200"></canvas>
+    </div>
 </div>
 <br />
 
@@ -53,6 +58,49 @@
                         type: 'doughnut',
                         data: data,
                         backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        options: {
+                            responsive: false,
+                            scales: {
+                                y: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        display: false
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Fetch error:', error));
+        });
+    </script>
+    <script>
+        var barColors = ["red", "green", "blue", "orange"];
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/Chart/GetCountryDataChart')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Data dari server:", data);
+                    const ctx = $('#myChart-City').get(0).getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: data,
+                        backgroundColor: [
+                            '#FF6384', // Warna untuk "Male"
+                            '#36A2EB', // Warna untuk "Female"
+                            '#FFCE56'  // Warna untuk "Unknown"
+                        ],
                         options: {
                             responsive: false,
                             scales: {

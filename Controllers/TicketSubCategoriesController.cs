@@ -24,6 +24,7 @@ namespace HelpDeskSystem.Controllers
         // GET: TicketSubCategories
         public async Task<IActionResult> Index(int id, TicketSubCategoriesVM vm)
         {
+
             vm.TicketSubCategories = await _context.TicketSubCategory
                 .Include(t => t.Category)
                 .Include(t => t.CreatedBy)
@@ -32,6 +33,16 @@ namespace HelpDeskSystem.Controllers
                 .ToListAsync();
 
             vm.CategoryId = id;
+
+            return View(vm);
+        }
+        public async Task<IActionResult> SubCategories(TicketSubCategoriesVM vm)
+        {
+            vm.TicketSubCategories = await _context.TicketSubCategory
+                .Include(t => t.Category)
+                .Include(t => t.CreatedBy)
+                .Include(t => t.ModifiedBy)
+                .ToListAsync();
 
             return View(vm);
         }
@@ -98,7 +109,7 @@ namespace HelpDeskSystem.Controllers
                 new ToastrOptions { Title = "Congratulation" });
 
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new { id = Id });
 
             return View(ticketSubCategory);
         }

@@ -4,17 +4,22 @@
 
 @{
     ViewBag.Title = "Dashboard";
-    // Konversi data ke format JSON
     var labelsJson = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Labels);
 }
 
 <style>
     .chart-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Memastikan semua elemen ada di tengah */
-        text-align: center;
-        gap: 10px; /* Beri jarak antara judul dan chart */
+        display: flex; /* Mengatur layout ke horizontal */
+        justify-content: space-between; /* Memberi jarak antara chart */
+        align-items: center;
+        gap: 20px; /* Jarak antar chart */
+        flex-wrap: wrap; /* Jika layar kecil, chart akan turun ke bawah */
+    }
+
+    .chart-box {
+        flex: 1; /* Kedua chart memiliki lebar yang sama */
+        min-width: 400px; /* Batasan minimal */
+        text-align: center; /* Rata tengah judul */
     }
 </style>
 
@@ -23,9 +28,19 @@
     @*<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 </div>
 <br />
-<div class="chart-container">
-    <h2 class="text-center">Users</h2>
-    <canvas id="myChart"></canvas>
+<div class="chart-section">
+    <h2 class="chart-title">Users Genders</h2>
+    <div class="chart-container-users">
+        <canvas id="myChart" width="400" height="250"></canvas>
+    </div>
+    <h2 class="chart-title">Users Country</h2>
+    <div class="chart-container-users">
+        <canvas id="myChart-City" width="350" height="200"></canvas>
+    </div>
+    <div class="chart-box">
+        <h3>Tickets</h3>
+        <canvas id="ticketChart" width="1200" height="500"></canvas>
+    </div>
 </div>
 <br />
 
@@ -79,4 +94,89 @@
                 .catch(error => console.error('Fetch error:', error));
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/Chart/GetCountryDataChart')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Data dari server:", data);
+                    const ctx = $('#myChart-City').get(0).getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: data,
+                        backgroundColor: [
+                            '#FF6384', // Warna untuk "Male"
+                            '#36A2EB', // Warna untuk "Female"
+                            '#FFCE56'  // Warna untuk "Unknown"
+                        ],
+                        options: {
+                            responsive: false,
+                            scales: {
+                                y: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        display: false
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Fetch error:', error));
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/Chart/GetTicketDataChart')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Data dari server:", data);
+                    const ctx = document.getElementById('ticketChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: data.datasets[0].label,
+                                data: data.datasets[0].data,
+                                borderColor: data.datasets[0].borderColor,  // Warna garis
+                                backgroundColor: data.datasets[0].backgroundColor,  // Fill warna bawah garis
+                                borderWidth: data.datasets[0].borderWidth,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: false,  // Bisa menyesuaikan layar
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Ticket Title'
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Count'
+                                    }
+                                }
+                            }
+                        }   
+                    });
+                })
+                .catch(error => console.error('Fetch error:', error));
+        });
+    </script>
+
 }

@@ -49,7 +49,14 @@
                                 <input asp-for="Priority" class="form-control" />
                                 <span asp-validation-for="Priority" class="text-danger"></span>
                             </div>
-                        </div><br />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="SubCategoryId" class="control-label"></label>
+                                <select asp-for="SubCategoryId" class="form-control" asp-items="ViewBag.SubCategoryId"></select>
+                            </div>
+                        </div>
+                        <br />
                         <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-primary" />
                         </div>

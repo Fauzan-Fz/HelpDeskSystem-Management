@@ -101,6 +101,7 @@ namespace HelpDeskSystem.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -109,7 +110,9 @@ namespace HelpDeskSystem.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    TempData["LoginSuccess"] = true;
+                    //return LocalRedirect(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -122,6 +125,7 @@ namespace HelpDeskSystem.Areas.Identity.Pages.Account
                 }
                 else
                 {
+                    TempData["LoginError"] = "Mohon periksa Username dan Password anda";
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }

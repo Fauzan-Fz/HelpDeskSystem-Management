@@ -7,6 +7,9 @@
     var labelsJson = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Labels);
 }
 
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="~/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
 <style>
     .chart-container {
         display: flex; /* Mengatur layout ke horizontal */
@@ -47,6 +50,8 @@
 @section scripts {
     <!-- jQuery -->
     <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap 4 -->
     <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->
@@ -172,11 +177,22 @@
                                     }
                                 }
                             }
-                        }   
+                        }
                     });
                 })
                 .catch(error => console.error('Fetch error:', error));
         });
     </script>
+
+    @if (TempData["LoginSuccess"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Berhasil!',
+                text: 'Selamat datang di Dashboard'
+            });
+        </script>
+    }
 
 }

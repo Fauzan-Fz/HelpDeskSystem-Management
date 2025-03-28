@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
+using HelpDeskSystem.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,11 +23,14 @@ namespace HelpDeskSystem.Controllers
         }
 
         // GET: Tickets //
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(TicketViewModel vm)
         {
-            var applicationDbContext = _context.Tickets
-                .Include(t => t.CreatedBy);
-            return View(await applicationDbContext.ToListAsync());
+            vm.Tickets = await _context.Tickets
+                .Include(t => t.CreatedBy)
+                .OrderBy(x => x.CreatedBy)
+                .ToListAsync();
+
+            return View(vm);
         }
 
         public async Task<IActionResult> TicketsComments(string Id)
@@ -61,6 +65,7 @@ namespace HelpDeskSystem.Controllers
         // GET: Tickets/Create
         public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.TicketCategories, "Id", "Name");
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName");
             return View();
         }
@@ -96,6 +101,7 @@ namespace HelpDeskSystem.Controllers
             _toasty.AddSuccessToastMessage("Ticket created successfully",
                 new ToastrOptions { Title = "Congratulation" });
 
+            ViewData["CategoryId"] = new SelectList(_context.TicketCategories, "Id", "Name");
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", ticket.CreatedById);
             return RedirectToAction(nameof(Index));
         }

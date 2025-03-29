@@ -1,5 +1,6 @@
 ﻿using HelpDeskSystem.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NToastNotify;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -8,7 +9,7 @@ namespace HelpDeskSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DataController : ControllerBase
+    public class DataController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IToastNotification _toasty;
@@ -22,9 +23,25 @@ namespace HelpDeskSystem.Controllers
 
         // GET: api/<DataController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        //[AllowAnonymous]
+        public async Task<JsonResult> GetTicketSubCategories(int Id)
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var subcategories = await _context
+                    .TicketSubCategory
+                    .Where(x => x.CategoryId == Id)
+                    .OrderBy(c => c.Name)
+                    .Select(I => new { Id = I.Id, Name = I.Name })
+                    .Distinct()
+                    .ToListAsync();
+
+                return Json(subcategories);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
         }
 
         // GET api/<DataController>/5

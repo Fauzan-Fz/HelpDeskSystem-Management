@@ -1,27 +1,35 @@
 ﻿$(document).on("change", "#CategoryId.get-subcategories", function (e) {
-    var working = "<span id ='spin' ><i class='fa fa-spinner fa-spin fa-3x fa-fw'></i></span>";
-    if ($(this).val() !== "") {
-        $.ajax({
-            url: "/Data/GetTicketSubCategories/" + $(this).val(),
-            dataType: "json",
-            crossDomain: true,
-            beforeSend: function () {
-                $(this).parent().append(working);
-                $("#SubCategoryId").html("");
-                $("#SubCategoryId").append("<option value> --Select Sub-Categories -- </option>");
-            },
-            success: function (json) {
-                var data = json
-                console.log(data);
-                $(data).map(function () {
-                    $("#SubCategoryId").append($('<option></option>').val(this.id).html(this.name));
+    var categoryId = $(this).val();
+    var url = "/Data/GetTicketSubCategories/" + categoryId;
+
+    console.log("Mengambil data dari:", url);
+
+    $.ajax({
+        url: url,
+        dataType: "json",
+        beforeSend: function () {
+            console.log("Mengirim request ke:", url);
+            $("#SubCategoryId").html("<option value>Loading...</option>"); // Indikasi loading
+        },
+        success: function (json) {
+            console.log("Data diterima:", json);
+
+            // Kosongkan dropdown sebelum menambah data baru
+            $("#SubCategoryId").html("");
+            $("#SubCategoryId").append("<option value=''>-- Select Sub-Category --</option>");
+
+            if (json.length > 0) {
+                $(json).each(function () {
+                    $("#SubCategoryId").append(
+                        $("<option></option>").val(this.id).html(this.name)
+                    );
                 });
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-            },
-            complete: function () {
-                $("#spin").remove();
+            } else {
+                $("#SubCategoryId").append("<option value=''>No subcategories available</option>");
             }
-        });
-    }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error AJAX:", xhr.status, error);
+        }
+    });
 });

@@ -1,6 +1,5 @@
 ﻿@model HelpDeskSystem.ViewModels.TicketViewModel
 
-
 @{
     ViewData["Title"] = "Create";
 }
@@ -54,13 +53,17 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="CategoryId" class="control-label"></label>
-                                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                                <select asp-for="CategoryId" id="CategoryId" name="CategoryId" class="form-control get-subcategories" asp-items="ViewBag.CategoryId">
+                                    <option value=" ">Select Category</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="SubCategoryId" class="control-label"></label>
-                                <select asp-for="SubCategoryId" class="form-control"></select>
+                                <select asp-for="SubCategoryId" id="SubCategoryId" name="SubCategoryId" class="form-control">
+                                    <option value=" ">Select Sub-Category</option>
+                                </select>
                             </div>
                         </div>
                         <br />
@@ -88,6 +91,8 @@
     <script src="~/assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/assets/dist/js/demo.js"></script>
+
+    <script src="~/CustomJs/TicketSystem.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -15,8 +15,8 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
 
-<h1>Index</h1>
-
+<h1>System Code</h1>
+<br />
 <p>
     <a asp-action="Create" class="btn btn-primary">Add New System Code</a>
 </p>
@@ -36,6 +36,12 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.Description)
                                     </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedBy)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedOn)
+                                    </th>
                                     <th>View</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -52,7 +58,10 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            <a class="btn btn-secondary" asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>
+                                            @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreatedOn)
                                         </td>
                                         <td>
                                             <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id">Details</a>
@@ -96,20 +105,20 @@
     <script src="~/assets/dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": true,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
-    });
     </script>
 }

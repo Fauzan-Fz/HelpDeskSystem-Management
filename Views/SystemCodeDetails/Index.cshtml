@@ -15,10 +15,10 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
 
-<h1>Index</h1>
-
+<h1>System Code Details</h1>
+<br />
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Add New System Code Detail</a>
 </p>
 
 <section class="content">
@@ -31,16 +31,22 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        @Html.DisplayNameFor(model => model.OrderNo)
+                                    </th>
+                                    <th>
                                         @Html.DisplayNameFor(model => model.Code)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.Description)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.OrderNo)
+                                        @Html.DisplayNameFor(model => model.SystemCode)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.SystemCode)
+                                        @Html.DisplayNameFor(model => model.CreatedBy)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedOn)
                                     </th>
                                     <th>View</th>
                                     <th>Edit</th>
@@ -52,19 +58,22 @@
                                 {
                                     <tr>
                                         <td>
+                                            @Html.DisplayFor(modelItem => item.OrderNo)
+                                        </td>
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.Code)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.OrderNo)
-                                        </td>
-                                        <td>
                                             @Html.DisplayFor(modelItem => item.SystemCode.Description)
                                         </td>
                                         <td>
-                                            <a class="btn btn-secondary" asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>
+                                            @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreatedOn)
                                         </td>
                                         <td>
                                             <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id">Details</a>

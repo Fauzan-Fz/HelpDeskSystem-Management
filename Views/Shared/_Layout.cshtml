@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - HelpDeskSystem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Footer.css" />
+
     @*<link rel="stylesheet" href="~/HelpDeskSystem.styles.css" asp-append-version="true" />*@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -174,11 +176,9 @@
                     @RenderBody()
                 </main>
             </div>
-
-            <div class="row">
-                @RenderBody()
-            </div>
         </main>
+    </div>
+               
 
         <!-- Main Footer -->
         <footer class="main-footer text-center mt-auto">
@@ -186,7 +186,6 @@
             <strong>Copyright &copy; @DateTime.Now.Year <a>Help System Management</a>.</strong> All rights reserved.
         </footer>
         <!-- ./wrapper -->
-    </div>
 
     @section scripts {
         <script src="~/assets/plugins/jquery/jquery.min.js"></script>

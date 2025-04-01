@@ -18,7 +18,12 @@ namespace HelpDeskSystem.Controllers
         // GET: SystemCodes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.SystemCodes.ToListAsync());
+            var systemCode = await _context
+                .SystemCodes
+                .Include(x => x.CreatedBy)
+                .ToListAsync();
+
+            return View(systemCode);
         }
 
         // GET: SystemCodes/Details/5
@@ -98,7 +103,7 @@ namespace HelpDeskSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Code,Description")] SystemCode systemCode)
+        public async Task<IActionResult> Edit(int id, SystemCode systemCode)
         {
             if (id != systemCode.Id)
             {

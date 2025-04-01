@@ -75,9 +75,9 @@ namespace HelpDeskSystem.Controllers
             };
 
             _context.Add(activity);
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
 
             return View(systemCode);
         }

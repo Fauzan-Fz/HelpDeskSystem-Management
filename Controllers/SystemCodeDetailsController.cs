@@ -4,6 +4,8 @@ using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using HelpDeskSystem.Data;
+using HelpDeskSystem.Models;
 
 namespace HelpDeskSystem.Controllers
 {
@@ -74,9 +76,9 @@ namespace HelpDeskSystem.Controllers
             };
 
             _context.Add(activity);
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
 
             ViewData["SystemCodeId"] = new SelectList(_context.SystemCodes, "Id", "Id", systemCodeDetail.SystemCodeId);
             return View(systemCodeDetail);

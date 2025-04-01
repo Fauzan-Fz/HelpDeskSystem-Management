@@ -92,10 +92,11 @@ namespace HelpDeskSystem.Controllers
                         AffectedTable = "Users"
                     };
 
+                    TempData["Message"] = "User created successfully";
+
                     _context.Add(activity);
                     await _context.SaveChangesAsync();
 
-                    TempData["Message"] = "User created successfully";
 
                     return RedirectToAction("Index");
                 }

@@ -66,6 +66,7 @@ namespace HelpDeskSystem.Controllers
         // GET: Tickets/Create
         public IActionResult Create()
         {
+            ViewData["PriorityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCode).Where(x => x.SystemCode.Code == "Priority"), "Id", "Description");
             ViewData["CategoryId"] = new SelectList(_context.TicketCategories, "Id", "Name");
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName");
             return View();
@@ -83,7 +84,7 @@ namespace HelpDeskSystem.Controllers
             ticket.Title = ticketvm.Title;
             ticket.Description = ticketvm.Description;
             ticket.Status = ticketvm.Status;
-            ticket.Priority = ticketvm.Priority;
+            ticket.PriorityId = ticketvm.PriorityId;
             ticket.SubCategoryId = ticketvm.SubCategoryId;
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -110,6 +111,7 @@ namespace HelpDeskSystem.Controllers
             _toasty.AddSuccessToastMessage("Ticket created successfully",
                 new ToastrOptions { Title = "Congratulation" });
 
+            ViewData["PriorityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCode).Where(x => x.SystemCode.Code == "Priority"), "Id", "Description");
             ViewData["CategoryId"] = new SelectList(_context.TicketCategories, "Id", "Name");
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName", ticket.CreatedById);
             return RedirectToAction(nameof(Index));

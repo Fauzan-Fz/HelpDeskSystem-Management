@@ -74,7 +74,7 @@ namespace HelpDeskSystem.Controllers
                 {
                     new
                         {
-                        label = "",
+                        label = "city",
                         data,
                         borderWidth = 0,
                         backgroundColor = new[] { "#FF6384", "#36A2EB", "#FFCE56" }

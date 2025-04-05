@@ -18,7 +18,7 @@ namespace HelpDeskSystem.ViewModels
         public string Status { get; set; }
 
         [DisplayName("Priority")]
-        public string Priority { get; set; }
+        public int PriorityId { get; set; }
 
         [DisplayName("Created By")]
         public string CreatedById { get; set; }

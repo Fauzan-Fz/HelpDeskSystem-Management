@@ -19,8 +19,13 @@ namespace HelpDeskSystem.Controllers
         // GET: SystemCodeDetails
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.SystemCodeDetails.Include(s => s.SystemCode);
-            return View(await applicationDbContext.ToListAsync());
+            var systemCodeDetails = await _context
+                .SystemCodeDetails
+                .Include(s => s.SystemCode)
+                .Include(s => s.CreatedBy)
+                .ToListAsync();
+
+            return View(systemCodeDetails);
         }
 
         // GET: SystemCodeDetails/Details/5
@@ -74,9 +79,9 @@ namespace HelpDeskSystem.Controllers
             };
 
             _context.Add(activity);
-                await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
 
             ViewData["SystemCodeId"] = new SelectList(_context.SystemCodes, "Id", "Description", systemCodeDetail.SystemCodeId);
             return View(systemCodeDetail);

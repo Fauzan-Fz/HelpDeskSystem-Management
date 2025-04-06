@@ -15,7 +15,7 @@ namespace HelpDeskSystem.ViewModels
         public string Description { get; set; }
 
         [DisplayName("Status")]
-        public string Status { get; set; }
+        public int StatusId { get; set; }
 
         [DisplayName("Priority")]
         public int PriorityId { get; set; }

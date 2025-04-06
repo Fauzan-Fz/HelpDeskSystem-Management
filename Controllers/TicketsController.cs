@@ -79,11 +79,16 @@ namespace HelpDeskSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TicketViewModel ticketvm)
         {
+            var pendingStatus = await _context
+                .SystemCodeDetails
+                .Include(x => x.SystemCode)
+                .Where(x => x.SystemCode.Code == "Status" && x.Code == "Pending")
+                .FirstOrDefaultAsync();
             Ticket ticket = new();
             ticket.Id = ticketvm.Id;
             ticket.Title = ticketvm.Title;
             ticket.Description = ticketvm.Description;
-            ticket.Status = ticketvm.Status;
+            ticket.StatusId = pendingStatus.Id;
             ticket.PriorityId = ticketvm.PriorityId;
             ticket.SubCategoryId = ticketvm.SubCategoryId;
 

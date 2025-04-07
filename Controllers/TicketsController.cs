@@ -28,6 +28,8 @@ namespace HelpDeskSystem.Controllers
             vm.Tickets = await _context.Tickets
                 .Include(t => t.CreatedBy)
                 .Include(t => t.SubCategory)
+                .Include(t => t.Priority)
+                .Include(t => t.Status)
                 .OrderBy(x => x.CreatedBy)
                 .ToListAsync();
 

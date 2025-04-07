@@ -37,9 +37,6 @@
                                         @Html.DisplayNameFor(model => model.Title)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Description)
-                                    </th>
-                                    <th>
                                         @Html.DisplayNameFor(model => model.StatusId)
                                     </th>
                                     <th>
@@ -72,13 +69,10 @@
                                             @Html.DisplayFor(modelItem => item.Title)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
+                                            @Html.DisplayFor(modelItem => item.Status.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.StatusId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PriorityId)
+                                            @Html.DisplayFor(modelItem => item.Priority.Description)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.SubCategory.Name)

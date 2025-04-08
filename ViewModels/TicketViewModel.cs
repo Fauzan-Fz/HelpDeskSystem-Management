@@ -22,6 +22,7 @@ namespace HelpDeskSystem.ViewModels
 
         [DisplayName("Created By")]
         public string CreatedById { get; set; }
+
         public ApplicationUser CreatedBy { get; set; }
 
         [DisplayName("Created On")]
@@ -32,9 +33,12 @@ namespace HelpDeskSystem.ViewModels
 
         [DisplayName("Ticket Sub-Category")]
         public int? SubCategoryId { get; set; }
+
         public TicketSubCategory SubCategory { get; set; }
 
         public List<Ticket> Tickets { get; set; }
 
+        [DisplayName("Attachment")]
+        public string Attachment { get; set; }
     }
 }

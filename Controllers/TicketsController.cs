@@ -15,11 +15,13 @@ namespace HelpDeskSystem.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IToastNotification _toasty;
+        private readonly IConfiguration _configuration;
 
-        public TicketsController(ApplicationDbContext context, IToastNotification toasty)
+        public TicketsController(ApplicationDbContext context, IToastNotification toasty, IConfiguration configuration)
         {
             _context = context;
             _toasty = toasty;
+            _configuration = configuration;
         }
 
         // GET: Tickets //
@@ -79,8 +81,19 @@ namespace HelpDeskSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TicketViewModel ticketvm)
+        public async Task<IActionResult> Create(TicketViewModel ticketvm, IFormFile attachment)
         {
+            if (attachment.Length > 0)
+            {
+                var filename = "Ticket_Attachment" + DateTime.Now.ToString("yyyymmddhhmmss") + "_" + attachment.FileName;
+                var path = _configuration["FileSettings:UploadsFolder"];
+                var filepath = Path.Combine(path, filename);
+                var stream = new FileStream(filepath, FileMode.Create);
+                await attachment.CopyToAsync(stream);
+
+            }
+
+
             var pendingStatus = await _context
                 .SystemCodeDetails
                 .Include(x => x.SystemCode)

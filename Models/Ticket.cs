@@ -32,5 +32,8 @@ namespace HelpDeskSystem.Models
         [DisplayName("Ticket Category")]
         public int? SubCategoryId { get; set; }
         public TicketSubCategory SubCategory { get; set; }
+
+        [DisplayName("Doucment Attachment")]
+        public string Attachment { get; set; }
     }
 }

@@ -27,14 +27,14 @@
 /******/ 		if (installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
                 /******/
-}
+            }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
                 /******/
-};
+            };
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -45,7 +45,7 @@
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
             /******/
-}
+        }
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
@@ -59,19 +59,19 @@
 /******/ 		if (!__webpack_require__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
                 /******/
-}
+            }
             /******/
-};
+        };
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function (exports) {
 /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
                 /******/
-}
+            }
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
             /******/
-};
+        };
 /******/
 /******/ 	// create a fake namespace object
 /******/ 	// mode & 1: value is a module id, require it
@@ -88,7 +88,7 @@
 /******/ 		if (mode & 2 && typeof value != 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
             /******/
-};
+        };
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function (module) {
@@ -98,7 +98,7 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
             /******/
-};
+        };
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
@@ -110,7 +110,7 @@
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 7);
         /******/
-})
+    })
 /************************************************************************/
 /******/([
 /* 0 */
@@ -118,7 +118,7 @@
             module.exports = __WEBPACK_EXTERNAL_MODULE__0__;
 
             /***/
-}),
+        }),
 /* 1 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -304,7 +304,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 2 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -1075,7 +1075,7 @@
             exports.ColorItem = ColorItem;
 
             /***/
-}),
+        }),
 /* 3 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -1345,7 +1345,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 4 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -1550,7 +1550,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 5 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -1707,7 +1707,7 @@
             };
 
             /***/
-}),
+        }),
 /* 6 */
 /***/ (function (module, exports, __webpack_require__) {
             /* MIT license */
@@ -2580,7 +2580,7 @@
             };
 
             /***/
-}),
+        }),
 /* 7 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -2644,7 +2644,7 @@
             _jquery2.default.fn[plugin].constructor = _Colorpicker2.default;
 
             /***/
-}),
+        }),
 /* 8 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -3194,7 +3194,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 9 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -3234,7 +3234,7 @@
             };
 
             /***/
-}),
+        }),
 /* 10 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -3413,7 +3413,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 11 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -3502,7 +3502,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 12 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -3609,7 +3609,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 13 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -3880,7 +3880,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 14 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -4342,7 +4342,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 15 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -4648,7 +4648,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 16 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -5135,7 +5135,7 @@
             module.exports = Color;
 
             /***/
-}),
+        }),
 /* 17 */
 /***/ (function (module, exports, __webpack_require__) {
             /* MIT license */
@@ -5374,7 +5374,7 @@
             }
 
             /***/
-}),
+        }),
 /* 18 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -5408,7 +5408,7 @@
             };
 
             /***/
-}),
+        }),
 /* 19 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -5423,7 +5423,7 @@
             };
 
             /***/
-}),
+        }),
 /* 20 */
 /***/ (function (module, exports, __webpack_require__) {
             var conversions = __webpack_require__(6);
@@ -5506,7 +5506,7 @@
             module.exports = convert;
 
             /***/
-}),
+        }),
 /* 21 */
 /***/ (function (module, exports, __webpack_require__) {
             var conversions = __webpack_require__(6);
@@ -5607,7 +5607,7 @@
             };
 
             /***/
-}),
+        }),
 /* 22 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -5887,7 +5887,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 23 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -6039,7 +6039,7 @@
             module.exports = exports.default;
 
             /***/
-}),
+        }),
 /* 24 */
 /***/ (function (module, exports, __webpack_require__) {
             "use strict";
@@ -6131,7 +6131,7 @@
             module.exports = exports.default;
 
             /***/
-})
+        })
 /******/]);
 });
 //# sourceMappingURL=bootstrap-colorpicker.js.map

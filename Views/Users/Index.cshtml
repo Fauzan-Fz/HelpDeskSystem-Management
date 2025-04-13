@@ -23,7 +23,6 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
 
-
 <!-- Script -->
 @section Scripts {
     @*jquery*@
@@ -48,24 +47,24 @@
     <script src="~/assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="~/assets/plugins/datatables-buttons/js/buttons.colvis.min.js"></script>
     @*page specific script*@
-<script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": true,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": true,
-            "responsive": true,
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+            });
         });
-    });
-</script>
-    }
+    </script>
+}
 
 <section class="content">
     <div class="container-fluid">
@@ -129,7 +128,6 @@
                                     </tr>
 
                                 }
-
                             </tbody>
                         </table>
                     </div>

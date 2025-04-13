@@ -1,0 +1,44 @@
+﻿@model HelpDeskSystem.ViewModels.RolesViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Add New System Role</h1>
+
+<h4>System Role</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <!-- jQuery -->
+    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    @await Component.InvokeAsync("NToastNotify")
+    <!-- Bootstrap 4 -->
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/assets/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/assets/dist/js/demo.js"></script>
+
+    <script src="~/CustomJs/TicketSystem.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

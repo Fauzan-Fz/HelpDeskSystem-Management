@@ -47,7 +47,6 @@ namespace HelpDeskSystem.Controllers
             return View(comment);
         }
 
-
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -58,6 +57,9 @@ namespace HelpDeskSystem.Controllers
 
             var ticket = await _context.Tickets
                 .Include(t => t.CreatedBy)
+                .Include(t => t.SubCategory)
+                .Include(t => t.Status)
+                .Include(t => t.Priority)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {
@@ -90,15 +92,15 @@ namespace HelpDeskSystem.Controllers
                 var filepath = Path.Combine(path, filename);
                 var stream = new FileStream(filepath, FileMode.Create);
                 await attachment.CopyToAsync(stream);
-
+                ticketvm.Attachment = filename;
             }
-
 
             var pendingStatus = await _context
                 .SystemCodeDetails
                 .Include(x => x.SystemCode)
                 .Where(x => x.SystemCode.Code == "Status" && x.Code == "Pending")
                 .FirstOrDefaultAsync();
+
             Ticket ticket = new();
             ticket.Id = ticketvm.Id;
             ticket.Title = ticketvm.Title;
@@ -106,13 +108,13 @@ namespace HelpDeskSystem.Controllers
             ticket.StatusId = pendingStatus.Id;
             ticket.PriorityId = ticketvm.PriorityId;
             ticket.SubCategoryId = ticketvm.SubCategoryId;
+            ticket.Attachment = ticketvm.Attachment;
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             ticket.CreatedOn = DateTime.Now;
             ticket.CreatedById = userId;
             _context.Add(ticket);
             await _context.SaveChangesAsync();
-
 
             //Log the Audit Trail
             var activity = new AuditTrail

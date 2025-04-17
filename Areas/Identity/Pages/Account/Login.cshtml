@@ -15,60 +15,76 @@
 <link rel="stylesheet" href="~/assets/plugins/toastr/toastr.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
-
-<h1>@ViewData["Title"]</h1>
-
-<!-- /.login-logo -->
-<div class="card">
-    <div class="card-body login-card-body">
-        <h3 class="login-box-msg">Sign in to start your session</h3>
-
-        <br />
-
-        <form id="account" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email" class="fas fa-envelope"> Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password" class="fas fa-lock"> Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="col-6">
-                <div class="icheck-primary">
-                    <label asp-for="Input.RememberMe" class="form-label">
-                        <input type="checkbox" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
-                </div>
-            </div>
-
-            <div>
-                <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
-            </div>
-        </form>
-
-        <br />
-
-        <p class="mb-1">
-            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-        </p>
-        <p class="mb-1">
-            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-        </p>
-        <p class="mb-0">
-            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-        </p>
-    </div>
-    <!-- /.login-card-body -->
-</div>
+<link rel="stylesheet" href="~/css/login.css" />
 
 <br />
 
-<section>
+@*<h1 class="text-center">@ViewData["Title"]</h1>*@
+
+<!-- /.login-logo -->
+<section class="vh-100" style="background-color: transparent;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img src="https://cdn.pixabay.com/photo/2024/10/16/09/14/alps-9124288_1280.jpg"
+                                 alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+                                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                                <form id="account" method="post">
+
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <span class="h1 fw-bold mb-0">HelpDesk System</span>
+                                    </div>
+
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+
+                                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                                        <label asp-for="Input.Email" class="fas fa-envelope"> Email</label>
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                                        <label asp-for="Input.Password" class="fas fa-lock"> Password</label>
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-6">
+                                        <label asp-for="Input.RememberMe" class="form-label">
+                                            <input type="checkbox" asp-for="Input.RememberMe" />
+                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                        </label>
+                                    </div>
+
+                                    <div class="pt-1 mb-4">
+                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" id="login-submit" type="submit">Login</button>
+                                    </div>
+
+                                    <a class="small text-muted" id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a> <br />
+                                    <a class="small text-muted" id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend Email Confirmation</a>
+                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">
+                                        Don't have an account?
+                                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color: #393f81;" class="text-muted">Register here</a>
+                                    </p>
+                                    <a asp-area="" asp-controller="Home" asp-action="Privacy" class="small text-muted">Privacy policy</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*<section>
     <h3>Use another service to log in.</h3>
     <hr />
     @{
@@ -96,8 +112,8 @@
                 </div>
             </form>
         }
-    }
-</section>
+    }*@
+@*</section>*@
 
 @section Scripts {
     <script src="~/assets/plugins/jquery/jquery.min.js"></script>

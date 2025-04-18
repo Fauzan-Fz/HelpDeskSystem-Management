@@ -13,6 +13,21 @@
     border-radius: 50px;
 }
 
-/*.img {
-    height: 200px;
-}*/
+.img-fluid {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.card-registration {
+    margin-top: 4rem !important; /* Sesuaikan nilai sesuai kebutuhan */
+}
+
+section {
+    padding-bottom: 6rem !important; /* Sesuaikan nilai sesuai kebutuhan */
+}
+
+.card-registration {
+    margin-bottom: 4rem !important;
+}

@@ -44,6 +44,8 @@
 
 <br />
 
+@if (User.Identity.IsAuthenticated) 
+{
 <!-- DONUT CHART -->
 <div class="card card-danger">
     <div class="card-header">
@@ -64,6 +66,7 @@
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
+}
 
 <br />
 

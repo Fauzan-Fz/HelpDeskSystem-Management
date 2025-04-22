@@ -26,17 +26,22 @@ namespace HelpDeskSystem.Controllers
             _context = context;
         }
 
-        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var roles = await _context.Roles.ToListAsync(); // Ambil semua role dari database
             return View(roles);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create(RolesViewModel vm)
         {
-            IdentityRole role = new IdentityRole(); // Buat object role baru
+            IdentityRole role = new(); // Buat object role baru
             role.Name = vm.RoleName; // Set nama role dari view model
 
             var result = await _roleManager.CreateAsync(role); // Simpan role ke database

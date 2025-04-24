@@ -47,11 +47,11 @@ namespace HelpDeskSystem.Controllers
             var result = await _roleManager.CreateAsync(role); // Simpan role ke database
             if (result.Succeeded)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); // Setelah user membuat code akan langsung diarahkan ke Index
             }
             else
             {
-                return View(vm);
+                return View(vm); // Jika gagal, tampilkan view model
             }
         }
     }

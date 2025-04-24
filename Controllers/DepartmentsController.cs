@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using HelpDeskSystem.Data;
+using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HelpDeskSystem.Data;
-using HelpDeskSystem.Models;
 
 namespace HelpDeskSystem.Controllers
 {
@@ -61,14 +58,15 @@ namespace HelpDeskSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Code,Name,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Department department)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(department);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id", department.CreatedById);
-            ViewData["ModifiedById"] = new SelectList(_context.Users, "Id", "Id", department.ModifiedById);
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the current user's ID
+            department.CreatedOn = DateTime.Now; // Set the creation date
+            department.CreatedById = userId; // Get the current user's ID
+
+            _context.Add(department); // Add the department to the database
+            await _context.SaveChangesAsync(); // Save changes to the database
+            return RedirectToAction(nameof(Index));
+
             return View(department);
         }
 
@@ -85,8 +83,6 @@ namespace HelpDeskSystem.Controllers
             {
                 return NotFound();
             }
-            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id", department.CreatedById);
-            ViewData["ModifiedById"] = new SelectList(_context.Users, "Id", "Id", department.ModifiedById);
             return View(department);
         }
 
@@ -95,7 +91,7 @@ namespace HelpDeskSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Code,Name,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Department department)
+        public async Task<IActionResult> Edit(int id, Department department)
         {
             if (id != department.Id)
             {
@@ -106,6 +102,9 @@ namespace HelpDeskSystem.Controllers
             {
                 try
                 {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    department.ModifiedOn = DateTime.Now;
+                    department.ModifiedById = userId;
                     _context.Update(department);
                     await _context.SaveChangesAsync();
                 }

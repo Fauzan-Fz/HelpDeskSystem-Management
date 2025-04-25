@@ -37,9 +37,6 @@
                                         @Html.DisplayNameFor(model => model.Title)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.StatusId)
-                                    </th>
-                                    <th>
                                         @Html.DisplayNameFor(model => model.PriorityId)
                                     </th>
                                     <th>
@@ -50,6 +47,9 @@
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.CreatedOn)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StatusId)
                                     </th>
                                     <th>Comment</th>
                                     <th>View</th>
@@ -69,9 +69,6 @@
                                             @Html.DisplayFor(modelItem => item.Title)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Status.Description)
-                                        </td>
-                                        <td>
                                             @Html.DisplayFor(modelItem => item.Priority.Description)
                                         </td>
                                         <td>
@@ -82,6 +79,9 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CreatedOn)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Status.Description)
                                         </td>
                                         <td>
                                             <a class="btn btn-secondary" asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>

@@ -9,43 +9,54 @@ namespace HelpDeskSystem.Controllers
 {
     public class DepartmentsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context; // Deklarasi context database dari ApplicationDbContext
 
-        public DepartmentsController(ApplicationDbContext context)
+        public DepartmentsController(ApplicationDbContext context) // Konstructor
         {
-            _context = context;
+            _context = context; // Konstructor Database
         }
 
         // GET: Departments
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Departments.Include(d => d.CreatedBy).Include(d => d.ModifiedBy);
+            // Menampilkan data department
+            var applicationDbContext = _context.Departments
+                .Include(d => d.CreatedBy)
+                .Include(d => d.ModifiedBy);
+
+            // Kembali ke halaman index setelah merender data department
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Departments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // Jika id null maka kembali ke halaman not found
             if (id == null)
             {
                 return NotFound();
             }
 
+            // Menampilkan data department
             var department = await _context.Departments
                 .Include(d => d.CreatedBy)
                 .Include(d => d.ModifiedBy)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            // Jika data department null maka kembali ke halaman not found
             if (department == null)
             {
                 return NotFound();
             }
 
+            // Jika data department ada maka kembali ke halaman details
             return View(department);
         }
 
         // GET: Departments/Create
         public IActionResult Create()
         {
+            // Menampilkan data department ke halaman create
             ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "Id");
             ViewData["ModifiedById"] = new SelectList(_context.Users, "Id", "Id");
             return View();
@@ -58,14 +69,28 @@ namespace HelpDeskSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Code,Name,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Department department)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Mendapatkan ID Pengguna yang sedang login
+            department.CreatedOn = DateTime.Now; // Mendapatkan waktu saat user melakukan aksi create
+            department.CreatedById = userId;
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the current user's ID
-            department.CreatedOn = DateTime.Now; // Set the creation date
-            department.CreatedById = userId; // Get the current user's ID
+            _context.Add(department); // Menambahkan Data
+            await _context.SaveChangesAsync(); // Menyimpan Data Ke database
 
-            _context.Add(department); // Add the department to the database
-            await _context.SaveChangesAsync(); // Save changes to the database
-            return RedirectToAction(nameof(Index));
+
+            var activity = new AuditTrail // Melacak aktivitas/log
+            {
+                Action = "Create", // Aksi yang dilakukan
+                TimeStamp = DateTime.Now, // Waktu
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(), // IP Address 
+                UserId = userId, // ID Pengguna
+                Module = "Departments", // Modul 
+                AffectedTable = "Departments" // Tabel yang terpengaruh
+            };
+
+            _context.Add(activity);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index)); // Pindah ke halaman Index
 
             return View(department);
         }
@@ -79,6 +104,7 @@ namespace HelpDeskSystem.Controllers
             }
 
             var department = await _context.Departments.FindAsync(id);
+
             if (department == null)
             {
                 return NotFound();
@@ -105,6 +131,7 @@ namespace HelpDeskSystem.Controllers
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     department.ModifiedOn = DateTime.Now;
                     department.ModifiedById = userId;
+
                     _context.Update(department);
                     await _context.SaveChangesAsync();
                 }
@@ -151,16 +178,22 @@ namespace HelpDeskSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Mendapatkan data department berdasarkan id
             var department = await _context.Departments.FindAsync(id);
+
+            // Jika data department ada maka akan dihapus
             if (department != null)
             {
+                // Menghapus data department
                 _context.Departments.Remove(department);
             }
 
+            // Menyimpan perubahan data department
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        // Fungsi untuk mengecek apakah data department ada atau tidak
         private bool DepartmentExists(int id)
         {
             return _context.Departments.Any(e => e.Id == id);

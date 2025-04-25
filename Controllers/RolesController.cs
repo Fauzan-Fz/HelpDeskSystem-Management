@@ -1,4 +1,5 @@
-﻿using HelpDeskSystem.Data;
+﻿using System.Security.Claims;
+using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
 using HelpDeskSystem.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -29,7 +30,7 @@ namespace HelpDeskSystem.Controllers
         public async Task<ActionResult> Index()
         {
             var roles = await _context.Roles.ToListAsync(); // Ambil semua role dari database
-            return View(roles);
+            return View(roles); // Tampilkan semua role di view
         }
 
         [HttpGet]
@@ -45,6 +46,21 @@ namespace HelpDeskSystem.Controllers
             role.Name = vm.RoleName; // Set nama role dari view model
 
             var result = await _roleManager.CreateAsync(role); // Simpan role ke database
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Mendapatkan ID Pengguna yang sedang login
+            var activity = new AuditTrail // Melacak aktivitas/log
+            {
+                Action = "Create", // Aksi yang dilakukan
+                TimeStamp = DateTime.Now, // Waktu
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(), // IP Address 
+                UserId = userId, // ID Pengguna
+                Module = "Roles", // Modul 
+                AffectedTable = "Roles" // Tabel yang terpengaruh
+            };
+
+            _context.Add(activity);
+            await _context.SaveChangesAsync();
+
             if (result.Succeeded)
             {
                 return RedirectToAction("Index"); // Setelah user membuat code akan langsung diarahkan ke Index

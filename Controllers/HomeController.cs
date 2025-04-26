@@ -1,10 +1,11 @@
 using System.Diagnostics;
 using HelpDeskSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelpDeskSystem.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,6 +20,7 @@ namespace HelpDeskSystem.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();

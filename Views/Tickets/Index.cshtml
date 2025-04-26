@@ -61,6 +61,26 @@
                             <tbody>
                                 @foreach (var item in Model.Tickets)
                                 {
+                                    // Untuk Memberi Identifikasi/Warna pada status
+                                    var colorCode = "Red";
+
+                                    if (item.Status.Code == "Resolved")
+                                    {
+                                        colorCode = "Green";
+                                    }
+                                    else if (item.Status.Code == "InProgress")
+                                    {
+                                        colorCode = "Yellow";
+                                    }
+                                    else if (item.Status.Code == "Reassigned")
+                                    {
+                                        colorCode = "Purple";
+                                    }
+                                    else if (item.Status.Code == "Awaiting Assigment")
+                                    {
+                                        colorCode = "Red";
+                                    }
+
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Id)
@@ -80,7 +100,7 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CreatedOn)
                                         </td>
-                                        <td>
+                                        <td style="background-color:@colorCode; color:white ">
                                             @Html.DisplayFor(modelItem => item.Status.Description)
                                         </td>
                                         <td>

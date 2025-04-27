@@ -2,6 +2,7 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
 <!-- Google Font: Source Sans Pro -->
@@ -13,14 +14,6 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
 <link rel="stylesheet" href="~/css/register.css">
-
-<!-- Script -->
-<!-- jQuery -->
-<script src="~/assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="~/assets/dist/js/adminlte.min.js"></script>
 
 @*<h1>@ViewData["Title"]</h1>*@
 
@@ -116,125 +109,133 @@
         </div>
     </div>*@
 
-<section class="h-100 bg-transparent">
-    <div class="container-fluid h-100 px-0">
-        <!-- Changed to container-fluid and px-0 -->
-        <div class="row g-0 h-100">
-            <!-- Added h-100 and g-0 -->
-            <div class="col">
-                <div class="card card-registration h-100 my-0 border-0">
-                    <!-- Added height and border modifications -->
-                    <div class="row g-0 h-100">
-                        <!-- Added h-100 -->
-                        <!-- Image Column -->
-                        <div class="col-xl-6 d-none d-xl-block h-100 position-relative">
-                            <img src="https://cdn.pixabay.com/photo/2021/12/21/03/56/street-6884534_1280.jpg"
-                                 alt="Sample photo"
-                                 class="h-100 w-100 position-absolute"
-                                 style="object-fit: cover; object-position: center; border-top-left-radius: 50px; border-bottom-left-radius: 50px;" />
-                        </div>
+<div class="container z-index-sticky top-0">
+    <section class="h-50 bg-transparent">
+        <div class="container-fluid h-100 px-0">
+            <!-- Changed to container-fluid and px-0 -->
+            <div class="row g-0 h-100">
+                <!-- Added h-100 and g-0 -->
+                <div class="col mt-5">                    
+                        <div class="card card-registration h-100 my-0 border-0">
+                            <!-- Added height and border modifications -->
+                            <div class="row g-0 h-100">
+                                <!-- Added h-100 -->
+                                <!-- Image Column -->
+                                <div class="col-xl-6 d-none d-xl-block h-100 position-relative">
+                                    <img src="https://cdn.pixabay.com/photo/2021/12/21/03/56/street-6884534_1280.jpg"
+                                         alt="Sample photo"
+                                         class="h-100 w-100 position-absolute"
+                                         style="object-fit: cover; object-position: center; border-top-left-radius: 50px; border-bottom-left-radius: 50px;" />
+                                </div>
 
-                        <!-- Form Column -->
-                        <div class="col-xl-6 d-flex align-items-center">
-                            <div class="card-body p-md-5 text-black h-100">
-                                <!-- Existing form content remains the same -->
-                                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                                    <div class="mb-4">
-                                        <div class="d-flex align-items-center">
-                                            <!-- Flex container -->
-                                            <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                <!-- Form Column -->
+                                <div class="col-xl-6 d-flex align-items-center">
+                                    <div class="card-body p-md-5 text-black h-100">
+                                        <!-- Existing form content remains the same -->
+                                        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                            <div class="mb-4">
+                                                <div class="d-flex align-items-center">
+                                                    <!-- Flex container -->
+                                                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
 
-                                            <div>
-                                                <h2 class="h1 fw-bold mb-0">USER REGISTRATION</h2>
-                                                <p class="mt-0 mb-0 fs-6">For HelpDesk System</p>
+                                                    <div>
+                                                        <h2 class="h1 fw-bold mb-0">USER REGISTRATION</h2>
+                                                        <p class="mt-0 mb-0 fs-6">For HelpDesk System</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-4">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <label asp-for="Input.FirstName" class="form-label" for="form3Example1m">First name</label>
+                                                        <input asp-for="Input.FirstName" class="form-control form-control-lg" autocomplete="firstname" aria-required="true" placeholder="Jack" />
+                                                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-4">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <label asp-for="Input.MiddleName" class="form-label" for="form3Example1n">Middle name</label>
+                                                        <input asp-for="Input.MiddleName" class="form-control form-control-lg" autocomplete="middlename" aria-required="true" placeholder="Carl" />
+                                                        <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-4">
+
+                                                    <div data-mdb-input-init class="form-outline mb-4">
+                                                        <label asp-for="Input.LastName" class="form-label" for="lastName">Last Name</label>
+                                                        <input asp-for="Input.LastName" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" placeholder="Son" />
+                                                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-4">
+
+                                                    <div data-mdb-input-init class="form-outline mb-4">
+                                                        <label asp-for="Input.Gender" class="form-label" for="lastName">Gender</label>
+                                                        <input asp-for="Input.Gender" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" placeholder="Male/Female" />
+                                                        <span asp-validation-for="Input.Gender" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div data-mdb-input-init class="form-outline mb-4">
+                                                    <label asp-for="Input.Email" class="form-label" for="form3Example97">Email</label>
+                                                    <input asp-for="Input.Email" class="form-control form-control-lg" autocomplete="username" aria-required="true" placeholder="email@example.com" />
+                                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                                </div>
+
+                                                <div data-mdb-input-init class="form-outline mb-4">
+                                                    <label asp-for="Input.Password" class="form-label" for="form3Example8">Password</label>
+                                                    <input asp-for="Input.Password" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                                </div>
+
+                                                <div data-mdb-input-init class="form-outline mb-4">
+                                                    <label asp-for="Input.ConfirmPassword" class="form-label" for="form3Example9">Confirm Password</label>
+                                                    <input asp-for="Input.ConfirmPassword" class="form-control form-control-lg" autocomplete="confirm-password" aria-required="true" placeholder="Confirm Password" />
+                                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-md-6 mb-4">
+                                                    <div data-mdb-input-init class="form-outline mb-4">
+                                                        <label asp-for="Input.City" class="form-label" for="form3Example90">City</label>
+                                                        <input asp-for="Input.City" class="form-control form-control-lg" autocomplete="city" aria-required="true" placeholder="Jakarta" />
+                                                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-4">
+                                                    <div data-mdb-input-init class="form-outline mb-4">
+                                                        <label asp-for="Input.Country" class="form-label" for="form3Example99">Country</label>
+                                                        <input asp-for="Input.Country" class="form-control form-control-lg" autocomplete="city" aria-required="true" placeholder="Japan" />
+                                                        <span asp-validation-for="Input.Country" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex justify-content-end pt-3">
+                                                    @*<button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-lg">Reset all</button>*@
+                                                    <button id="registerSubmit" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg ms-2">Log In</button>
+                                                </div>
+                                            </div>
+
+                                        </form>
                                     </div>
-                                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline">
-                                                <label asp-for="Input.FirstName" class="form-label" for="form3Example1m">First name</label>
-                                                <input asp-for="Input.FirstName" class="form-control form-control-lg" autocomplete="firstname" aria-required="true" placeholder="Jack" />
-                                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline">
-                                                <label asp-for="Input.MiddleName" class="form-label" for="form3Example1n">Middle name</label>
-                                                <input asp-for="Input.MiddleName" class="form-control form-control-lg" autocomplete="middlename" aria-required="true" placeholder="Carl" />
-                                                <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-4">
-
-                                            <div data-mdb-input-init class="form-outline mb-4">
-                                                <label asp-for="Input.LastName" class="form-label" for="lastName">Last Name</label>
-                                                <input asp-for="Input.LastName" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" placeholder="Son" />
-                                                <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-4">
-
-                                            <div data-mdb-input-init class="form-outline mb-4">
-                                                <label asp-for="Input.Gender" class="form-label" for="lastName">Gender</label>
-                                                <input asp-for="Input.Gender" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" placeholder="Male/Female" />
-                                                <span asp-validation-for="Input.Gender" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <label asp-for="Input.Email" class="form-label" for="form3Example97">Email</label>
-                                            <input asp-for="Input.Email" class="form-control form-control-lg" autocomplete="username" aria-required="true" placeholder="email@example.com" />
-                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                                        </div>
-
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <label asp-for="Input.Password" class="form-label" for="form3Example8">Password</label>
-                                            <input asp-for="Input.Password" class="form-control form-control-lg" autocomplete="new-password" aria-required="true" placeholder="Password" />
-                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                        </div>
-
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <label asp-for="Input.ConfirmPassword" class="form-label" for="form3Example9">Confirm Password</label>
-                                            <input asp-for="Input.ConfirmPassword" class="form-control form-control-lg" autocomplete="confirm-password" aria-required="true" placeholder="Confirm Password" />
-                                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                                        </div>
-
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline mb-4">
-                                                <label asp-for="Input.City" class="form-label" for="form3Example90">City</label>
-                                                <input asp-for="Input.City" class="form-control form-control-lg" autocomplete="city" aria-required="true" placeholder="Jakarta" />
-                                                <span asp-validation-for="Input.City" class="text-danger"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline mb-4">
-                                                <label asp-for="Input.Country" class="form-label" for="form3Example99">Country</label>
-                                                <input asp-for="Input.Country" class="form-control form-control-lg" autocomplete="city" aria-required="true" placeholder="Japan" />
-                                                <span asp-validation-for="Input.Country" class="text-danger"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex justify-content-end pt-3">
-                                            @*<button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-lg">Reset all</button>*@
-                                            <button id="registerSubmit" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg ms-2">Log In</button>
-                                        </div>
-                                    </div>
-
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div>                    
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
 @section Scripts {
+<!-- jQuery -->
+<script src="~/assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/assets/dist/js/adminlte.min.js"></script>
     <partial name="_ValidationScriptsPartial" />
 }

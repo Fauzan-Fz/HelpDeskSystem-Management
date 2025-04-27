@@ -1,4 +1,4 @@
-﻿@model HelpDeskSystem.Models.Ticket
+﻿@model HelpDeskSystem.ViewModels.TicketViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -15,7 +15,7 @@
     <script src="~/assets/dist/js/demo.js"></script>
 }
 
-<div class="card rounded-4">
+<div class="card rounded-4 mt-3">
     <div class="card-body">
         <div class="d-flex align-items-center">
             <h6 class="mb-0">Ticket Details </h6>
@@ -30,7 +30,7 @@
                             @Html.DisplayNameFor(model => model.Title)
                         </th>
                         <td>
-                            @Html.DisplayFor(model => model.Title)
+                            @Html.DisplayFor(model => model.TicketDetails.Title)
                         </td>
                     </tr>
                     <tr>
@@ -38,7 +38,7 @@
                             @Html.DisplayNameFor(model => model.Description)
                         </th>
                         <td>
-                            @Html.DisplayFor(model => model.Description)
+                            @Html.DisplayFor(model => model.TicketDetails.Description)
                         </td>
                     </tr>
                     <tr>
@@ -46,7 +46,7 @@
                             @Html.DisplayNameFor(model => model.StatusId)
                         </th>
                         <td>
-                            @Html.DisplayFor(model => model.Status.Description)
+                            @Html.DisplayFor(model => model.TicketDetails.Status.Description)
                         </td>
                     </tr>
                     <tr>
@@ -54,7 +54,7 @@
                             @Html.DisplayNameFor(model => model.PriorityId)
                         </th>
                         <td>
-                            @Html.DisplayFor(model => model.Priority.Description)
+                            @Html.DisplayFor(model => model.TicketDetails.Priority.Description)
                         </td>
                     </tr>
                     <tr>
@@ -62,7 +62,7 @@
                             @Html.DisplayNameFor(model => model.CreatedBy)
                         </th>
                         <td>
-                            @Html.DisplayFor(model => model.CreatedBy.FullName)
+                            @Html.DisplayFor(model => model.TicketDetails.CreatedBy.FullName)
                         </td>
                     </tr>
                     <tr>
@@ -70,7 +70,7 @@
                             @Html.DisplayNameFor(model => model.CreatedOn)
                         </th>
                         <td>
-                            @Html.DisplayFor(model => model.CreatedOn)
+                            @Html.DisplayFor(model => model.TicketDetails.CreatedOn)
                         </td>
                     </tr>
                     <tr>
@@ -78,7 +78,7 @@
                             @Html.DisplayNameFor(model => model.SubCategoryId)
                         </th>
                         <td>
-                            @Html.DisplayFor(model => model.SubCategory.Name)
+                            @Html.DisplayFor(model => model.TicketDetails.SubCategory.Name)
                         </td>
                     </tr>
                     <tr>
@@ -86,7 +86,7 @@
                             @Html.DisplayNameFor(model => model.Attachment)
                         </th>
                         <td>
-                            @Html.DisplayFor(model => model.Attachment)
+                            @Html.DisplayFor(model => model.TicketDetails.Attachment)
                         </td>
                     </tr>
                 </table>
@@ -94,8 +94,41 @@
             <div class="col-md-6">
                 <h4>Ticket Comments</h4>
                 <table class="table table-bordered table-responsive table-hover table-responsive-lg">
-                    <tr>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TicketComment.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TicketComment.Ticket)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TicketComment.CreatedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TicketComment.CreatedOn)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TicketComments)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ticket.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>

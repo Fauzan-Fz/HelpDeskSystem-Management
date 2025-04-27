@@ -108,7 +108,7 @@ namespace HelpDeskSystem.Controllers
                     return View();
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return View();
             }

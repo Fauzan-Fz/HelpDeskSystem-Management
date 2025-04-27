@@ -1,0 +1,28 @@
+﻿.navbar-brand {
+    margin-top: 20px; /* Menurunkan judul ke bawah */
+    font-size: 24px;
+}
+
+.nav-item {
+    display: flex;
+    gap: 20px; /* Jarak antara Sign Up dan Log In */
+}
+
+/* Atur spacing untuk navbar fixed */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.main-content {
+    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
+    min-height: calc(100vh - 120px); /* Untuk footer spacing */
+}
+
+/* Jika menggunakan navbar default Bootstrap */
+.navbar {
+    height: 60px; /* Pastikan tinggi sesuai desain */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

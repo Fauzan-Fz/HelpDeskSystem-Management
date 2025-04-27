@@ -1,0 +1,28 @@
+﻿/* Saat sidebar normal */
+.main-sidebar:not(.sidebar-collapse) .collapsed-icon {
+    margin-right: 8px; /* Sesuaikan jarak antara ikon dan teks */
+}
+
+/* Saat sidebar diminimalkan */
+.sidebar-collapse .brand-text {
+    display: none !important;
+}
+
+.sidebar-collapse .collapsed-icon {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.4rem; /* Sesuaikan ukuran ikon */
+}
+
+/* Untuk spacing atas bawah */
+.brand-link {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+/* Saat sidebar collapsed */
+.sidebar-collapse .brand-link {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+}

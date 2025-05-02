@@ -51,10 +51,10 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.StatusId)
                                     </th>
+                                    <th>No Of Comment</th> <!-- Jumlah Comment -->
                                     <th>Comment</th>
                                     <th>View</th>
                                     <th>Edit</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
 
@@ -103,6 +103,9 @@
                                         <td style="background-color:@colorCode; color:white ">
                                             @Html.DisplayFor(modelItem => item.Status.Description)
                                         </td>
+                                        <td style="text-align:center">
+                                            <a asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">@item.TicketComments.Count()</a>
+                                        </td>
                                         <td>
                                             <a class="btn btn-secondary" asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>
                                         </td>
@@ -111,9 +114,6 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                         </td>
                                     </tr>
                                 }
@@ -130,25 +130,25 @@
 
 @section Scripts {
     @await Component.InvokeAsync("NToastNotify")
-    <!-- jQuery -->
+    @*jquery*@
     <script src="~/assets/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
+    @*bootstrap 4*@
     <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables  & Plugins -->
-    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    @*adminlte app*@
+    <script src="~/assets/dist/js/adminlte.min.js"></script>
+    @*adminlte for demo purposes*@
+    <script src="~/assets/dist/js/demo.js"></script>
+    @*datatables  & plugins*@
+    <script src="~/assets/plugins/datatables/jquery.datatables.min.js"></script>
+    <script src="~/assets/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
+    <script src="~/assets/plugins/datatables-responsive/js/datatables.responsive.min.js"></script>
     <script src="~/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="~/assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/plugins/datatables-buttons/js/datatables.buttons.min.js"></script>
     <script src="~/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
     <script src="~/assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="~/assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="~/assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/assets/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/assets/dist/js/demo.js"></script>
-    <!-- Page specific script -->
+    <script src="~/assets/plugins/datatables-buttons/js/buttons.colvis.min.js"></script>
+    @*page specific script*@
     <script>
         $(function () {
             $("#example1").DataTable({
@@ -161,12 +161,9 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
             });
         });
     </script>
-
-    <!-- ./Script -->
-
 }

@@ -39,7 +39,7 @@ namespace HelpDeskSystem.Data
 
             builder.Entity<Comment>()
                 .HasOne(c => c.Ticket)
-                .WithMany()
+                .WithMany(c => c.TicketComments) // Untuk relasi one to many 
                 .HasForeignKey(c => c.TicketId)
                 .HasPrincipalKey(c => c.Id)
                 .OnDelete(DeleteBehavior.Restrict);

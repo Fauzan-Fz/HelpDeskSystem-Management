@@ -32,7 +32,8 @@ namespace HelpDeskSystem.Controllers
                 .Include(t => t.SubCategory)
                 .Include(t => t.Priority)
                 .Include(t => t.Status)
-                .OrderBy(x => x.CreatedBy)
+                .Include(t => t.TicketComments) // Include untuk mengambil data Comments
+                .OrderBy(x => x.CreatedOn)
                 .ToListAsync();
 
             return View(vm);

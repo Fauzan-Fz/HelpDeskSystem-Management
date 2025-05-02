@@ -33,7 +33,9 @@ namespace HelpDeskSystem.Models
         public int? SubCategoryId { get; set; }
         public TicketSubCategory SubCategory { get; set; }
 
-        [DisplayName("Doucment Attachment")]
-        public string Attachment { get; set; }
+        [DisplayName("Doucment Attachment")] // DisplayName untuk menampilkan label pada view
+        public string Attachment { get; set; } // untuk upload file
+
+        public ICollection<Comment> TicketComments { get; set; } // untuk relasi many to many dengan Comment 
     }
 }

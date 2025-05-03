@@ -96,16 +96,16 @@
                 <table class="table table-bordered table-responsive table-hover table-responsive-lg">
                     <thead>
                         <tr>
-                            <th>
+                            <th style="background-color:mediumspringgreen !important">
                                 @Html.DisplayNameFor(model => model.TicketComment.Description)
                             </th>
-                            <th>
+                            <th style="background-color:mediumspringgreen !important">
                                 @Html.DisplayNameFor(model => model.TicketComment.Ticket)
                             </th>
-                            <th>
+                            <th style="background-color:mediumspringgreen !important">
                                 @Html.DisplayNameFor(model => model.TicketComment.CreatedBy)
                             </th>
-                            <th>
+                            <th style="background-color:mediumspringgreen !important">
                                 @Html.DisplayNameFor(model => model.TicketComment.CreatedOn)
                             </th>
                         </tr>
@@ -130,6 +130,13 @@
                         }
                     </tbody>
                 </table>
+                <form asp-action="AddComment" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <label class="control-label"> New Ticket Comment</label>
+                        <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
+                    </div>
+                    <button class="btn btn-primary float-end mt-2">Add Comment</button>
+                </form>
             </div>
         </div>
     </div>

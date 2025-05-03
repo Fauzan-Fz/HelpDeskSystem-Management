@@ -104,7 +104,8 @@
                                             @Html.DisplayFor(modelItem => item.Status.Description)
                                         </td>
                                         <td style="text-align:center">
-                                            <a asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">@item.TicketComments.Count()</a>
+                                            @*<a asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">@item.TicketComments.Count()</a>*@
+                                            @item.TicketComments.Count()
                                         </td>
                                         <td>
                                             <a class="btn btn-secondary" asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>

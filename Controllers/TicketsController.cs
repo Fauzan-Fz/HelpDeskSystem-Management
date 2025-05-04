@@ -147,6 +147,39 @@ namespace HelpDeskSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddComment(string id, TicketViewModel vm) // Add Comment method
+        {
+            // Add the current user's ID to the comment
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            Comment newComment = new(); // Create a new Comment object
+
+            newComment.TicketId = id; // Assign the ticket ID
+            newComment.CreatedOn = DateTime.Now; // Take the current date and time as the comment creation date
+            newComment.CreatedById = userId; // Assign the current user's ID as the comment creator
+            newComment.Description = vm.CommentDescription; // Assign the comment description entered by the user
+
+            _context.Add(newComment); // Add the new comment to the database
+            await _context.SaveChangesAsync(); // Save the changes
+
+            //Log the Audit Trail
+            var activity = new AuditTrail
+            {
+                Action = "Create", // Set the action to "Create" for audit trail
+                TimeStamp = DateTime.Now, // Set the current date and time
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(), // Get the client's IP address
+                UserId = userId, // Assign the current user's ID
+                Module = "Comments", // Assign the module name
+                AffectedTable = "Comments" // Assign the affected table
+            };
+
+            _context.Add(activity); // Add the audit trail entry
+            await _context.SaveChangesAsync(); // Save the changes
+
+            return RedirectToAction("Details", new { id = id }); // Redirect to the Details page after adding the comment description
+        }
+
         // GET: Tickets/Edit/5
         public async Task<IActionResult> Edit(string id)
         {

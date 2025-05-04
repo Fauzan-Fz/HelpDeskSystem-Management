@@ -4,16 +4,17 @@
     ViewData["Title"] = "Details";
 }
 
-@section Scripts{
-    <!-- jQuery -->
-    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/assets/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/assets/dist/js/demo.js"></script>
-}
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/assets/plugins/fontawesome-free/css/all.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="~/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="~/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="card rounded-4 mt-3">
     <div class="card-body">
@@ -93,44 +94,41 @@
             </div>
             <div class="col-md-6">
                 <h4>Ticket Comments</h4>
-                <table class="table table-bordered table-responsive table-hover table-responsive-lg">
-                    <thead>
-                        <tr>
-                            <th style="background-color:mediumspringgreen !important">
-                                @Html.DisplayNameFor(model => model.TicketComment.Description)
-                            </th>
-                            <th style="background-color:mediumspringgreen !important">
-                                @Html.DisplayNameFor(model => model.TicketComment.Ticket)
-                            </th>
-                            <th style="background-color:mediumspringgreen !important">
-                                @Html.DisplayNameFor(model => model.TicketComment.CreatedBy)
-                            </th>
-                            <th style="background-color:mediumspringgreen !important">
-                                @Html.DisplayNameFor(model => model.TicketComment.CreatedOn)
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.TicketComments)
-                        {
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ticket.Title)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                                </td>
+                                <th style="background-color:mediumspringgreen !important">
+                                    @Html.DisplayNameFor(model => model.TicketComment.Description)
+                                </th>
+                                <th style="background-color:mediumspringgreen !important">
+                                    @Html.DisplayNameFor(model => model.TicketComment.CreatedBy)
+                                </th>
+                                <th style="background-color:mediumspringgreen !important">
+                                    @Html.DisplayNameFor(model => model.TicketComment.CreatedOn)
+                                </th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TicketComments)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
                 <form asp-action="AddComment" method="post" enctype="multipart/form-data">
+                    <input class="hidden" type="hidden" asp-for="Id" />
                     <div class="row">
                         <label class="control-label"> New Ticket Comment</label>
                         <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
@@ -142,3 +140,15 @@
     </div>
 </div>
 <a class="btn btn-warning" asp-action="Index">Back to List</a>
+
+@section Scripts
+{
+    <!-- jQuery -->
+    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/assets/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/assets/dist/js/demo.js"></script>
+}

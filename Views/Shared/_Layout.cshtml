@@ -11,7 +11,7 @@
 
     @*<link rel="stylesheet" href="~/HelpDeskSystem.styles.css" asp-append-version="true" />*@
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -88,6 +88,14 @@
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">
+                                    <i class="nav-icon bi bi-speedometer2"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link">
                                     <i class="nav-icon bi bi-people"></i>

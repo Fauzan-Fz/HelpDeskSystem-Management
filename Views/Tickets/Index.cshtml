@@ -52,9 +52,7 @@
                                         @Html.DisplayNameFor(model => model.StatusId)
                                     </th>
                                     <th>No Of Comment</th> <!-- Jumlah Comment -->
-                                    <th>Comment</th>
-                                    <th>View</th>
-                                    <th>Edit</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
@@ -108,13 +106,21 @@
                                             @item.TicketComments.Count()
                                         </td>
                                         <td>
-                                            <a class="btn btn-secondary" asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                            <div class="ms-auto">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary">Actions</button>
+                                                    <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                                                        <span class="visually-hidden">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
+                                                        <a class="dropdown-item" asp-action="TicketsComments" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 }

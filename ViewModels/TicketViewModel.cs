@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using HelpDeskSystem.Controllers;
 using HelpDeskSystem.Models;
 
 namespace HelpDeskSystem.ViewModels
@@ -45,12 +46,13 @@ namespace HelpDeskSystem.ViewModels
         public Ticket TicketDetails { get; set; }
 
         public List<Comment> TicketComments { get; set; } // Menambahkan data TicketComments di TicketViewModel
+        public List<TicketResolution> TicketResolution { get; set; } // Menambahkan data TicketComments di TicketViewModel
         public Comment TicketComment { get; set; } // Menambahkan data TicketComment di TicketViewModel
+        public TicketResolution Resolution { get; set; } // Menambahkan data TicketComment di TicketViewModel
 
         [DisplayName("Attachment")]
         public string Attachment { get; set; }
 
         public string CommentDescription { get; set; }
-
     }
 }

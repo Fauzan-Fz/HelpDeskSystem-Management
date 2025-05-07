@@ -121,20 +121,26 @@
                                                         </div>
                                                     </div>
                                                 </div>*@
-                                                <div class="nav-item dropdown btn btn-primary">
-                                                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle" style="color:white">Action</a>
-                                                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                                        <li>
-                                                            <a class="dropdown-item" asp-action="TicketsComments" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                            <div class="nav-item dropdown btn btn-primary">
+                                                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle" style="color:white">Action</a>
+                                                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                                    <li>
+                                                        <a class="dropdown-item" asp-action="TicketsComments" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Assign</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-action="Resolve" asp-route-id="@item.Id">Resolve</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </td>
                                     </tr>
                                 }

@@ -77,6 +77,44 @@ namespace HelpDeskSystem.Controllers
             return View(vm);
         }
 
+        // GET: Tickets/Details/Resolve
+        public async Task<IActionResult> Resolve(string id, TicketViewModel vm)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            vm.TicketDetails = await _context.Tickets
+                .Include(t => t.CreatedBy)
+                .Include(t => t.SubCategory)
+                .Include(t => t.Status)
+                .Include(t => t.Priority)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            vm.TicketComments = await _context.Comments
+                .Include(t => t.CreatedBy)
+                .Include(t => t.Ticket)
+                .Where(t => t.TicketId == id)
+                .ToListAsync();
+
+            vm.TicketResolution = await _context.TicketResolutions
+                .Include(t => t.CreatedBy)
+                .Include(t => t.Ticket)
+                .Include(t => t.Status)
+                .Where(t => t.TicketId == id)
+                .ToListAsync();
+
+            if (vm.TicketDetails == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCode).Where(x => x.SystemCode.Code == "ResolutionStatus"), "Id", "Description");
+
+            return View(vm);
+        }
+
         // GET: Tickets/Create
         public IActionResult Create()
         {
@@ -147,6 +185,7 @@ namespace HelpDeskSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Post: Tickets/AddComment
         [HttpPost]
         public async Task<IActionResult> AddComment(string id, TicketViewModel vm) // Add Comment method
         {
@@ -178,6 +217,41 @@ namespace HelpDeskSystem.Controllers
             await _context.SaveChangesAsync(); // Save the changes
 
             return RedirectToAction("Details", new { id = id }); // Redirect to the Details page after adding the comment description
+        }
+
+        // POST : Tickets/Resolve
+        [HttpPost]
+        public async Task<IActionResult> ResolvedConfirmed(string id, TicketViewModel vm) // Add Resolve method
+        {
+            // Add the current user's ID to the comment
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            TicketResolution resolution = new(); // Create a new Comment object
+
+            resolution.TicketId = id; // Assign the ticket ID
+            resolution.StatusId = vm.StatusId; // Assign the Status ID
+            resolution.CreatedOn = DateTime.Now; // Take the current date and time as the resolution creation date
+            resolution.CreatedById = userId; // Assign the current user's ID as the creator
+            resolution.Description = vm.CommentDescription; // Assign the resolution description entered by the user
+
+            _context.Add(resolution); // Add the new Resolution to the database
+            await _context.SaveChangesAsync(); // Save the changes
+
+            //Log the Audit Trail
+            var activity = new AuditTrail
+            {
+                Action = "Create", // Set the action to "Create" for audit trail
+                TimeStamp = DateTime.Now, // Set the current date and time
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(), // Get the client's IP address
+                UserId = userId, // Assign the current user's ID
+                Module = "TicketResolutions", // Assign the module name
+                AffectedTable = "TicketResolutions" // Assign the affected table
+            };
+
+            _context.Add(activity); // Add the audit trail entry
+            await _context.SaveChangesAsync(); // Save the changes
+
+            return RedirectToAction("Resolve", new { id = id }); // Redirect to the Details page after adding the comment description
         }
 
         // GET: Tickets/Edit/5

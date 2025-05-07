@@ -1,4 +1,5 @@
-﻿using HelpDeskSystem.Models;
+﻿using HelpDeskSystem.Controllers;
+using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,8 @@ namespace HelpDeskSystem.Data
 
         public DbSet<Department> Departments { get; set; }
 
+        public DbSet<TicketResolution> TicketResolutions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -37,9 +40,21 @@ namespace HelpDeskSystem.Data
                 .HasForeignKey(c => c.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<TicketResolution>()
+                .HasOne(c => c.Status)
+                .WithMany()
+                .HasForeignKey(c => c.StatusId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<TicketResolution>()
+                .HasOne(c => c.Ticket)
+                .WithMany()
+                .HasForeignKey(c => c.TicketId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<Comment>()
                 .HasOne(c => c.Ticket)
-                .WithMany(c => c.TicketComments) // Untuk relasi one to many 
+                .WithMany(c => c.TicketComments) // Untuk relasi one to many
                 .HasForeignKey(c => c.TicketId)
                 .HasPrincipalKey(c => c.Id)
                 .OnDelete(DeleteBehavior.Restrict);

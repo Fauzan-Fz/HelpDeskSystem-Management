@@ -166,7 +166,7 @@
                         </tbody>
                     </table>
                 </div>
-                @if (@Model.TicketDetails.Status.Code != "Resolved")
+                @if (@Model.TicketDetails.Status.Code != "Resolved" || @Model.TicketDetails.Status.Code != "Closed")
                 {
                     <form asp-action="AddComment" method="post" enctype="multipart/form-data">
                         <input class="hidden" type="hidden" asp-for="Id" />

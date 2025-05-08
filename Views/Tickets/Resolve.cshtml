@@ -107,7 +107,6 @@
                                 <th style="background-color:coral !important">
                                     @Html.DisplayNameFor(model => model.Resolution.CreatedOn)
                                 </th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -167,18 +166,28 @@
                         </tbody>
                     </table>
                 </div>
-                <form asp-action="ResolvedConfirmed" method="post" enctype="multipart/form-data">
-                    <input class="hidden" type="hidden" asp-for="Id" />
-                    <div class="row">
-                        <label class="control-label">Ticket Status</label>
-                        <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
-                    </div>
-                    <div class="row">
-                        <label class="control-label"> New Ticket Resolution Comment</label>
-                        <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
-                    </div>
-                    <button class="btn btn-primary float-end mt-2">Add Resolution Status</button>
-                </form>
+                @if ((@Model.TicketDetails.Status.Code != "Resolved") && (@Model.TicketDetails.Status.Code != "Closed"))
+                {
+                    <form asp-action="ResolvedConfirmed" method="post" enctype="multipart/form-data">
+                        <input class="hidden" type="hidden" asp-for="Id" />
+                        <div class="row">
+                            <label class="control-label">Ticket Status</label>
+                            <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
+                        </div>
+                        <div class="row">
+                            <label class="control-label"> New Ticket Resolution Comment</label>
+                            <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
+                        </div>
+                        <button class="btn btn-primary float-end mt-2">Add Resolution Status</button>
+                    </form>
+                }
+                @if (@Model.TicketDetails.Status.Code == "Resolved")
+                {
+                    <form asp-action="ClosedConfirmed" method="post" enctype="multipart/form-data">
+                        <input class="hidden" type="hidden" asp-for="Id" />
+                        <button class="btn btn-primary float-end mt-2">Close Ticket</button>
+                    </form>
+                }
             </div>
         </div>
     </div>

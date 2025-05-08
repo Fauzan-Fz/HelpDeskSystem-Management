@@ -121,12 +121,15 @@
                                                     <li>
                                                         <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                                                     </li>
-                                                    <li>
-                                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Assign</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" asp-action="Resolve" asp-route-id="@item.Id">Resolve</a>
-                                                    </li>
+                                                    @if (item.Status.Code != "Resolved" && item.Status.Code != "Closed")
+                                                    {
+                                                        <li>
+                                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Assign</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" asp-action="Resolve" asp-route-id="@item.Id">Resolve</a>
+                                                        </li>
+                                                    }
                                                 </ul>
                                             </div>
                                         </td>

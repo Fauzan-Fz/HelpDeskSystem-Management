@@ -270,6 +270,55 @@ namespace HelpDeskSystem.Controllers
             return RedirectToAction("Resolve", new { id = id }); // Redirect to the Details page after adding the comment description
         }
 
+        // POST : Tickets/Close-Ticket-Confirm
+        [HttpPost]
+        public async Task<IActionResult> ClosedConfirmed(string id, TicketViewModel vm)
+        {
+            var closedstatus = await _context.SystemCodeDetails
+                .Include(x => x.SystemCode)
+                .Where(x => x.SystemCode.Code == "ResolutionStatus" && x.Code == "Closed")
+                .FirstOrDefaultAsync();
+
+            // Add the current user's ID to the comment
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            TicketResolution resolution = new(); // Create a new Comment object
+
+            resolution.TicketId = id; // Assign the ticket ID
+            resolution.StatusId = closedstatus.Id; // Assign the Status ID
+            resolution.CreatedOn = DateTime.Now; // Take the current date and time as the resolution creation date
+            resolution.CreatedById = userId; // Assign the current user's ID as the creator
+            resolution.Description = "Ticket Closed"; // Assign the resolution description for closed ticket
+
+            _context.Add(resolution); // Add the new Resolution to the database
+
+            // Update the ticket status
+            var ticket = await _context.Tickets
+                .Where(x => x.Id == id) // Get the ticket with the specified ID
+                .FirstOrDefaultAsync(); // Get the first matching ticket
+
+            ticket.StatusId = closedstatus.Id; // Assign the Status ID
+            _context.Update(ticket);
+
+            await _context.SaveChangesAsync(); // Save the changes
+
+            //Log the Audit Trail
+            var activity = new AuditTrail
+            {
+                Action = "Closed", // Set the action to "Create" for audit trail
+                TimeStamp = DateTime.Now, // Set the current date and time
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(), // Get the client's IP address
+                UserId = userId, // Assign the current user's ID
+                Module = "TicketResolutions", // Assign the module name
+                AffectedTable = "TicketResolutions" // Assign the affected table
+            };
+
+            _context.Add(activity); // Add the audit trail entry
+            await _context.SaveChangesAsync(); // Save the changes
+
+            return RedirectToAction("Resolve", new { id = id }); // Redirect to the Details page after adding the comment description
+        }
+
         // GET: Tickets/Edit/5
         public async Task<IActionResult> Edit(string id)
         {

@@ -1,0 +1,196 @@
+﻿@model HelpDeskSystem.ViewModels.TicketViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/assets/plugins/fontawesome-free/css/all.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="~/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="~/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
+<div class="card rounded-4 mt-3">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h6 class="mb-0">Ticket Resolution </h6>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Ticket Details</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th style="background-color:springgreen">
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TicketDetails.Title)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:springgreen">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TicketDetails.Description)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:springgreen">
+                            @Html.DisplayNameFor(model => model.StatusId)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TicketDetails.Status.Description)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:springgreen">
+                            @Html.DisplayNameFor(model => model.PriorityId)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TicketDetails.Priority.Description)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:springgreen">
+                            @Html.DisplayNameFor(model => model.CreatedBy)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TicketDetails.CreatedBy.FullName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:springgreen">
+                            @Html.DisplayNameFor(model => model.CreatedOn)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TicketDetails.CreatedOn)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:springgreen">
+                            @Html.DisplayNameFor(model => model.SubCategoryId)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TicketDetails.SubCategory.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:springgreen">
+                            @Html.DisplayNameFor(model => model.Attachment)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TicketDetails.Attachment)
+                        </td>
+                    </tr>
+                </table>
+                <div class="col-md-6">
+                    <h4>Ticket Resolution History</h4>
+                    <table class="table table-bordered table-responsive table-hover table-responsive-lg" style="width:fit-content">
+                        <thead>
+                            <tr>
+                                <th style="background-color:coral !important">
+                                    @Html.DisplayNameFor(model => model.Resolution.Description)
+                                </th>
+                                <th style="background-color:coral !important">
+                                    @Html.DisplayNameFor(model => model.Resolution.Status)
+                                </th>
+                                <th style="background-color:coral !important">
+                                    @Html.DisplayNameFor(model => model.Resolution.CreatedBy)
+                                </th>
+                                <th style="background-color:coral !important">
+                                    @Html.DisplayNameFor(model => model.Resolution.CreatedOn)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TicketResolution)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4>Ticket Comments</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="background-color:mediumspringgreen !important">
+                                    @Html.DisplayNameFor(model => model.TicketComment.Description)
+                                </th>
+                                <th style="background-color:mediumspringgreen !important">
+                                    @Html.DisplayNameFor(model => model.TicketComment.CreatedBy)
+                                </th>
+                                <th style="background-color:mediumspringgreen !important">
+                                    @Html.DisplayNameFor(model => model.TicketComment.CreatedOn)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TicketComments)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @if ((@Model.TicketDetails.Status.Code == "Closed"))
+                {
+                    <form asp-action="ReOpenConfirmed" method="post" enctype="multipart/form-data">
+                        <input class="hidden" type="hidden" asp-for="Id" />
+                        <div class="row">
+                            <label class="control-label">Ticket Re-Opening Comment</label>
+                            <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
+                        </div>
+                        <button class="btn btn-primary float-end mt-2">Re-Open The Ticket</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<a class="btn btn-warning" asp-action="Index">Back to List</a>
+
+@section Scripts
+{
+    <!-- jQuery -->
+    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/assets/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/assets/dist/js/demo.js"></script>
+}

@@ -130,6 +130,12 @@
                                                             <a class="dropdown-item" asp-action="Resolve" asp-route-id="@item.Id">Resolve</a>
                                                         </li>
                                                     }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <a class="dropdown-item" asp-action="ReOpen" asp-route-id="@item.Id">Re-Open</a>
+                                                        </li>
+                                                    }
                                                 </ul>
                                             </div>
                                         </td>

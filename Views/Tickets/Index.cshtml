@@ -66,13 +66,17 @@
                                     {
                                         colorCode = "Green";
                                     }
-                                    else if (item.Status.Code == "InProgress")
+                                    else if (item.Status.Code == "Escalated")
                                     {
                                         colorCode = "Yellow";
                                     }
-                                    else if (item.Status.Code == "Reassigned")
+                                    else if (item.Status.Code == "InProgress")
                                     {
                                         colorCode = "Purple";
+                                    }
+                                    else if (item.Status.Code == "Closed")
+                                    {
+                                        colorCode = "Green";
                                     }
                                     else if (item.Status.Code == "Awaiting Assigment")
                                     {
@@ -102,25 +106,9 @@
                                             @Html.DisplayFor(modelItem => item.Status.Description)
                                         </td>
                                         <td style="text-align:center">
-                                            @*<a asp-action="TicketsComment" asp-controller="Comments" asp-route-id="@item.Id">@item.TicketComments.Count()</a>*@
                                             @item.TicketComments.Count()
                                         </td>
                                         <td>
-                                            @*<div class="ms-auto">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-primary">Actions</button>
-                                                        <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
-                                                            <span class="visually-hidden">Toggle Dropdown</span>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
-                                                            <a class="dropdown-item" asp-action="TicketsComments" asp-controller="Comments" asp-route-id="@item.Id">Comments</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
                                             <div class="nav-item dropdown btn btn-primary">
                                                 <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle" style="color:white">Action</a>
                                                 <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">

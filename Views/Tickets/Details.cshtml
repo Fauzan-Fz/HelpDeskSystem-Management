@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="~/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="card rounded-4 mt-3">
     <div class="card-body">
@@ -91,6 +90,46 @@
                         </td>
                     </tr>
                 </table>
+                <div class="col-md-6">
+                    <h4>Ticket Resolution History</h4>
+                    <table class="table table-bordered table-responsive table-hover table-responsive-lg" style="width:fit-content">
+                        <thead>
+                            <tr>
+                                <th style="background-color:coral !important">
+                                    @Html.DisplayNameFor(model => model.Resolution.Description)
+                                </th>
+                                <th style="background-color:coral !important">
+                                    @Html.DisplayNameFor(model => model.Resolution.Status)
+                                </th>
+                                <th style="background-color:coral !important">
+                                    @Html.DisplayNameFor(model => model.Resolution.CreatedBy)
+                                </th>
+                                <th style="background-color:coral !important">
+                                    @Html.DisplayNameFor(model => model.Resolution.CreatedOn)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TicketResolution)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-md-6">
                 <h4>Ticket Comments</h4>
@@ -98,13 +137,13 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th style="background-color:mediumspringgreen !important">
+                                <th style="background-color:darkgreen !important">
                                     @Html.DisplayNameFor(model => model.TicketComment.Description)
                                 </th>
-                                <th style="background-color:mediumspringgreen !important">
+                                <th style="background-color:darkgreen !important">
                                     @Html.DisplayNameFor(model => model.TicketComment.CreatedBy)
                                 </th>
-                                <th style="background-color:mediumspringgreen !important">
+                                <th style="background-color:darkgreen !important">
                                     @Html.DisplayNameFor(model => model.TicketComment.CreatedOn)
                                 </th>
                             </tr>
@@ -127,14 +166,17 @@
                         </tbody>
                     </table>
                 </div>
-                <form asp-action="AddComment" method="post" enctype="multipart/form-data">
-                    <input class="hidden" type="hidden" asp-for="Id" />
-                    <div class="row">
-                        <label class="control-label"> New Ticket Comment</label>
-                        <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
-                    </div>
-                    <button class="btn btn-primary float-end mt-2">Add Comment</button>
-                </form>
+                @if (@Model.TicketDetails.Status.Code != "Resolved")
+                {
+                    <form asp-action="AddComment" method="post" enctype="multipart/form-data">
+                        <input class="hidden" type="hidden" asp-for="Id" />
+                        <div class="row">
+                            <label class="control-label"> New Ticket Comment</label>
+                            <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
+                        </div>
+                        <button class="btn btn-primary float-end mt-2">Add Comment</button>
+                    </form>
+                }
             </div>
         </div>
     </div>

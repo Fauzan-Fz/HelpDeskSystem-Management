@@ -69,6 +69,13 @@ namespace HelpDeskSystem.Controllers
                 .Where(t => t.TicketId == id)
                 .ToListAsync();
 
+            vm.TicketResolution = await _context.TicketResolutions
+                .Include(t => t.CreatedBy)
+                .Include(t => t.Ticket)
+                .Include(t => t.Status)
+                .Where(t => t.TicketId == id)
+                .ToListAsync();
+
             if (vm.TicketDetails == null)
             {
                 return NotFound();
@@ -235,6 +242,15 @@ namespace HelpDeskSystem.Controllers
             resolution.Description = vm.CommentDescription; // Assign the resolution description entered by the user
 
             _context.Add(resolution); // Add the new Resolution to the database
+
+            // Update the ticket status
+            var ticket = await _context.Tickets
+                .Where(x => x.Id == id) // Get the ticket with the specified ID
+                .FirstOrDefaultAsync(); // Get the first matching ticket
+
+            ticket.StatusId = vm.StatusId; // Assign the Status ID
+            _context.Update(ticket);
+
             await _context.SaveChangesAsync(); // Save the changes
 
             //Log the Audit Trail

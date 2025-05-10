@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="~/css/Footer.css" />
     <link rel="stylesheet" href="~/css/Layout.css" />
 
-    @*<link rel="stylesheet" href="~/HelpDeskSystem.styles.css" asp-append-version="true" />*@
-
-    
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -24,6 +21,8 @@
     <link rel="stylesheet" href="~/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- HighChart Style -->
+    <link rel="stylesheet" href="~/css/HighCharts.css">
 
     @RenderSection("styles", required: false)
 </head>
@@ -104,14 +103,41 @@
                                     </p>
                                 </a>
                             </li>
+
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="Tickets" asp-action="Index" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon bi bi-ticket-perforated"></i>
                                     <p>
-                                        Tickets
-                                        <span class="right badge badge-danger">New</span>
+                                        Ticket
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-area="" asp-controller="Tickets" asp-action="Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Recent Ticket</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Tickets" asp-action="AssignedTickets" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Assigned Ticket</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Tickets" asp-action="ResolvedTickets" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Resolved Ticket</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Tickets" asp-action="ClosedTickets" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Closed Ticket</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a asp-area="" asp-controller="Comments" asp-action="Index" class="nav-link">
@@ -180,9 +206,7 @@
                             </li>
                         </ul>
                     </nav>
-                    <!-- /.sidebar-menu -->
                 </div>
-                <!-- /.sidebar -->
             </aside>
         }
 
@@ -203,7 +227,6 @@
                     </div>
                 </div>
             </section>
-            <!-- /.card-footer-->
         </div>
 
         <footer class="main-footer">
@@ -213,11 +236,9 @@
             <strong>Copyright &copy; @DateTime.Now.Year <a>Help System Management</a>.</strong> All rights reserved.
         </footer>
 
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
+            <!-- Control Sidebar -->
         </aside>
-        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 
@@ -227,6 +248,15 @@
         <script src="~/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <script src="~/assets/dist/js/adminlte.min.js"></script>
         <script src="~/assets/dist/js/demo.js"></script>
+
+        <!-- HighChart Script -->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/non-cartesian-zoom.js"></script>
+        <script src="https://code.highcharts.com/modules/mouse-wheel-zoom.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
         @await Component.InvokeAsync("NToastNotify")
     }

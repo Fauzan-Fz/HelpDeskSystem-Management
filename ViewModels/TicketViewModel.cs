@@ -53,6 +53,22 @@ namespace HelpDeskSystem.ViewModels
         [DisplayName("Attachment")]
         public string Attachment { get; set; }
 
+        [DisplayName("Comment Description")]
         public string CommentDescription { get; set; }
+
+        [DisplayName("Assign To")]
+        public string? AssignedToId { get; set; }
+
+        public ApplicationUser AssignedTo { get; set; }
+
+        [DisplayName("Assign On")]
+        public DateTime? AssignedOn { get; set; }
+
+        [DisplayName("Created By User")]
+        public string CreatedByUsername { get; set; }
+
+        [DisplayName("Ticket Category")]
+        public int TicketCategoryId { get; set; }
+
     }
 }

@@ -182,17 +182,18 @@
                         </tbody>
                     </table>
                 </div>
-                @if ((@Model.TicketDetails.Status.Code == "Closed"))
-                {
-                    <form asp-action="ReOpenConfirmed" method="post" enctype="multipart/form-data">
-                        <input class="hidden" type="hidden" asp-for="Id" />
-                        <div class="row">
-                            <label class="control-label">Ticket Re-Opening Comment</label>
-                            <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
-                        </div>
-                        <button class="btn btn-primary float-end mt-2">Re-Open The Ticket</button>
-                    </form>
-                }
+                <form asp-action="AssignedConfirmed" method="post" enctype="multipart/form-data">
+                    <input class="hidden" type="hidden" asp-for="Id" />
+                    <div class="row">
+                        <label class="control-label">Assign To</label>
+                        <select asp-for="AssignedToId" class="form-control" asp-items="ViewBag.UsersId"></select>
+                    </div>
+                    <div class="row">
+                        <label class="control-label"> New Ticket Resolution Comment</label>
+                        <textarea asp-for="CommentDescription" type="text" class="form-control-lg"></textarea>
+                    </div>
+                    <button class="btn btn-primary float-end mt-2">Add Resolution Status</button>
+                </form>
             </div>
         </div>
     </div>

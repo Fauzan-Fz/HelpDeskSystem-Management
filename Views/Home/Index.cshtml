@@ -15,60 +15,86 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
 
-<style>
-    .card-body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px; /* tambahkan padding biar lega */
-    }
+@*<style>
+        .card-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    .card {
-        width: 100%;
-        max-width: 600px;
-        margin: 0 auto; /* ini yang bikin card selalu center di halaman */
-    }
+        .card {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-    #donutChart {
-        display: block;
-        margin: 0 auto; /* bikin canvas-nya center di dalam card-body */
-        max-width: 100%;
-        height: auto;
-    }
-</style>
+        #donutChart {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>*@
 
-<div class="text-center">
+<div class="text-center mb-5 mt-4 font-monospace">
     <h1 class="display-4">Welcome</h1>
-    @*<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 </div>
 
-<br />
-
-@if (User.Identity.IsAuthenticated) 
+@if (User.Identity.IsAuthenticated)
 {
-<!-- DONUT CHART -->
-<div class="card card-danger">
-    <div class="card-header">
-        <h3 class="card-title">User Chart</h3>
+    <!-- DONUT CHART -->
+    @*<div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">User Chart</h3>M
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+        </div>*@
 
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-            </button>
+    <!-- HighChaart -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="container1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="container2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="container3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="container4"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="card-body">
-        <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-    </div>
-    <!-- /.card-body -->
-</div>
-<!-- /.card -->
 }
-
-<br />
 
 @section scripts {
     <!-- jQuery -->
@@ -83,6 +109,18 @@
     <script src="~/assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/assets/dist/js/demo.js"></script>
+
+    <!-- HighChart Script -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/non-cartesian-zoom.js"></script>
+    <script src="https://code.highcharts.com/modules/mouse-wheel-zoom.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+    <!-- Script For ChartJS -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetch('/Chart/GetChartData')
@@ -103,6 +141,281 @@
         });
     </script>
 
+    <!-- HighChart Script : PieChart -->
+    <script type="text/javascript">
+        Highcharts.chart('container1', {
+            chart: {
+                type: 'pie',
+                zooming: {
+                    type: 'xy'
+                },
+                panning: {
+                    enabled: true,
+                    type: 'xy'
+                },
+                panKey: 'shift'
+            },
+            title: {
+                text: 'Egg Yolk Composition'
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: [{
+                        enabled: true,
+                        distance: 20
+                    }, {
+                        enabled: true,
+                        distance: -40,
+                        format: '{point.percentage:.1f}%',
+                        style: {
+                            fontSize: '1.2em',
+                            textOutline: 'none',
+                            opacity: 0.7
+                        },
+                        filter: {
+                            operator: '>',
+                            property: 'percentage',
+                            value: 10
+                        }
+                    }]
+                }
+            },
+            series: [
+                {
+                    name: 'Percentage',
+                    colorByPoint: true,
+                    data: [
+                        {
+                            name: 'Water',
+                            y: 55.02
+                        },
+                        {
+                            name: 'Fat',
+                            sliced: true,
+                            selected: true,
+                            y: 26.71
+                        },
+                        {
+                            name: 'Carbohydrates',
+                            y: 1.09
+                        },
+                        {
+                            name: 'Protein',
+                            y: 15.5
+                        },
+                        {
+                            name: 'Ash',
+                            y: 1.68
+                        }
+                    ]
+                }
+            ]
+        });
+    </script>
+
+    <!-- HighChart Script : LineChart -->
+    <script type="text/javascript">
+        Highcharts.chart('container2', {
+
+            title: {
+                text: 'U.S Solar Employment Growth',
+                align: 'left'
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Number of Employees'
+                }
+            },
+
+            xAxis: {
+                accessibility: {
+                    rangeDescription: 'Range: 2010 to 2022'
+                }
+            },
+
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    pointStart: 2010
+                }
+            },
+
+            series: [{
+                name: 'Installation & Developers',
+                data: [
+                    43934, 48656, 65165, 81827, 112143, 142383,
+                    171533, 165174, 155157, 161454, 154610, 168960, 171558
+                ]
+            }, {
+                name: 'Manufacturing',
+                data: [
+                    24916, 37941, 29742, 29851, 32490, 30282,
+                    38121, 36885, 33726, 34243, 31050, 33099, 33473
+                ]
+            }, {
+                name: 'Sales & Distribution',
+                data: [
+                    11744, 30000, 16005, 19771, 20185, 24377,
+                    32147, 30912, 29243, 29213, 25663, 28978, 30618
+                ]
+            }, {
+                name: 'Operations & Maintenance',
+                data: [
+                    null, null, null, null, null, null, null,
+                    null, 11164, 11218, 10077, 12530, 16585
+                ]
+            }, {
+                name: 'Other',
+                data: [
+                    21908, 5548, 8105, 11248, 8989, 11816, 18274,
+                    17300, 13053, 11906, 10073, 11471, 11648
+                ]
+            }],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
+    </script>
+
+    <!-- HighChart Script : BarChart -->
+    <script type="text/javascript">
+        Highcharts.chart('container3', {
+
+            chart: {
+                type: 'column'
+            },
+
+            title: {
+                text: 'Olympic Games all-time medal table, grouped by continent',
+                align: 'left'
+            },
+
+            xAxis: {
+                categories: ['Gold', 'Silver', 'Bronze']
+            },
+
+            yAxis: {
+                allowDecimals: false,
+                min: 0,
+                title: {
+                    text: 'Count medals'
+                }
+            },
+
+            tooltip: {
+                format: '<b>{key}</b><br/>{series.name}: {y}<br/>' +
+                    'Total: {point.stackTotal}'
+            },
+
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+
+            series: [{
+                name: 'Norway',
+                data: [148, 133, 124],
+                stack: 'Europe'
+            }, {
+                name: 'Germany',
+                data: [102, 98, 65],
+                stack: 'Europe'
+            }, {
+                name: 'United States',
+                data: [113, 122, 95],
+                stack: 'North America'
+            }, {
+                name: 'Canada',
+                data: [77, 72, 80],
+                stack: 'North America'
+            }]
+        });
+
+    </script>
+
+    <!-- HighChart Script : 3D-PieChart -->
+    <script type="text/javascript">
+        Highcharts.chart('container4', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45,
+                    beta: 0
+                }
+            },
+            title: {
+                text: 'Global smartphone shipments market share, Q1 2022'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Share',
+                data: [
+                    ['Samsung', 23],
+                    ['Apple', 18],
+                    {
+                        name: 'Xiaomi',
+                        y: 12,
+                        sliced: true,
+                        selected: true
+                    },
+                    ['Oppo*', 9],
+                    ['Vivo', 8],
+                    ['Others', 30]
+                ]
+            }]
+        });
+
+    </script>
+
+    <!-- Script For SweetAlertV2 -->
     @if (TempData["LoginSuccess"] != null)
     {
         <script>
@@ -111,7 +424,7 @@
                 title: 'Login Berhasil!',
                 text: 'Selamat datang di Dashboard'
             });
-        </script>
-    }
+    </script>
+}
 
 }

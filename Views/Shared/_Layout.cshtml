@@ -11,7 +11,6 @@
 
     @*<link rel="stylesheet" href="~/HelpDeskSystem.styles.css" asp-append-version="true" />*@
 
-    
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -104,14 +103,41 @@
                                     </p>
                                 </a>
                             </li>
+
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="Tickets" asp-action="Index" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon bi bi-ticket-perforated"></i>
                                     <p>
-                                        Tickets
-                                        <span class="right badge badge-danger">New</span>
+                                        Ticket
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-area="" asp-controller="Tickets" asp-action="Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Recent Ticket</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Tickets" asp-action="AssignedTickets" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Assigned Ticket</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Tickets" asp-action="ResolvedTickets" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Resolved Ticket</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Tickets" asp-action="ClosedTickets" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Closed Ticket</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a asp-area="" asp-controller="Comments" asp-action="Index" class="nav-link">

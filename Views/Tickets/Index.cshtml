@@ -46,7 +46,7 @@
                             <option value=" ">Select Category</option>
                         </select>
                     </div>
-                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label asp-for="StatusId" class="control-label"></label>
@@ -55,23 +55,23 @@
                         </select>
                     </div>
                 </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label asp-for="PriorityId" class="control-label"></label>
-                                <select asp-for="PriorityId" name="PriorityId" class="form-control" asp-items="ViewBag.PriorityId">
-                                    <option value=" ">Select Priority</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success">
-                                Search
-                            </button>
-                        </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="PriorityId" class="control-label"></label>
+                        <select asp-for="PriorityId" name="PriorityId" class="form-control" asp-items="ViewBag.PriorityId">
+                            <option value=" ">Select Priority</option>
+                        </select>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 
@@ -210,7 +210,7 @@
     @await Component.InvokeAsync("NToastNotify")
     @*jquery*@
     <script src="~/assets/plugins/jquery/jquery.min.js"></script>
-    @*bootstrap 4*@
+    <!-- Bootstrap 4 -->
     <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     @*adminlte app*@
     <script src="~/assets/dist/js/adminlte.min.js"></script>

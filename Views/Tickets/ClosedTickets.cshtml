@@ -21,6 +21,60 @@
     <a asp-action="Create" class="btn btn-primary">Add New Ticket</a>
 </p>
 
+<div class="card card-rounded-4 mt-3 mb-3">
+    <form asp-action="ClosedTickets" method="post" enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="row p-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="CreatedById" class="control-label"></label>
+                        <select asp-for="CreatedById" name="StatusId" class="form-control" asp-items="ViewBag.CreatedById">
+                            <option value=" ">Select User</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="TicketCategoryId" class="control-label"></label>
+                        <select asp-for="TicketCategoryId" name="TicketCategoryId" class="form-control" asp-items="ViewBag.CategoryId">
+                            <option value=" ">Select Category</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="StatusId" class="control-label"></label>
+                        <select asp-for="StatusId" name="StatusId" class="form-control" asp-items="ViewBag.StatusId">
+                            <option value=" ">Select Status</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="PriorityId" class="control-label"></label>
+                        <select asp-for="PriorityId" name="PriorityId" class="form-control" asp-items="ViewBag.PriorityId">
+                            <option value=" ">Select Priority</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">

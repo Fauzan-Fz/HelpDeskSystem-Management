@@ -148,6 +148,7 @@ namespace HelpDeskSystem.Controllers
             return View(vm);
         }
 
+
         public async Task<IActionResult> TicketsComments(string Id)
         {
             var comment = await _context.Comments.Where(t => t.TicketId == Id)

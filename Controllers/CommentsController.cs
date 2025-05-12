@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
+using HelpDeskSystem.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,14 +23,36 @@ namespace HelpDeskSystem.Controllers
         }
 
         // GET: Comments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(CommentViewModel vm)
         {
-            var applicationDbContext = _context.Comments.Include(c => c.CreatedBy).Include(c => c.Ticket);
-            return View(await applicationDbContext.ToListAsync());
+            var allcomments = _context.Comments
+                   .Include(c => c.CreatedBy)
+                   .Include(c => c.Ticket)
+                   .AsQueryable();
+
+            if (vm != null)
+            {
+                if (!string.IsNullOrEmpty(vm.Description))
+                {
+                    allcomments = allcomments
+                                  .Where(x => x.Description.Contains(vm.Description));
+                }
+                if (!string.IsNullOrEmpty(vm.CreatedById))
+                {
+                    allcomments = allcomments
+                                  .Where(x => x.CreatedById == vm.CreatedById);
+                }
+            }
+
+            vm.Comments = await allcomments.ToListAsync();
+
+            ViewData["CreatedById"] = new SelectList(_context.Users, "Id", "FullName");
+
+            return View(vm);
         }
 
         // GET: Comments/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, CommentViewModel vm)
         {
             if (id == null)
             {
@@ -45,7 +68,7 @@ namespace HelpDeskSystem.Controllers
                 return NotFound();
             }
 
-            return View(comment);
+            return View(vm);
         }
 
         // GET: Comments/Create
@@ -89,7 +112,6 @@ namespace HelpDeskSystem.Controllers
                 new ToastrOptions { Title = "Congratulation" });
 
             return RedirectToAction(nameof(Index));
-
         }
 
         // GET: Comments/Edit/5
@@ -121,7 +143,6 @@ namespace HelpDeskSystem.Controllers
             {
                 return NotFound();
             }
-
 
             try
             {

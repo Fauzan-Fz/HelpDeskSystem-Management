@@ -70,6 +70,10 @@ namespace HelpDeskSystem.Controllers
 
             vm.Tickets = await alltickets.ToListAsync();
 
+            vm.MainDuration = await _context.SystemSettings
+                .Where(x => x.Code == "TICKETRESOLUTIONDAYS")
+                .FirstOrDefaultAsync();
+
             // ViewData
             ViewData["PriorityId"] = new SelectList(_context.SystemCodeDetails
                 .Include(x => x.SystemCode)

@@ -21,7 +21,7 @@
     <a asp-action="Create" class="btn btn-primary">Add New Ticket</a>
 </p>
 
-<div class="card card-rounded-4 mt-3 mb-3">
+<div class="card card-rounded-4 mt-3 mb-3 p-3">
     <form asp-action="Index" method="post" enctype="multipart/form-data">
         <div class="col-md-12">
             <div class="row p-3">
@@ -106,6 +106,7 @@
                                         @Html.DisplayNameFor(model => model.StatusId)
                                     </th>
                                     <th>No Of Comment</th> <!-- Jumlah Comment -->
+                                    <th>Duration</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -162,6 +163,14 @@
                                         <td style="text-align:center">
                                             @item.TicketComments.Count()
                                         </td>
+                                        @if (Convert.ToInt32(@Model.MainDuration.Value) > item.TicketDuration)
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketDuration)
+                                                - Days
+                                            </td>
+                                        }
+
                                         <td>
                                             <div class="nav-item dropdown btn btn-primary">
                                                 <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle" style="color:white">Action</a>

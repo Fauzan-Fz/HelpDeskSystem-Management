@@ -70,5 +70,6 @@ namespace HelpDeskSystem.ViewModels
         [DisplayName("Ticket Category")]
         public int TicketCategoryId { get; set; }
 
+        public SystemSetting MainDuration { get; set; }
     }
 }

@@ -4,17 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HelpDeskSystem</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Footer.css" />
     <link rel="stylesheet" href="~/css/Layout.css" />
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="~/assets/plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="~/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
     <!-- SweetAlert2 -->
@@ -61,13 +61,11 @@
         @if (User.Identity.IsAuthenticated)
         {
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
-                <!-- Brand Logo -->
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="brand-link d-flex justify-content-center align-items-center w-100 position-relative py-3">
                     <i class="fas fa-cubes collapsed-icon" style="color:orangered"></i>
                     <span class="brand-text font-weight-light">HelpDesk System</span>
                 </a>
 
-                <!-- Sidebar -->
                 <div class="sidebar">
                     <br />
                     <!-- SidebarSearch Form -->
@@ -85,8 +83,6 @@
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <!-- Add icons to the links using the .nav-icon class
-                            with font-awesome or any other icon font library -->
                             <li class="nav-item">
                                 <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">
                                     <i class="nav-icon bi bi-speedometer2"></i>
@@ -204,7 +200,24 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="SystemTasks" asp-action="Index" class="nav-link">
+                                    <i class="nav-icon bi bi-list-task"></i>
+                                    <p>
+                                        System-Task
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="SystemSettings" asp-action="Index" class="nav-link">
+                                    <i class="nav-icon bi bi-gear"></i>
+                                    <p>
+                                        System-Setting
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
+                        <div style="height: 80vh; opacity: 0;"></div>
                     </nav>
                 </div>
             </aside>
@@ -241,18 +254,40 @@
         </aside>
     </div>
     <!-- ./wrapper -->
-
     @section scripts {
         <script src="~/assets/plugins/jquery/jquery.min.js"></script>
-        <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="~/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <script src="~/assets/dist/js/adminlte.min.js"></script>
+        <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="~/assets/dist/js/demo.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                // Inisialisasi paksa OverlayScrollbars
+                const sidebar = $('.sidebar');
+                sidebar.overlayScrollbars({
+                    overflowBehavior: {
+                        x: 'hidden',
+                        y: 'scroll'
+                    },
+                    callbacks: {
+                        onInitialized: function () {
+                            // Paksa update scrollbar
+                            this.scroll().update();
+                        }
+                    }
+                });
+
+                // Update saat dropdown dibuka
+                $('[data-widget="treeview"]').on('expanded.treeview', function () {
+                    sidebar.overlayScrollbars().update();
+                });
+            });
+        </script>
 
         <!-- HighChart Script -->
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/non-cartesian-zoom.js"></script>
-        <script src="https://code.highcharts.com/modules/mouse-wheel-zoom.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
         <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -260,7 +295,6 @@
 
         @await Component.InvokeAsync("NToastNotify")
     }
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

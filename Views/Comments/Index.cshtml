@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HelpDeskSystem.Models.Comment>
+﻿@model HelpDeskSystem.ViewModels.CommentViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,6 +14,104 @@
 <link rel="stylesheet" href="~/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
+
+<h1>Ticket Comments</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Add New Comment</a>
+</p>
+
+<div class="card card-rounded-4 mt-3 mb-3">
+    <form asp-action="Index" method="post" enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="row p-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="CreatedById" class="control-label"></label>
+                        <select asp-for="CreatedById" name="StatusId" class="form-control" asp-items="ViewBag.CreatedById">
+                            <option value=" ">Select User</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Ticket)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedOn)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedBy)
+                                    </th>
+                                    <th>View</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Comments)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Ticket.Title)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreatedOn)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Script -->
 @section Scripts {
@@ -55,71 +153,3 @@
         });
     </script>
 }
-
-<h1>Ticket Comments</h1>
-
-<p>
-    <a class="btn btn-primary" asp-action="Create">Add New Comment</a>
-</p>
-
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <table id="example2" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Description)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Ticket)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.CreatedOn)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.CreatedBy)
-                                    </th>
-                                    <th>View</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Ticket.Title)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CreatedOn)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>

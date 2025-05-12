@@ -15,88 +15,46 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
 <!-- Theme style -->
+<link rel="stylesheet" href="~/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <link rel="stylesheet" href="~/assets/Bootstrap-5.3/css/bootstrap-grid.min.css">
-
-@*<style>
-        .card-body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        #donutChart {
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            height: auto;
-        }
-    </style>*@
 
 <div class="text-center mb-5 mt-4 font-monospace">
     <h1 class="display-4">Welcome</h1>
 </div>
 
-@if (User.Identity.IsAuthenticated)
-{
-    <!-- DONUT CHART -->
-    @*<div class="card card-danger">
-            <div class="card-header">
-                <h3 class="card-title">User Chart</h3>M
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
+<!-- HighChaart -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="container1"></div>
                 </div>
             </div>
-            <div class="card-body">
-                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            </div>
-        </div>*@
-
-    <!-- HighChaart -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="container1"></div>
-                    </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="container2"></div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="container2"></div>
-                    </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="container3"></div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="container3"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="container4"></div>
-                    </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="container4"></div>
                 </div>
             </div>
         </div>
     </div>
-}
+</div>
 
 @section scripts {
     <!-- jQuery -->
@@ -111,6 +69,7 @@
     <script src="~/assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/assets/dist/js/demo.js"></script>
+    <script src="~/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 
     <!-- HighChart Script -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -198,8 +157,6 @@
                         },
                         {
                             name: 'Fat',
-                            sliced: true,
-                            selected: true,
                             y: 26.71
                         },
                         {

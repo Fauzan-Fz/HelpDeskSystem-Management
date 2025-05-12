@@ -45,5 +45,18 @@ namespace HelpDeskSystem.Models
         public ApplicationUser AssignedTo { get; set; }
 
         public DateTime? AssignedOn { get; set; }
+
+        public int? TicketDuration
+        {
+            get
+            {
+                if (CreatedOn == null)
+                    return null;
+                DateTime now = DateTime.UtcNow;
+
+                TimeSpan durration = now.Subtract(CreatedOn);
+                return durration.Days;
+            }
+        }
     }
 }

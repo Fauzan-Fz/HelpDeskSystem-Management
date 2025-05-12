@@ -2,31 +2,30 @@
 using HelpDeskSystem.Data;
 using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskSystem.Controllers
 {
-    public class SystemCodesController : Controller
+    public class SystemTasksController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SystemCodesController(ApplicationDbContext context)
+        public SystemTasksController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: SystemCodes
+        // GET: SystemTasks
         public async Task<IActionResult> Index()
         {
-            var systemCode = await _context
-                .SystemCodes
-                .Include(x => x.CreatedBy)
-                .ToListAsync();
-
-            return View(systemCode);
+            var applicationDbContext = _context.SystemTasks
+                .Include(s => s.Parent)
+                .Include(s => s.CreatedBy);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: SystemCodes/Details/5
+        // GET: SystemTasks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,55 +33,44 @@ namespace HelpDeskSystem.Controllers
                 return NotFound();
             }
 
-            var systemCode = await _context.SystemCodes
+            var systemTask = await _context.SystemTasks
+                .Include(s => s.Parent)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (systemCode == null)
+            if (systemTask == null)
             {
                 return NotFound();
             }
 
-            return View(systemCode);
+            return View(systemTask);
         }
 
-        // GET: SystemCodes/Create
+        // GET: SystemTasks/Create
         public IActionResult Create()
         {
+            ViewData["ParentId"] = new SelectList(_context.SystemTasks, "Id", "Name");
             return View();
         }
 
-        // POST: SystemCodes/Create
+        // POST: SystemTasks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(SystemCode systemCode)
+        public async Task<IActionResult> Create(SystemTask systemTask)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            systemCode.CreatedOn = DateTime.Now;
-            systemCode.CreatedById = userId;
+            systemTask.CreatedOn = DateTime.Now;
+            systemTask.CreatedById = userId;
 
-            _context.Add(systemCode);
+            _context.Add(systemTask);
             await _context.SaveChangesAsync();
-
-            var activity = new AuditTrail
-            {
-                Action = "Create",
-                TimeStamp = DateTime.Now,
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                UserId = userId,
-                Module = "SystemCodes",
-                AffectedTable = "SystemCodes"
-            };
-
-            _context.Add(activity);
-            await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
 
-            return View(systemCode);
+            ViewData["ParentId"] = new SelectList(_context.SystemTasks, "Id", "Name", systemTask.ParentId);
+            return View(systemTask);
         }
 
-        // GET: SystemCodes/Edit/5
+        // GET: SystemTasks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,22 +78,23 @@ namespace HelpDeskSystem.Controllers
                 return NotFound();
             }
 
-            var systemCode = await _context.SystemCodes.FindAsync(id);
-            if (systemCode == null)
+            var systemTask = await _context.SystemTasks.FindAsync(id);
+            if (systemTask == null)
             {
                 return NotFound();
             }
-            return View(systemCode);
+            ViewData["ParentId"] = new SelectList(_context.SystemTasks, "Id", "Name", systemTask.ParentId);
+            return View(systemTask);
         }
 
-        // POST: SystemCodes/Edit/5
+        // POST: SystemTasks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, SystemCode systemCode)
+        public async Task<IActionResult> Edit(int id, SystemTask systemTask)
         {
-            if (id != systemCode.Id)
+            if (id != systemTask.Id)
             {
                 return NotFound();
             }
@@ -115,29 +104,15 @@ namespace HelpDeskSystem.Controllers
                 try
                 {
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    systemCode.ModifiedOn = DateTime.Now;
-                    systemCode.ModifiedById = userId;
+                    systemTask.ModifiedOn = DateTime.Now;
+                    systemTask.ModifiedById = userId;
 
-                    _context.Update(systemCode);
+                    _context.Update(systemTask);
                     await _context.SaveChangesAsync();
-
-                    var activity = new AuditTrail
-                    {
-                        Action = "Create",
-                        TimeStamp = DateTime.Now,
-                        IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                        UserId = userId,
-                        Module = "SystemCodes",
-                        AffectedTable = "SystemCodes"
-                    };
-
-                    _context.Add(activity);
-                    await _context.SaveChangesAsync();
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SystemCodeExists(systemCode.Id))
+                    if (!SystemTaskExists(systemTask.Id))
                     {
                         return NotFound();
                     }
@@ -148,10 +123,11 @@ namespace HelpDeskSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(systemCode);
+            ViewData["ParentId"] = new SelectList(_context.SystemTasks, "Id", "Name", systemTask.ParentId);
+            return View(systemTask);
         }
 
-        // GET: SystemCodes/Delete/5
+        // GET: SystemTasks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -159,34 +135,35 @@ namespace HelpDeskSystem.Controllers
                 return NotFound();
             }
 
-            var systemCode = await _context.SystemCodes
+            var systemTask = await _context.SystemTasks
+                .Include(s => s.Parent)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (systemCode == null)
+            if (systemTask == null)
             {
                 return NotFound();
             }
 
-            return View(systemCode);
+            return View(systemTask);
         }
 
-        // POST: SystemCodes/Delete/5
+        // POST: SystemTasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var systemCode = await _context.SystemCodes.FindAsync(id);
-            if (systemCode != null)
+            var systemTask = await _context.SystemTasks.FindAsync(id);
+            if (systemTask != null)
             {
-                _context.SystemCodes.Remove(systemCode);
+                _context.SystemTasks.Remove(systemTask);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SystemCodeExists(int id)
+        private bool SystemTaskExists(int id)
         {
-            return _context.SystemCodes.Any(e => e.Id == id);
+            return _context.SystemTasks.Any(e => e.Id == id);
         }
     }
 }

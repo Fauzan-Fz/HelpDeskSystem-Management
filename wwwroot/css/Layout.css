@@ -1,28 +1,24 @@
-﻿/* Saat sidebar normal */
-.main-sidebar:not(.sidebar-collapse) .collapsed-icon {
-    margin-right: 8px; /* Sesuaikan jarak antara ikon dan teks */
+﻿/* Fix sidebar height */
+.main-sidebar {
+    height: 100vh !important;
+    position: fixed;
+    overflow: hidden !important;
 }
 
-/* Saat sidebar diminimalkan */
-.sidebar-collapse .brand-text {
-    display: none !important;
+.sidebar {
+    height: calc(100vh - 120px) !important; /* 120px = tinggi header + brand */
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column;
 }
 
-.sidebar-collapse .collapsed-icon {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.4rem; /* Sesuaikan ukuran ikon */
+/* Paksa scrollbar selalu muncul */
+.os-host {
+    overflow: auto !important;
 }
 
-/* Untuk spacing atas bawah */
-.brand-link {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-}
-
-/* Saat sidebar collapsed */
-.sidebar-collapse .brand-link {
-    padding-top: 0.75rem !important;
-    padding-bottom: 0.75rem !important;
+/* Atur tinggi minimum untuk konten sidebar */
+.nav-sidebar {
+    min-height: 300px; /* Sesuaikan nilai sesuai kebutuhan */
+    flex-grow: 1;
 }

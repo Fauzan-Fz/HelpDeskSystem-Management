@@ -1,24 +1,24 @@
 ﻿/* Fix sidebar height */
-.main-sidebar {
+/*.main-sidebar {
     height: 100vh !important;
     position: fixed;
     overflow: hidden !important;
 }
 
 .sidebar {
-    height: calc(100vh - 120px) !important; /* 120px = tinggi header + brand */
-    overflow-y: auto !important;
+    height: calc(100vh - 120px) !important;*/ /* 120px = tinggi header + brand */
+    /*overflow-y: auto !important;
     display: flex !important;
     flex-direction: column;
-}
+}*/
 
 /* Paksa scrollbar selalu muncul */
-.os-host {
+/*.os-host {
     overflow: auto !important;
-}
+}*/
 
 /* Atur tinggi minimum untuk konten sidebar */
-.nav-sidebar {
-    min-height: 300px; /* Sesuaikan nilai sesuai kebutuhan */
-    flex-grow: 1;
-}
+/*.nav-sidebar {
+    min-height: 300px;*/ /* Sesuaikan nilai sesuai kebutuhan */
+    /*flex-grow: 1;
+}*/

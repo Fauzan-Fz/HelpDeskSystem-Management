@@ -102,6 +102,18 @@ namespace HelpDeskSystem.Data
                 .WithMany()
                 .HasForeignKey(c => c.PriorityId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasOne(c => c.Gender)
+                .WithMany()
+                .HasForeignKey(c => c.GenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasOne(c => c.Role)
+                .WithMany()
+                .HasForeignKey(c => c.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

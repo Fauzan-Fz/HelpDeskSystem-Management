@@ -4,6 +4,7 @@ using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskSystem.Controllers
@@ -31,7 +32,11 @@ namespace HelpDeskSystem.Controllers
         // GET: UserController
         public async Task<ActionResult> Index()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users
+                .Include(x => x.Gender)
+                .Include(x => x.Role)
+                .ToListAsync();
+
             return View(users);
         }
 
@@ -44,6 +49,11 @@ namespace HelpDeskSystem.Controllers
         // GET: UesrController/Create
         public ActionResult Create()
         {
+            ViewData["GenderId"] = new SelectList(_context.SystemCodeDetails
+                .Include(x => x.SystemCode)
+                .Where(x => x.SystemCode.Code == "Gender"), "Id", "Description");
+            ViewData["RoleId"] = new SelectList(_context.Roles.ToList(), "Id", "Name");
+
             return View();
         }
 
@@ -65,20 +75,12 @@ namespace HelpDeskSystem.Controllers
                 registeredUser.NormalizedEmail = user.UserName;
                 registeredUser.Email = user.Email;
                 registeredUser.EmailConfirmed = true;
-                registeredUser.Gender = user.Gender;
+                registeredUser.GenderId = user.GenderId;
+                registeredUser.RoleId = user.RoleId;
                 registeredUser.City = user.City;
                 registeredUser.Country = user.Country;
                 registeredUser.PhoneNumber = user.PhoneNumber;
                 registeredUser.PasswordHash = user.PasswordHash;
-
-                if (string.IsNullOrEmpty(user.PasswordHash))
-                {
-                    ModelState.AddModelError(string.Empty, "Password cannot be null or empty.");
-                    return View(user);
-                }
-
-                _context.Add(user);
-                await _context.SaveChangesAsync();
 
                 var result = await _userManager.CreateAsync(registeredUser, user.PasswordHash);
 
@@ -99,7 +101,6 @@ namespace HelpDeskSystem.Controllers
 
                     _context.Add(activity);
                     await _context.SaveChangesAsync();
-
 
                     return RedirectToAction("Index");
                 }

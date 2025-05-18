@@ -1,4 +1,5 @@
-﻿using HelpDeskSystem.Controllers;
+﻿using HelpDeskSystem.AuditsManager;
+using HelpDeskSystem.Controllers;
 using HelpDeskSystem.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,68 @@ namespace HelpDeskSystem.Data
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<City> Cities { get; set; }
+
+        public virtual async Task<int> SaveChangesAsync(string userId = null)
+        {
+            OnBeforeSaveChanges(userId);
+            var result = await base.SaveChangesAsync();
+            return result;
+        }
+
+        private void OnBeforeSaveChanges(string userId)
+        {
+            ChangeTracker.DetectChanges();
+            var auditEntries = new List<AuditEntry>();
+
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is AuditTrail || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                    continue;
+
+                var auditEntry = new AuditEntry(entry);
+                auditEntry.TableName = entry.Entity.GetType().Name;
+                auditEntry.UserId = userId;
+
+                auditEntries.Add(auditEntry);
+
+                foreach (var property in entry.Properties) // Untuk mengakses nilai untuk Column dan lain sebagai-nya
+                {
+                    string propertyName = property.Metadata.Name; // Nama Property
+
+                    if (property.Metadata.IsPrimaryKey()) // Untuk mengidentifikasi apakah PrimaryKey
+                    {
+                        auditEntry.KeyValues[propertyName] = property.CurrentValue; // Untuk mengambil nilai PrimaryKey
+                        continue; // Untuk melanjutkan ke Property selanjutnya
+                    }
+
+                    switch (entry.State) // Untuk mengidentifikasi State
+                    {
+                        case EntityState.Added: // Jika State adalah Added
+                            auditEntry.AuditType = AuditType.Create; // Tipe Audit adalah Create
+                            auditEntry.NewValues[propertyName] = property.CurrentValue; // Untuk mengambil nilai Property yang baru
+                            break;
+
+                        case EntityState.Deleted: // Jika State adalah Delete
+                            auditEntry.AuditType = AuditType.Delete; // Tipe Audit adalah Delete
+                            auditEntry.OldValues[propertyName] = property.OriginalValue; // Mengambil nilai Property yang lama
+                            break;
+
+                        case EntityState.Modified: // Jika State adalah Modified
+                            if (property.IsModified) // Jika Property telah diubah
+                            {
+                                auditEntry.ChangedColumns.Add(propertyName); // Menambahkan Property yang telah diubah
+                                auditEntry.AuditType = AuditType.Update; // Tipe Audit adalah Update
+                                auditEntry.OldValues[propertyName] = property.OriginalValue; // Mengambil nilai Property yang lama
+                                auditEntry.NewValues[propertyName] = property.CurrentValue;// Mengambil nilai Property yang baru
+                            }
+                            break;
+                    }
+                }
+            }
+            foreach (var item in auditEntries)
+            {
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

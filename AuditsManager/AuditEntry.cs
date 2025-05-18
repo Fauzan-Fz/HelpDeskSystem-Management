@@ -24,7 +24,7 @@ namespace HelpDeskSystem.AuditsManager
         public Dictionary<string, object> OldValues { get; set; } = new();
         public Dictionary<string, object> NewValues { get; set; } = new();
 
-        public AuditTypes AuditTypes { get; set; }
+        public AuditType AuditType { get; set; }
 
         public List<string> ChangedColumns { get; set; }
 
@@ -33,7 +33,7 @@ namespace HelpDeskSystem.AuditsManager
             var audit = new AuditTrail();
 
             audit.UserId = UserId;
-            audit.Action = AuditTypes.ToString();
+            audit.Action = AuditType.ToString();
             audit.AffectedTable = TableName;
             audit.TimeStamp = DateTime.Now;
             audit.PrimaryKeys = JsonConvert.SerializeObject(KeyValues);

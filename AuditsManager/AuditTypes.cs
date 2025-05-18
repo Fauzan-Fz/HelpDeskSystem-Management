@@ -1,6 +1,6 @@
 ﻿namespace HelpDeskSystem.AuditsManager
 {
-    public enum AuditTypes
+    public enum AuditType
     {
         None = 0,
         Create = 1,

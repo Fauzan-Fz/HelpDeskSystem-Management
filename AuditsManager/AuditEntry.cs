@@ -41,7 +41,7 @@ namespace HelpDeskSystem.AuditsManager
             audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
             audit.AffectedColumns = ChangedColumns.Count == 0 ? null : JsonConvert.SerializeObject(ChangedColumns);
             audit.Module = Module;
-            audit.IpAddress = IpAddress;
+            //audit.IpAddress = IpAddress;
 
             return audit;
         }

@@ -66,7 +66,7 @@ namespace HelpDeskSystem.Controllers
             ticketCategory.CreatedById = userId;
 
             _context.Add(ticketCategory);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
 
             _toasty.AddSuccessToastMessage("Ticket category created successfully",
                 new ToastrOptions { Title = "Congratulation" });

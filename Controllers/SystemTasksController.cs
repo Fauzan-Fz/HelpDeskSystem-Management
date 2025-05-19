@@ -63,7 +63,7 @@ namespace HelpDeskSystem.Controllers
             systemTask.CreatedById = userId;
 
             _context.Add(systemTask);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
             return RedirectToAction(nameof(Index));
 
             ViewData["ParentId"] = new SelectList(_context.SystemTasks, "Id", "Name", systemTask.ParentId);

@@ -76,20 +76,6 @@ namespace HelpDeskSystem.Controllers
             _context.Add(department); // Menambahkan Data
             await _context.SaveChangesAsync(); // Menyimpan Data Ke database
 
-
-            var activity = new AuditTrail // Melacak aktivitas/log
-            {
-                Action = "Create", // Aksi yang dilakukan
-                TimeStamp = DateTime.Now, // Waktu
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(), // IP Address 
-                UserId = userId, // ID Pengguna
-                Module = "Departments", // Modul 
-                AffectedTable = "Departments" // Tabel yang terpengaruh
-            };
-
-            _context.Add(activity);
-            await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index)); // Pindah ke halaman Index
 
             return View(department);

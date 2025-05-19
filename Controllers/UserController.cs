@@ -86,21 +86,7 @@ namespace HelpDeskSystem.Controllers
 
                 if (result.Succeeded)
                 {
-                    //Log the Audit Trail
-                    var activity = new AuditTrail
-                    {
-                        Action = "Create",
-                        TimeStamp = DateTime.Now,
-                        IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                        UserId = userId,
-                        Module = "Users",
-                        AffectedTable = "Users"
-                    };
-
                     TempData["Message"] = "User created successfully";
-
-                    _context.Add(activity);
-                    await _context.SaveChangesAsync();
 
                     return RedirectToAction("Index");
                 }

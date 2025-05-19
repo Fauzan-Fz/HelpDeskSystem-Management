@@ -48,18 +48,6 @@ namespace HelpDeskSystem.Controllers
             var result = await _roleManager.CreateAsync(role); // Simpan role ke database
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Mendapatkan ID Pengguna yang sedang login
-            var activity = new AuditTrail // Melacak aktivitas/log
-            {
-                Action = "Create", // Aksi yang dilakukan
-                TimeStamp = DateTime.Now, // Waktu
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(), // IP Address 
-                UserId = userId, // ID Pengguna
-                Module = "Roles", // Modul 
-                AffectedTable = "Roles" // Tabel yang terpengaruh
-            };
-
-            _context.Add(activity);
-            await _context.SaveChangesAsync();
 
             if (result.Succeeded)
             {

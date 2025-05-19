@@ -60,6 +60,7 @@ namespace HelpDeskSystem.Data
 
                 var auditEntry = new AuditEntry(entry);
                 auditEntry.TableName = entry.Entity.GetType().Name;
+                auditEntry.Module = entry.Entity.GetType().Name;
                 auditEntry.UserId = userId;
 
                 auditEntries.Add(auditEntry);
@@ -98,8 +99,9 @@ namespace HelpDeskSystem.Data
                     }
                 }
             }
-            foreach (var item in auditEntries)
+            foreach (var auditEntry in auditEntries)
             {
+                AuditTrails.Add(auditEntry.ToAudit());
             }
         }
 

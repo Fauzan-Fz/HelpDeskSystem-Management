@@ -62,20 +62,7 @@ namespace HelpDeskSystem.Controllers
             systemCode.CreatedById = userId;
 
             _context.Add(systemCode);
-            await _context.SaveChangesAsync();
-
-            var activity = new AuditTrail
-            {
-                Action = "Create",
-                TimeStamp = DateTime.Now,
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                UserId = userId,
-                Module = "SystemCodes",
-                AffectedTable = "SystemCodes"
-            };
-
-            _context.Add(activity);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
 
             return RedirectToAction(nameof(Index));
 
@@ -120,20 +107,6 @@ namespace HelpDeskSystem.Controllers
 
                     _context.Update(systemCode);
                     await _context.SaveChangesAsync();
-
-                    var activity = new AuditTrail
-                    {
-                        Action = "Create",
-                        TimeStamp = DateTime.Now,
-                        IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                        UserId = userId,
-                        Module = "SystemCodes",
-                        AffectedTable = "SystemCodes"
-                    };
-
-                    _context.Add(activity);
-                    await _context.SaveChangesAsync();
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {

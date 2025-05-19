@@ -91,21 +91,7 @@ namespace HelpDeskSystem.Controllers
             comment.CreatedOn = DateTime.Now;
             comment.CreatedById = userId;
 
-            //Log the Audit Trail
-            var activity = new AuditTrail
-            {
-                Action = "Create",
-                TimeStamp = DateTime.Now,
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                UserId = userId,
-                Module = "Comments",
-                AffectedTable = "Comments"
-            };
-
             _context.Add(comment);
-            await _context.SaveChangesAsync();
-
-            _context.Add(activity);
             await _context.SaveChangesAsync();
 
             _toasty.AddSuccessToastMessage("Comment created successfully",
@@ -147,17 +133,6 @@ namespace HelpDeskSystem.Controllers
             try
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                //Log the Audit Trail
-                var activity = new AuditTrail
-                {
-                    Action = "Update",
-                    TimeStamp = DateTime.Now,
-                    IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                    UserId = userId,
-                    Module = "Comments",
-                    AffectedTable = "Comments"
-                };
 
                 _context.Update(comment);
                 await _context.SaveChangesAsync();
@@ -215,17 +190,6 @@ namespace HelpDeskSystem.Controllers
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            //Log the Audit Trail
-            var activity = new AuditTrail
-            {
-                Action = "Delete",
-                TimeStamp = DateTime.Now,
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                UserId = userId,
-                Module = "Comments",
-                AffectedTable = "Comments"
-            };
 
             _toasty.AddSuccessToastMessage("Comment deleted successfully",
                 new ToastrOptions { Title = "Congratulation" });

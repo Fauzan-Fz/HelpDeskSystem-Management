@@ -14,7 +14,6 @@ namespace HelpDeskSystem.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IToastNotification _toasty;
 
-
         public TicketSubCategoriesController(ApplicationDbContext context, IToastNotification toasty)
         {
             _context = context;
@@ -24,7 +23,6 @@ namespace HelpDeskSystem.Controllers
         // GET: TicketSubCategories
         public async Task<IActionResult> Index(int id, TicketSubCategoriesVM vm)
         {
-
             vm.TicketSubCategories = await _context.TicketSubCategory
                 .Include(t => t.Category)
                 .Include(t => t.CreatedBy)
@@ -36,6 +34,7 @@ namespace HelpDeskSystem.Controllers
 
             return View(vm);
         }
+
         public async Task<IActionResult> SubCategories(TicketSubCategoriesVM vm)
         {
             vm.TicketSubCategories = await _context.TicketSubCategory
@@ -92,22 +91,12 @@ namespace HelpDeskSystem.Controllers
 
             ticketSubCategory.Id = 0;
             ticketSubCategory.CategoryId = Id;
-            _context.Add(ticketSubCategory);
-            await _context.SaveChangesAsync();
 
-            var activity = new AuditTrail
-            {
-                Action = "Create",
-                TimeStamp = DateTime.Now,
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                UserId = loginUser,
-                Module = "Ticket Sub-Categories",
-                AffectedTable = "TicketSubCategory"
-            };
+            _context.Add(ticketSubCategory);
+            await _context.SaveChangesAsync(loginUser);
 
             _toasty.AddSuccessToastMessage("Ticket Sub Category created successfully",
                 new ToastrOptions { Title = "Congratulation" });
-
 
             return RedirectToAction("Index", new { id = Id });
 
@@ -152,16 +141,6 @@ namespace HelpDeskSystem.Controllers
                     var loginUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     ticketSubCategory.ModifiedById = loginUser;
                     ticketSubCategory.ModifiedOn = DateTime.Now;
-
-                    var activity = new AuditTrail
-                    {
-                        Action = "Update",
-                        TimeStamp = DateTime.Now,
-                        IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                        UserId = loginUser,
-                        Module = "Ticket Sub-Categories",
-                        AffectedTable = "TicketSubCategory"
-                    };
 
                     _toasty.AddSuccessToastMessage("Ticket Sub Category updated successfully",
                 new ToastrOptions { Title = "Congratulation" });
@@ -218,16 +197,6 @@ namespace HelpDeskSystem.Controllers
             }
 
             var loginUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var activity = new AuditTrail
-            {
-                Action = "Delete",
-                TimeStamp = DateTime.Now,
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                UserId = loginUser,
-                Module = "Ticket Sub-Categories",
-                AffectedTable = "TicketSubCategory"
-            };
 
             _toasty.AddSuccessToastMessage("Ticket Sub Category deleted successfully",
                 new ToastrOptions { Title = "Congratulation" });

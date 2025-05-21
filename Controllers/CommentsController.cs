@@ -92,7 +92,7 @@ namespace HelpDeskSystem.Controllers
             comment.CreatedById = userId;
 
             _context.Add(comment);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
 
             _toasty.AddSuccessToastMessage("Comment created successfully",
                 new ToastrOptions { Title = "Congratulation" });

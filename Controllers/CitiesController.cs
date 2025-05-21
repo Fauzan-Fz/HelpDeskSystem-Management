@@ -68,7 +68,7 @@ namespace HelpDeskSystem.Controllers
             city.CreatedById = userId;
 
             _context.Add(city);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
             return RedirectToAction(nameof(Index));
 
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);

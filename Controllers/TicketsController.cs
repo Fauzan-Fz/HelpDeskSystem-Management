@@ -698,9 +698,11 @@ namespace HelpDeskSystem.Controllers
             try
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                ticket.CreatedOn = DateTime.Now;
+                ticket.CreatedById = userId;
 
                 _context.Update(ticket);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(userId);
             }
             catch (DbUpdateConcurrencyException)
             {

@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
@@ -15,7 +14,6 @@
 <link rel="stylesheet" href="~/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
-
 
 <h1>System Audit Trails</h1>
 <br />
@@ -42,9 +40,6 @@
                                         @Html.DisplayNameFor(model => model.TimeStamp)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.IpAddress)
-                                    </th>
-                                    <th>
                                         @Html.DisplayNameFor(model => model.User)
                                     </th>
                                     <th>View</th>
@@ -65,9 +60,6 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.TimeStamp)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IpAddress)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.User.FullName)

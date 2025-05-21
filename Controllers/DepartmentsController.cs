@@ -74,7 +74,7 @@ namespace HelpDeskSystem.Controllers
             department.CreatedById = userId;
 
             _context.Add(department); // Menambahkan Data
-            await _context.SaveChangesAsync(); // Menyimpan Data Ke database
+            await _context.SaveChangesAsync(userId); // Menyimpan Data Ke database
 
             return RedirectToAction(nameof(Index)); // Pindah ke halaman Index
 
@@ -119,7 +119,7 @@ namespace HelpDeskSystem.Controllers
                     department.ModifiedById = userId;
 
                     _context.Update(department);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(userId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

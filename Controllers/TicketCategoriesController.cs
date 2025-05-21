@@ -113,7 +113,7 @@ namespace HelpDeskSystem.Controllers
                 ticketCategory.ModifiedById = userId;
 
                 _context.Update(ticketCategory);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(userId);
             }
             catch (DbUpdateConcurrencyException)
             {

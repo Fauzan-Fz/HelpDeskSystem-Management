@@ -106,7 +106,7 @@ namespace HelpDeskSystem.Controllers
                     systemCode.ModifiedById = userId;
 
                     _context.Update(systemCode);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(userId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

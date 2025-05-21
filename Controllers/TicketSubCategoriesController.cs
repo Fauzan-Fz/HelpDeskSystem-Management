@@ -146,7 +146,7 @@ namespace HelpDeskSystem.Controllers
                 new ToastrOptions { Title = "Congratulation" });
 
                     _context.Update(ticketSubCategory);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(loginUser);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

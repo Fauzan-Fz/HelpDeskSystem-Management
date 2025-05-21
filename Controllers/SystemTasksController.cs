@@ -108,7 +108,7 @@ namespace HelpDeskSystem.Controllers
                     systemTask.ModifiedById = userId;
 
                     _context.Update(systemTask);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(userId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

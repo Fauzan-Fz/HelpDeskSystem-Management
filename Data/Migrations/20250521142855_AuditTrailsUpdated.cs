@@ -10,6 +10,7 @@ namespace HelpDeskSystem.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            //
             migrationBuilder.RenameColumn(
                 name: "IpAddress",
                 table: "AuditTrails",
